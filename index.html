@@ -19,7 +19,9 @@
   padding: 0;
 }
 body {
+  /* Додано letter-spacing 0.05em (кернінг 50) для всього тексту Chewy */
   font-family: 'Chewy', sans-serif;
+  letter-spacing: 0.05em; 
   background: radial-gradient(1200px at 20% 10%, #1b2240, var(--bg));
   color: var(--text);
   min-height: 100vh;
@@ -35,24 +37,27 @@ body {
 }
 h1 {
   font-family: 'Luckiest Guy', cursive;
-  font-size: 56px; /* Трохи збільшив для акценту */
+  font-size: 56px;
   line-height: 1.1;
   margin-bottom: 20px;
+  /* Кернінг 50 для заголовка */
+  letter-spacing: 0.05em; 
   opacity: 0;
   transform: translateY(-20px);
   animation: fadeInDown 1s forwards 0.2s;
 }
-/* Додаємо стиль для TM, щоб він виглядав професійно */
 h1 sup {
   font-size: 0.4em;
   vertical-align: super;
   opacity: 0.8;
+  /* Трохи менший інтервал для знаку TM, щоб не відлітав */
+  letter-spacing: normal; 
 }
 
 .tagline {
   font-size: 20px;
   line-height: 1.5;
-  color: var(--text); /* Зробив яскравішим, це важливий маніфест */
+  color: var(--text);
   margin-bottom: 32px;
   opacity: 0;
   transform: translateY(20px);
@@ -71,8 +76,7 @@ h1 sup {
 .value {
   font-size: 17px;
   opacity: 0.9;
-  letter-spacing: 0.5px;
-  border-bottom: 1px solid var(--accent); /* Легкий акцент на ключових словах */
+  border-bottom: 1px solid var(--accent);
   padding-bottom: 2px;
 }
 .note {
@@ -93,6 +97,8 @@ h1 sup {
   text-decoration: none;
   font-weight: 500;
   font-size: 18px;
+  /* Кернінг для кнопки також підтягнеться з body, але зафіксуємо для надійності */
+  letter-spacing: 0.05em; 
   transition: transform .2s ease, box-shadow .2s ease;
   opacity: 0;
   transform: scale(0.8);
@@ -106,6 +112,7 @@ footer {
   margin-top: 48px;
   font-size: 13px;
   opacity: 0.5;
+  letter-spacing: 0.05em;
 }
 @keyframes fadeInDown {
   to { opacity: 1; transform: translateY(0); }
@@ -117,7 +124,6 @@ footer {
   to { opacity: 1; transform: scale(1); }
 }
 
-/* Мобільна адаптація */
 @media (max-width: 480px) {
   h1 {
     font-size: 40px;
@@ -135,10 +141,10 @@ footer {
   }
   .values {
     gap: 16px;
-    flex-direction: column; /* На мобільному краще стовпчиком, щоб читалося */
+    flex-direction: column;
   }
   .value {
-    border-bottom: none; /* Прибираємо лінію на мобільному для чистоти */
+    border-bottom: none;
   }
 }
 </style>
