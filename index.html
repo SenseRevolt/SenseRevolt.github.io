@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SenseRevolt™ | Smart Visual Tools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="SenseRevolt — Interactive SEL Guides with Audio Learning. Fighting childhood helplessness with Smart Visual Tools.">
+<link href="https://fonts.googleapis.com/css2?family=Chewy&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e1320;
+  --text: #ffffff;
+  --muted: rgba(255,255,255,0.75);
+  --accent: #ff6b6b;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Chewy', sans-serif;
+  background: radial-gradient(1200px at 20% 10%, #1b2240, var(--bg));
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+.wrapper {
+  max-width: 720px;
+  width: 100%;
+}
+h1 {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 56px; /* Трохи збільшив для акценту */
+  line-height: 1.1;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInDown 1s forwards 0.2s;
+}
+/* Додаємо стиль для TM, щоб він виглядав професійно */
+h1 sup {
+  font-size: 0.4em;
+  vertical-align: super;
+  opacity: 0.8;
+}
+
+.tagline {
+  font-size: 20px;
+  line-height: 1.5;
+  color: var(--text); /* Зробив яскравішим, це важливий маніфест */
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards 0.8s;
+}
+.values {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards 1.4s;
+}
+.value {
+  font-size: 17px;
+  opacity: 0.9;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--accent); /* Легкий акцент на ключових словах */
+  padding-bottom: 2px;
+}
+.note {
+  font-size: 16px;
+  color: var(--muted);
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards 2s;
+  font-style: italic;
+}
+.btn {
+  display: inline-block;
+  padding: 14px 32px;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 18px;
+  transition: transform .2s ease, box-shadow .2s ease;
+  opacity: 0;
+  transform: scale(0.8);
+  animation: fadeInScale 0.8s forwards 2.6s;
+}
+.btn:hover {
+  transform: translateY(-2px) scale(1);
+  box-shadow: 0 10px 20px rgba(255,107,107,0.4);
+}
+footer {
+  margin-top: 48px;
+  font-size: 13px;
+  opacity: 0.5;
+}
+@keyframes fadeInDown {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInScale {
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Мобільна адаптація */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 40px;
+  }
+  .tagline {
+    font-size: 18px;
+    padding: 0 10px;
+  }
+  .note {
+    font-size: 15px;
+  }
+  .btn {
+    padding: 12px 26px;
+    font-size: 16px;
+  }
+  .values {
+    gap: 16px;
+    flex-direction: column; /* На мобільному краще стовпчиком, щоб читалося */
+  }
+  .value {
+    border-bottom: none; /* Прибираємо лінію на мобільному для чистоти */
+  }
+}
+</style>
+</head>
+<body>
+  <div class="wrapper">
+    <h1>SenseRevolt<sup>TM</sup></h1>
+
+    <div class="tagline">
+      Invest in your child’s successful future...<br>
+      and enjoy your coffee while it is still HOT.
+    </div>
+
+    <div class="values">
+      <div class="value">Visual Code (See)</div>
+      <div class="value">Original Songs (Hear)</div>
+      <div class="value">Kinesthetics (Do)</div>
+      <div class="value">Real Missions (Live)</div>
+    </div>
+
+    <div class="note">
+      This is not a coloring book.<br>
+      It is a Strategic SEL Guide designed for Strong Kindness.
+    </div>
+
+    <a class="btn" href="#" target="_blank">Coming Soon to Amazon</a>
+
+    <footer>
+      Created by Lisi Vetta.<br>
+      © SenseRevolt Studios. All Rights Reserved.
+    </footer>
+  </div>
+</body>
+</html>
