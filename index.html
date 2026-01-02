@@ -19,7 +19,6 @@
   padding: 0;
 }
 body {
-  /* Додано letter-spacing 0.05em (кернінг 50) для всього тексту Chewy */
   font-family: 'Chewy', sans-serif;
   letter-spacing: 0.05em; 
   background: radial-gradient(1200px at 20% 10%, #1b2240, var(--bg));
@@ -40,7 +39,6 @@ h1 {
   font-size: 56px;
   line-height: 1.1;
   margin-bottom: 20px;
-  /* Кернінг 50 для заголовка */
   letter-spacing: 0.05em; 
   opacity: 0;
   transform: translateY(-20px);
@@ -50,7 +48,6 @@ h1 sup {
   font-size: 0.4em;
   vertical-align: super;
   opacity: 0.8;
-  /* Трохи менший інтервал для знаку TM, щоб не відлітав */
   letter-spacing: normal; 
 }
 
@@ -82,12 +79,23 @@ h1 sup {
 .note {
   font-size: 16px;
   color: var(--muted);
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 1s forwards 2s;
   font-style: italic;
 }
+/* Стиль для статусу Coming Soon */
+.status {
+    font-size: 14px;
+    color: var(--accent);
+    margin-bottom: 12px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 1s forwards 2.4s;
+    letter-spacing: 0.1em;
+}
+
 .btn {
   display: inline-block;
   padding: 14px 32px;
@@ -97,12 +105,13 @@ h1 sup {
   text-decoration: none;
   font-weight: 500;
   font-size: 18px;
-  /* Кернінг для кнопки також підтягнеться з body, але зафіксуємо для надійності */
   letter-spacing: 0.05em; 
   transition: transform .2s ease, box-shadow .2s ease;
   opacity: 0;
   transform: scale(0.8);
   animation: fadeInScale 0.8s forwards 2.6s;
+  border: none;
+  cursor: pointer;
 }
 .btn:hover {
   transform: translateY(-2px) scale(1);
@@ -125,27 +134,12 @@ footer {
 }
 
 @media (max-width: 480px) {
-  h1 {
-    font-size: 40px;
-  }
-  .tagline {
-    font-size: 18px;
-    padding: 0 10px;
-  }
-  .note {
-    font-size: 15px;
-  }
-  .btn {
-    padding: 12px 26px;
-    font-size: 16px;
-  }
-  .values {
-    gap: 16px;
-    flex-direction: column;
-  }
-  .value {
-    border-bottom: none;
-  }
+  h1 { font-size: 40px; }
+  .tagline { font-size: 18px; padding: 0 10px; }
+  .note { font-size: 15px; }
+  .btn { padding: 12px 26px; font-size: 16px; }
+  .values { gap: 16px; flex-direction: column; }
+  .value { border-bottom: none; }
 }
 </style>
   <meta name="p:domain_verify" content="321d31db0a98973d0cbc9edeeb39df30"/>
@@ -171,7 +165,9 @@ footer {
       Interactive strategic tools for your child's emotional strength.
     </div>
 
-    <a class="btn" href="#" target="_blank">Coming Soon to Amazon</a>
+    <div class="status">BOOKS COMING SOON TO AMAZON</div>
+
+    <a class="btn" href="https://www.amazon.com/author/lisivetta" target="_blank">Follow Author on Amazon</a>
 
     <footer>
       Created by Lisi Vetta.<br>
@@ -180,6 +176,3 @@ footer {
   </div>
 </body>
 </html>
-
-
-
