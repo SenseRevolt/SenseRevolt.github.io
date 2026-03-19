@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Somatic Reset™ | SenseRevolt™ Adults</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Chewy&family=Luckiest+Guy&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0e1320;
+  --text: #ffffff;
+  --muted: rgba(255,255,255,0.7);
+  --accent: #ff6b6b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Chewy', sans-serif;
+  letter-spacing: 0.05em; 
+  background: radial-gradient(1200px at 20% 10%, #1b2240, var(--bg));
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.wrapper {
+  max-width: 650px;
+  width: 100%;
+  text-align: center;
+}
+
+h1 {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 52px;
+  line-height: 1.1;
+  margin-bottom: 15px;
+  color: var(--accent);
+  opacity: 0;
+  transform: translateY(-20px);
+  animation: fadeInDown 1s forwards 0.2s;
+  letter-spacing: 0.05em;
+}
+
+.tagline {
+  font-size: 24px;
+  margin-bottom: 30px;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 1s forwards 0.8s;
+}
+
+.practice-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  padding: 30px;
+  border-radius: 20px;
+  margin-bottom: 40px;
+  opacity: 0;
+  animation: fadeInUp 1s forwards 1.2s;
+}
+
+.practice-card p {
+  font-size: 19px;
+  margin-bottom: 10px;
+  font-style: italic;
+  color: var(--muted);
+}
+
+/* Контейнер для форми Mailjet */
+.form-box {
+  background: #ffffff;
+  padding: 35px;
+  border-radius: 15px;
+  color: #1a1a1a;
+  text-align: left;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  opacity: 0;
+  transform: scale(0.9);
+  animation: fadeInScale 0.8s forwards 1.6s;
+}
+
+.form-box h3 {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 26px;
+  margin-bottom: 15px;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+footer {
+  margin-top: 60px;
+  font-size: 13px;
+  opacity: 0.5;
+  line-height: 1.6;
+}
+
+.disclaimer {
+  max-width: 500px;
+  margin: 20px auto 0;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+/* Анімації */
+@keyframes fadeInDown { to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInScale { to { opacity: 1; transform: scale(1); } }
+
+@media (max-width: 480px) {
+  h1 { font-size: 38px; }
+  .tagline { font-size: 20px; }
+  .form-box { padding: 25px; }
+}
+</style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <h1>Somatic Reset™</h1>
+    
+    <div class="tagline">
+      A designer’s tool for grounding.<br>
+      Strategic visual patterns to help you find focus.
+    </div>
+
+    <div class="practice-card">
+      <p>"Disconnect from the mental noise. Reconnect with your center through kinesthetic neuro-art."</p>
+      <span style="font-size: 14px; color: var(--accent); letter-spacing: 2px;">MINIMUM TEXT. MAXIMUM EMOTION.</span>
+    </div>
+
+    <div class="form-box">
+      <h3>Send me the practice</h3>
+      
+      <div id="mailjet-form-placeholder" style="text-align: center; font-family: sans-serif; font-size: 14px; color: #999;">
+        [Встав сюди код своєї форми підписки з кабінету Mailjet]
+      </div>
+      </div>
+
+    <footer>
+      Created by Lisi Vetta. Lead Visual Designer & Creative Strategist.<br>
+      © 2026 SenseRevolt™ Studios. All Rights Reserved.
+      <div class="disclaimer">
+        SenseRevolt™ products are strategic visual tools for self-reflection and personal growth. 
+        They are not a substitute for professional medical advice, diagnosis, or treatment.
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>
