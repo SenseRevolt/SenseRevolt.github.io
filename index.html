@@ -1,178 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>SenseRevolt™ | Smart Visual Tools</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="SenseRevolt — Interactive SEL Guides with Audio Learning. Fighting childhood helplessness with Smart Visual Tools.">
-<link href="https://fonts.googleapis.com/css2?family=Chewy&family=Luckiest+Guy&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #0e1320;
-  --text: #ffffff;
-  --muted: rgba(255,255,255,0.75);
-  --accent: #ff6b6b;
-}
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-body {
-  font-family: 'Chewy', sans-serif;
-  letter-spacing: 0.05em; 
-  background: radial-gradient(1200px at 20% 10%, #1b2240, var(--bg));
-  color: var(--text);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 20px;
-}
-.wrapper {
-  max-width: 720px;
-  width: 100%;
-}
-h1 {
-  font-family: 'Luckiest Guy', cursive;
-  font-size: 56px;
-  line-height: 1.1;
-  margin-bottom: 20px;
-  letter-spacing: 0.05em; 
-  opacity: 0;
-  transform: translateY(-20px);
-  animation: fadeInDown 1s forwards 0.2s;
-}
-h1 sup {
-  font-size: 0.4em;
-  vertical-align: super;
-  opacity: 0.8;
-  letter-spacing: normal; 
-}
-
-.tagline {
-  font-size: 20px;
-  line-height: 1.5;
-  color: var(--text);
-  margin-bottom: 32px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s forwards 0.8s;
-}
-.values {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-  margin-bottom: 36px;
-  flex-wrap: wrap;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s forwards 1.4s;
-}
-.value {
-  font-size: 17px;
-  opacity: 0.9;
-  border-bottom: 1px solid var(--accent);
-  padding-bottom: 2px;
-}
-.note {
-  font-size: 16px;
-  color: var(--muted);
-  margin-bottom: 24px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 1s forwards 2s;
-  font-style: italic;
-}
-/* Стиль для статусу Coming Soon */
-.status {
-    font-size: 14px;
-    color: var(--accent);
-    margin-bottom: 12px;
-    opacity: 0;
-    transform: translateY(10px);
-    animation: fadeInUp 1s forwards 2.4s;
-    letter-spacing: 0.1em;
-}
-
-.btn {
-  display: inline-block;
-  padding: 14px 32px;
-  border-radius: 8px;
-  background: var(--accent);
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 18px;
-  letter-spacing: 0.05em; 
-  transition: transform .2s ease, box-shadow .2s ease;
-  opacity: 0;
-  transform: scale(0.8);
-  animation: fadeInScale 0.8s forwards 2.6s;
-  border: none;
-  cursor: pointer;
-}
-.btn:hover {
-  transform: translateY(-2px) scale(1);
-  box-shadow: 0 10px 20px rgba(255,107,107,0.4);
-}
-footer {
-  margin-top: 48px;
-  font-size: 13px;
-  opacity: 0.5;
-  letter-spacing: 0.05em;
-}
-@keyframes fadeInDown {
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeInUp {
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes fadeInScale {
-  to { opacity: 1; transform: scale(1); }
-}
-
-@media (max-width: 480px) {
-  h1 { font-size: 40px; }
-  .tagline { font-size: 18px; padding: 0 10px; }
-  .note { font-size: 15px; }
-  .btn { padding: 12px 26px; font-size: 16px; }
-  .values { gap: 16px; flex-direction: column; }
-  .value { border-bottom: none; }
-}
-</style>
-  <meta name="p:domain_verify" content="321d31db0a98973d0cbc9edeeb39df30"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SenseRevolt™ | Strategic Visual Tools for the Family Crew</title>
+  <meta name="description" content="Black-and-white visual tools for the whole family: CASEL-aligned SEL books for kids and #momrelax workbooks for parents. Coming soon to Amazon.">
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: #111;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3.2rem;
+      margin: 0 0 20px;
+    }
+    h2 {
+      font-size: 2rem;
+      color: #222;
+      margin: 50px 0 20px;
+    }
+    .section {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 60px 0;
+    }
+    .card {
+      background: white;
+      padding: 32px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      max-width: 420px;
+      text-align: left;
+    }
+    ul {
+      padding-left: 24px;
+      margin: 16px 0;
+    }
+    .cta {
+      display: inline-block;
+      background: #111;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      margin: 30px 0;
+    }
+    footer {
+      text-align: center;
+      padding: 60px 20px 40px;
+      font-size: 0.9rem;
+      color: #555;
+      border-top: 1px solid #eee;
+    }
+  </style>
 </head>
 <body>
-  <div class="wrapper">
-    <h1>SenseRevolt<sup>TM</sup></h1>
 
-    <div class="tagline">
-      Invest in your child’s successful future...<br>
-      and enjoy your coffee while it is still HOT.
+  <div class="container">
+
+    <h1>SenseRevolt™</h1>
+    <p style="font-size: 1.5rem; max-width: 720px; margin: 0 auto 40px;">
+      Strategic black-and-white visual tools<br>for the whole family crew
+    </p>
+
+    <h2>Tools for Kids and Parents</h2>
+
+    <div class="section">
+
+      <div class="card">
+        <h2>For Kids</h2>
+        <p><strong>CASEL-aligned SEL books</strong></p>
+        <p>Self-Awareness · Self-Management · Social Awareness · Relationship Skills · Responsible Decision-Making</p>
+        <p>Interactive workbooks + coloring pages to help release tension, build emotional strength, and recharge after school through drawing and movement.</p>
+      </div>
+
+      <div class="card">
+        <h2>#momrelax — For Parents</h2>
+        <p><strong>Choose your reset:</strong></p>
+        <ul>
+          <li><strong>Deep Neuro-Workbook</strong> — 60 min of pattern meditation to ease anxiety and restore focus</li>
+          <li><strong>Quick Relax</strong> — humorous adult coloring for a fast 5–15 min mental break</li>
+        </ul>
+      </div>
+
     </div>
 
-    <div class="values">
-      <div class="value">Visual Code (See)</div>
-      <div class="value">Original Songs (Hear)</div>
-      <div class="value">Kinesthetics (Do)</div>
-      <div class="value">Real Missions (Live)</div>
-    </div>
+    <p style="font-size: 1.3rem; margin: 60px 0 20px;">
+      Coming soon to Amazon.<br>Get early access + free sample pattern.
+    </p>
 
-    <div class="note">
-      This is a Smart Workbook & Journal series.<br>
-      Interactive strategic tools for your child's emotional strength.
-    </div>
+    <a href="/adults" class="cta">Join the #momrelax Waitlist →</a>
 
-    <div class="status">BOOKS COMING SOON TO AMAZON</div>
-
-    <a class="btn" href="https://www.amazon.com/author/lisivetta" target="_blank">Follow Author on Amazon</a>
-
-    <footer>
-      Created by Lisi Vetta.<br>
-      © SenseRevolt Studios. All Rights Reserved.
-    </footer>
   </div>
+
+  <footer>
+    SenseRevolt™ products are strategic visual tools for self-reflection, emotional growth, and family connection.<br>
+    They are not a substitute for professional medical, psychological, or educational advice.<br>
+    Created with passion by Lead Visual Designer Lisi Vetta.
+  </footer>
+
 </body>
 </html>
