@@ -1,379 +1,1289 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SenseRevolt™ | Emotional Wellness Tools</title>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400&display=swap" rel="stylesheet" />
+  <title>SenseRevolt™</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
+    /* ─── TOKENS ─────────────────────────────────── */
     :root {
-      --dark: #2b2f3a;
-      --cream: #f0e8d8;
-      --gold: #c9a96e;
-      --gold-light: #e8d5b0;
+      --bg:       #0e0e0c;
+      --surface:  #151512;
+      --border:   #2a2a26;
+      --text:     #e8e4db;
+      --muted:    #7a7568;
+      --accent:   #c8b89a;
+      --accent2:  #8a6f52;
+      --white:    #f5f2ec;
+      --serif:    'Cormorant Garamond', Georgia, serif;
+      --sans:     'DM Sans', sans-serif;
     }
 
+    /* ─── RESET ──────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     body {
-      font-family: 'Jost', sans-serif;
-      background-color: var(--dark);
-      color: var(--cream);
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.65;
       overflow-x: hidden;
     }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
 
-    /* ── NAV ── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
+    /* ─── UTILITY ────────────────────────────────── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+    .section-label {
+      font-family: var(--sans);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--white);
+    }
+    .section-title em { font-style: italic; color: var(--accent); }
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      transition: background 0.25s, color 0.25s;
+      cursor: pointer;
+      background: transparent;
+    }
+    .btn:hover { background: var(--accent); color: var(--bg); }
+    .btn-solid {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .btn-solid:hover { background: var(--white); border-color: var(--white); }
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* ─── TOP BAR ────────────────────────────────── */
+    .topbar {
+      background: var(--accent2);
+      text-align: center;
+      padding: 9px 16px;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      font-family: var(--sans);
+    }
+
+    /* ─── HEADER / NAV ───────────────────────────── */
+    header {
+      position: sticky;
+      top: 0;
       z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1.25rem 4rem;
-      background: rgba(43, 47, 58, 0.85);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(201, 169, 110, 0.15);
+      height: 68px;
     }
-
-    .nav-logo {
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
+    .logo {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--white);
+    }
+    .logo span { color: var(--accent); }
+    nav ul {
+      display: flex;
+      gap: 36px;
+    }
+    nav a {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--gold);
-      text-decoration: none;
-      transition: opacity 0.3s ease;
+      color: var(--muted);
+      transition: color 0.2s;
     }
-    
-    .nav-logo:hover { opacity: 0.7; }
-
-    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-    .nav-links a {
-      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--cream); text-decoration: none;
-      opacity: 0.75; transition: opacity 0.2s;
+    nav a:hover { color: var(--white); }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
     }
-    .nav-links a:hover { opacity: 1; color: var(--gold); }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; text-align: center;
-      padding: 8rem 2rem 4rem; position: relative; overflow: hidden;
+    .nav-icon {
+      width: 18px; height: 18px;
+      stroke: var(--muted);
+      fill: none;
+      cursor: pointer;
+      transition: stroke 0.2s;
     }
+    .nav-icon:hover { stroke: var(--white); }
 
-    .hero::before {
-      content: ''; position: absolute; inset: 0;
-      background:
-        radial-gradient(ellipse 60% 50% at 50% 40%, rgba(201, 169, 110, 0.08) 0%, transparent 70%),
-        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(74, 111, 165, 0.06) 0%, transparent 60%),
-        radial-gradient(ellipse 40% 60% at 80% 20%, rgba(224, 123, 84, 0.06) 0%, transparent 60%);
+    /* ─── HERO BANNER CAROUSEL ───────────────────── */
+    .banner-section { position: relative; overflow: hidden; }
+    .banner-slides { display: flex; transition: transform 0.7s cubic-bezier(.77,0,.18,1); }
+    .banner-slide {
+      min-width: 100%;
+      height: clamp(480px, 70vh, 760px);
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+    }
+    .banner-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+    }
+    /* Placeholder gradient slides */
+    .slide-1 .banner-bg { background: linear-gradient(135deg, #1a1510 0%, #2d2318 50%, #0e0e0c 100%); }
+    .slide-2 .banner-bg { background: linear-gradient(135deg, #12161a 0%, #1a2230 50%, #0e0e0c 100%); }
+    .slide-3 .banner-bg { background: linear-gradient(135deg, #141210 0%, #251d15 50%, #0e0e0c 100%); }
+    .banner-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(14,14,12,.9) 0%, transparent 60%);
+    }
+    .banner-content {
+      position: relative;
+      z-index: 2;
+      padding: 64px;
+      max-width: 680px;
+    }
+    .banner-content .section-label { color: var(--accent); }
+    .banner-content h1 {
+      font-family: var(--serif);
+      font-size: clamp(2.4rem, 6vw, 4.8rem);
+      font-weight: 300;
+      line-height: 1.1;
+      color: var(--white);
+      margin: 10px 0 20px;
+    }
+    .banner-content h1 em { font-style: italic; color: var(--accent); }
+    .banner-content p {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 440px;
+      margin-bottom: 32px;
+    }
+    .banner-actions { display: flex; gap: 16px; }
+    /* Dots */
+    .banner-dots {
+      position: absolute;
+      bottom: 28px; right: 64px;
+      z-index: 10;
+      display: flex; gap: 8px;
+    }
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .dot.active { background: var(--accent); transform: scale(1.4); }
+    .banner-arrow {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      z-index: 10;
+      width: 44px; height: 44px;
+      border: 1px solid var(--border);
+      background: rgba(14,14,12,.7);
+      color: var(--muted);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .banner-arrow:hover { border-color: var(--accent); color: var(--accent); }
+    .banner-arrow.prev { left: 28px; }
+    .banner-arrow.next { right: 28px; }
+
+    /* ─── ABOUT ──────────────────────────────────── */
+    .about-section {
+      padding: 120px 0;
+      display: grid;
+    }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-image {
+      aspect-ratio: 3/4;
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #1a1510 0%, #252015 100%);
+      opacity: .6;
+    }
+    .about-image-label {
+      position: absolute;
+      bottom: 28px; left: 28px;
+      z-index: 2;
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--accent);
+    }
+    .about-text { padding: 20px 0; }
+    .about-text .section-label { margin-bottom: 20px; }
+    .about-text .section-title { margin-bottom: 28px; }
+    .about-text p {
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+    .about-text .btn { margin-top: 20px; }
+
+    /* ─── NEW RELEASES ───────────────────────────── */
+    .releases-section { padding: 100px 0; border-top: 1px solid var(--border); }
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 56px;
+    }
+    .section-header .view-all {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .section-header .view-all:hover { color: var(--accent); border-color: var(--accent); }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .product-card { cursor: pointer; }
+    .product-thumb {
+      aspect-ratio: 3/4;
+      background: var(--surface);
+      margin-bottom: 16px;
+      overflow: hidden;
+      position: relative;
+    }
+    .product-thumb-bg {
+      position: absolute; inset: 0;
+      transition: transform 0.5s cubic-bezier(.25,.46,.45,.94);
+    }
+    .product-card:hover .product-thumb-bg { transform: scale(1.04); }
+    /* Placeholder gradients */
+    .p1 .product-thumb-bg { background: linear-gradient(160deg,#1e1810,#2d2318); }
+    .p2 .product-thumb-bg { background: linear-gradient(160deg,#12161e,#1a2230); }
+    .p3 .product-thumb-bg { background: linear-gradient(160deg,#1a1010,#2d1818); }
+    .p4 .product-thumb-bg { background: linear-gradient(160deg,#101a10,#182d18); }
+    .product-badge {
+      position: absolute;
+      top: 14px; left: 14px;
+      padding: 4px 10px;
+      background: var(--accent);
+      color: var(--bg);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .product-name {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 6px;
+      transition: color 0.2s;
+    }
+    .product-card:hover .product-name { color: var(--accent); }
+    .product-sub { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+    .product-price {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+    .product-price s { color: var(--muted); margin-right: 6px; text-decoration: line-through; }
+
+    /* ─── VIDEO BLOCK ────────────────────────────── */
+    .video-section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .video-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .video-wrap {
+      aspect-ratio: 16/9;
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+    }
+    .video-placeholder {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, #1a1510, #0e0e0c);
+    }
+    .play-btn {
+      width: 72px; height: 72px;
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .play-btn:hover { background: var(--accent); transform: scale(1.06); }
+    .play-btn svg { margin-left: 4px; }
+    .video-text .section-label { margin-bottom: 20px; }
+    .video-text .section-title { margin-bottom: 24px; }
+    .video-text p { color: var(--muted); line-height: 1.8; margin-bottom: 32px; }
+
+    /* ─── BEST SELLER ────────────────────────────── */
+    .bestseller-section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .bestseller-inner {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .bestseller-featured {
+      position: sticky;
+      top: 100px;
+    }
+    .bestseller-image {
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, #1f1a10, #2d2318);
+      margin-bottom: 24px;
+      position: relative;
+    }
+    .bestseller-badge {
+      position: absolute;
+      top: 0; left: 0;
+      padding: 8px 18px;
+      background: var(--accent2);
+      font-size: 9px; letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .bestseller-name {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+    .bestseller-price { color: var(--accent); font-size: 1.1rem; margin-bottom: 20px; }
+    .bestseller-list { display: flex; flex-direction: column; gap: 2px; }
+    .bestseller-item {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 20px;
+      align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .bestseller-item:hover { opacity: .75; }
+    .item-thumb {
+      aspect-ratio: 1;
+      background: var(--surface);
+    }
+    .t1 { background: linear-gradient(135deg,#1e1810,#2d2318); }
+    .t2 { background: linear-gradient(135deg,#12161e,#1a2230); }
+    .t3 { background: linear-gradient(135deg,#1a1010,#2d1818); }
+    .t4 { background: linear-gradient(135deg,#101a10,#182d18); }
+    .item-info .item-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .item-info .item-sub { font-size: 11px; color: var(--muted); }
+    .item-price { font-size: 13px; color: var(--accent); white-space: nowrap; }
+
+    /* ─── COLLECTIONS ────────────────────────────── */
+    .collections-section { padding: 100px 0; border-top: 1px solid var(--border); }
+    .collections-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+    .collection-card {
+      aspect-ratio: 4/5;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .collection-card:first-child {
+      grid-column: span 1;
+      grid-row: span 2;
+      aspect-ratio: auto;
+    }
+    .collection-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      transition: transform 0.6s cubic-bezier(.25,.46,.45,.94);
+    }
+    .collection-card:hover .collection-bg { transform: scale(1.04); }
+    .c1 .collection-bg { background: linear-gradient(160deg,#1f1a10,#3d3018); }
+    .c2 .collection-bg { background: linear-gradient(160deg,#12161e,#1a2230); }
+    .c3 .collection-bg { background: linear-gradient(160deg,#1a1010,#2d1818); }
+    .c4 .collection-bg { background: linear-gradient(160deg,#101a10,#182d18); }
+    .c5 .collection-bg { background: linear-gradient(160deg,#1a1018,#2d1828); }
+    .collection-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(14,14,12,.85) 0%, transparent 55%);
+    }
+    .collection-info {
+      position: absolute;
+      bottom: 28px; left: 28px; right: 28px;
+      z-index: 2;
+    }
+    .collection-name {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-weight: 300;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .collection-count { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; }
+
+    /* ─── BLOG ───────────────────────────────────── */
+    .blog-section { padding: 100px 0; border-top: 1px solid var(--border); }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+    }
+    .blog-card { cursor: pointer; }
+    .blog-thumb {
+      aspect-ratio: 16/10;
+      background: var(--surface);
+      margin-bottom: 20px;
+      overflow: hidden;
+      position: relative;
+    }
+    .blog-thumb-bg {
+      position: absolute; inset: 0;
+      transition: transform 0.5s;
+    }
+    .blog-card:hover .blog-thumb-bg { transform: scale(1.04); }
+    .b1 .blog-thumb-bg { background: linear-gradient(135deg,#1e1810,#2d2318); }
+    .b2 .blog-thumb-bg { background: linear-gradient(135deg,#12161e,#1a2230); }
+    .b3 .blog-thumb-bg { background: linear-gradient(135deg,#1a1010,#2d1818); }
+    .blog-cat {
+      font-size: 9px; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 10px;
+    }
+    .blog-title {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.3;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .blog-card:hover .blog-title { color: var(--accent); }
+    .blog-excerpt { font-size: 13px; color: var(--muted); line-height: 1.75; margin-bottom: 16px; }
+    .blog-meta { font-size: 11px; color: var(--border); }
+    .blog-meta span { color: var(--muted); }
+
+    /* ─── FEATURED ON ────────────────────────────── */
+    .featured-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      text-align: center;
+    }
+    .featured-section .section-label { text-align: center; margin-bottom: 48px; }
+    .logos-track {
+      display: flex;
+      gap: 64px;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .logo-item {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--border);
+      letter-spacing: 0.06em;
+      transition: color 0.3s;
+    }
+    .logo-item:hover { color: var(--muted); }
+
+    /* ─── SNEAK PEEKS / COZY MOMENTS ────────────── */
+    .sneak-section { padding: 100px 0; border-top: 1px solid var(--border); }
+    .sneak-title-wrap { text-align: center; margin-bottom: 56px; }
+    .sneak-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 3px;
+    }
+    .sneak-item {
+      aspect-ratio: 1;
+      background: var(--surface);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .sneak-item::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(14,14,12,0);
+      transition: background 0.3s;
+    }
+    .sneak-item:hover::after { background: rgba(14,14,12,.4); }
+    .s1 { background: linear-gradient(135deg,#1e1810,#2d2318); }
+    .s2 { background: linear-gradient(135deg,#12161e,#1a2230); }
+    .s3 { background: linear-gradient(135deg,#1a1010,#2d1818); }
+    .s4 { background: linear-gradient(135deg,#101a10,#182d18); }
+    .s5 { background: linear-gradient(135deg,#1a1018,#2d1828); }
+
+    /* ─── FAQ ────────────────────────────────────── */
+    .faq-section { padding: 100px 0; border-top: 1px solid var(--border); }
+    .faq-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .faq-list { display: flex; flex-direction: column; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      text-align: left;
+      padding: 22px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      transition: color 0.2s;
+    }
+    .faq-question:hover { color: var(--accent); }
+    .faq-chevron {
+      width: 16px; height: 16px;
+      stroke: var(--muted);
+      fill: none;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); stroke: var(--accent); }
+    .faq-answer {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.35s ease;
+    }
+    .faq-item.open .faq-answer { max-height: 200px; }
+    .faq-answer p { color: var(--muted); font-size: 14px; line-height: 1.8; padding-bottom: 22px; }
+
+    /* ─── SUBSCRIBE ──────────────────────────────── */
+    .subscribe-section {
+      padding: 120px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      background: var(--surface);
+      position: relative;
+      overflow: hidden;
+    }
+    .subscribe-section::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(200,184,154,.07) 0%, transparent 70%);
       pointer-events: none;
     }
-
-    .hero-eyebrow {
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.3em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
-      animation: fadeUp 0.8s ease backwards 0.2s;
+    .subscribe-section .section-title { margin-bottom: 16px; }
+    .subscribe-section p { color: var(--muted); margin-bottom: 40px; }
+    .subscribe-form {
+      display: flex;
+      gap: 0;
+      max-width: 480px;
+      margin: 0 auto 16px;
     }
-
-    .hero-title {
-      font-size: clamp(3rem, 8vw, 7rem); font-weight: 900; line-height: 0.95;
-      letter-spacing: -0.02em; margin-bottom: 1.5rem;
-      animation: fadeUp 0.8s ease backwards 0.4s;
+    .subscribe-form input {
+      flex: 1;
+      padding: 14px 20px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-right: none;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.2s;
     }
-
-    .hero-title .thin { font-style: normal; font-weight: 300; color: var(--gold); }
-    .hero-title .tm { font-size: 0.25em; vertical-align: super; font-weight: 400; margin-left: 0.1em; }
-
-    .hero-hook {
-      font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 300; line-height: 1.8;
-      max-width: 720px; color: var(--gold-light); margin-bottom: 3rem;
-      animation: fadeUp 0.8s ease backwards 0.6s;
+    .subscribe-form input:focus { border-color: var(--accent); }
+    .subscribe-form input::placeholder { color: var(--muted); }
+    .subscribe-form .btn {
+      border-left: none;
     }
-    .hero-hook strong { color: var(--cream); font-weight: 600; }
+    .subscribe-note { font-size: 11px; color: var(--muted); }
 
-    .hero-buttons {
-      display: flex; gap: 1.25rem; flex-wrap: wrap; justify-content: center;
-      animation: fadeUp 0.8s ease backwards 0.8s; margin-bottom: 2.5rem;
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 64px 0 32px;
     }
-
-    .hero-btn {
-      font-family: 'Jost', sans-serif; font-size: 0.78rem; font-weight: 600;
-      letter-spacing: 0.12em; text-transform: uppercase; padding: 0.9rem 2rem;
-      border-radius: 100px; text-decoration: none; transition: all 0.3s ease;
-    }
-
-    .hero-btn-mind { background: rgba(74, 111, 165, 0.2); border: 1px solid rgba(74, 111, 165, 0.5); color: #7ba7d4; }
-    .hero-btn-mind:hover { background: rgba(74, 111, 165, 0.35); border-color: rgba(74, 111, 165, 0.9); transform: translateY(-2px); }
-
-    .hero-btn-sel { background: rgba(224, 123, 84, 0.2); border: 1px solid rgba(224, 123, 84, 0.5); color: #e8a07a; }
-    .hero-btn-sel:hover { background: rgba(224, 123, 84, 0.35); border-color: rgba(224, 123, 84, 0.9); transform: translateY(-2px); }
-
-    /* ── STORY ── */
-    .story { padding: 7rem 2rem 4rem; max-width: 860px; margin: 0 auto; text-align: center; }
-    .section-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); opacity: 0.7; margin-bottom: 1.5rem; }
-    .story h2 { font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700; line-height: 1.2; margin-bottom: 2rem; letter-spacing: -0.01em; }
-    .story h2 em { font-style: italic; font-weight: 300; color: var(--gold); }
-    .story p { font-size: 1.05rem; font-weight: 300; line-height: 1.85; color: var(--gold-light); margin-bottom: 1.5rem; opacity: 0.9; }
-    .story p strong { color: var(--cream); font-weight: 500; }
-
-    /* ── TWO VOICES ── */
-    .two-voices { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; max-width: 860px; margin: 3rem auto 4rem; padding: 0 2rem; }
-    .voice { padding: 2.5rem; border-top: 1px solid rgba(201, 169, 110, 0.12); }
-    .voice-mind { border-right: 1px solid rgba(201, 169, 110, 0.12); }
-    .voice-name { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 0.75rem; }
-    .voice-mind .voice-name { color: #7ba7d4; }
-    .voice-sel .voice-name  { color: #e8a07a; }
-    .voice h3 { font-size: 1rem; font-weight: 600; line-height: 1.4; margin-bottom: 0.75rem; font-style: italic; }
-    .voice p { font-size: 0.88rem; font-weight: 300; line-height: 1.75; opacity: 0.6; }
-
-    .divider { text-align: center; padding: 1rem 0; font-size: 0.65rem; letter-spacing: 0.3em; color: var(--gold); opacity: 0.4; margin-bottom: 2rem; }
-
-    /* ── VIDEO SECTION (NEW) ── */
-    .media-section { padding: 4rem 2rem; max-width: 1000px; margin: 0 auto; text-align: center; }
-    .media-section h2 { font-size: clamp(1.6rem, 3.5vw, 2.5rem); font-weight: 700; margin-bottom: 3rem; }
-    
-    .video-wrapper {
-      position: relative;
-      padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-      height: 0;
-      overflow: hidden;
-      border-radius: 12px;
-      border: 1px solid rgba(201, 169, 110, 0.2);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    }
-    .video-wrapper iframe {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    }
-
-    /* ── GALLERY SECTION (NEW) ── */
-    .gallery-grid {
+    .footer-inner {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 56px;
     }
-    .gallery-item {
-      position: relative;
-      aspect-ratio: 4/5;
-      overflow: hidden;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.05);
-      background: rgba(0,0,0,0.2);
+    .footer-brand .logo { font-size: 1.2rem; margin-bottom: 16px; }
+    .footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.8; max-width: 280px; margin-bottom: 24px; }
+    .social-links { display: flex; gap: 14px; }
+    .social-link {
+      width: 36px; height: 36px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      font-size: 12px;
+      transition: border-color 0.2s, color 0.2s;
     }
-    .gallery-item img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s ease;
+    .social-link:hover { border-color: var(--accent); color: var(--accent); }
+    .footer-col h4 {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
     }
-    .gallery-item:hover img {
-      transform: scale(1.05);
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a {
+      font-size: 13px;
+      color: var(--muted);
+      transition: color 0.2s;
     }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .footer-bottom a { transition: color 0.2s; }
+    .footer-bottom a:hover { color: var(--white); }
 
-    /* ── BRANCHES ── */
-    .branches { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
-    .branches-header { text-align: center; margin-bottom: 4rem; }
-    .branches-header h2 { font-size: clamp(1.6rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -0.01em; }
-    .branches-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
-    .branch-card { position: relative; padding: 4rem 3.5rem; overflow: hidden; text-decoration: none; color: var(--cream); display: block; transition: transform 0.4s ease; }
-    .branch-card:hover { transform: translateY(-4px); }
-    .branch-card::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.4s ease; }
-    .branch-card:hover::before { opacity: 1; }
-    .branch-mind { background: linear-gradient(135deg, #181a20 0%, #1f222a 100%); border: 1px solid rgba(255, 255, 255, 0.05); }
-    .branch-mind::before { background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 60%); }
-    .branch-sel { background: var(--cream); color: var(--dark); border: 1px solid rgba(43, 47, 58, 0.1); }
-    .branch-sel::before { background: linear-gradient(135deg, rgba(43, 47, 58, 0.03) 0%, transparent 60%); }
-    .branch-number { font-size: 5rem; font-weight: 900; line-height: 1; opacity: 0.06; position: absolute; top: 1.5rem; right: 2rem; letter-spacing: -0.05em; }
-    .branch-sel .branch-number { color: var(--dark); }
-    .branch-tag { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1.25rem; display: inline-block; padding: 0.35rem 0.9rem; border-radius: 100px; }
-    .branch-mind .branch-tag { color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); }
-    .branch-sel .branch-tag { color: var(--dark); background: rgba(43, 47, 58, 0.05); border: 1px solid rgba(43, 47, 58, 0.2); }
-    .branch-card h3 { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 700; line-height: 1.1; margin-bottom: 0.5rem; letter-spacing: -0.01em; }
-    .branch-card .branch-sub { font-size: 0.85rem; font-weight: 400; font-style: italic; opacity: 0.55; margin-bottom: 1.75rem; }
-    .branch-sel .branch-sub { opacity: 0.7; }
-    .branch-card p { font-size: 0.95rem; font-weight: 300; line-height: 1.75; opacity: 0.75; margin-bottom: 2.5rem; max-width: 400px; }
-    .branch-sel p { opacity: 0.85; font-weight: 400; }
-    .branch-cta { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.75rem 1.75rem; border-radius: 100px; text-decoration: none; transition: all 0.3s ease; }
-    .branch-mind .branch-cta { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); color: rgba(255, 255, 255, 0.9); }
-    .branch-mind .branch-cta:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.4); }
-    .branch-sel .branch-cta { background: transparent; border: 1px solid rgba(43, 47, 58, 0.3); color: var(--dark); }
-    .branch-sel .branch-cta:hover { background: rgba(43, 47, 58, 0.05); border-color: rgba(43, 47, 58, 0.7); }
+    /* ─── ANIMATIONS ─────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
+    .fade-up:nth-child(2) { transition-delay: 0.1s; }
+    .fade-up:nth-child(3) { transition-delay: 0.2s; }
+    .fade-up:nth-child(4) { transition-delay: 0.3s; }
 
-    /* ── FORMS & CONTACTS ── */
-    .forms-section { padding: 2rem 2rem 6rem; max-width: 600px; margin: 0 auto; text-align: center; }
-    .forms-section h2 { font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; margin-bottom: 1rem; }
-    .forms-section input, .forms-section textarea { font-family: 'Jost', sans-serif; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(201, 169, 110, 0.2); color: var(--cream); padding: 1.2rem; border-radius: 8px; width: 100%; }
-    .forms-section input:focus, .forms-section textarea:focus { outline: none; border-color: var(--gold); }
-    .submit-btn { font-family: 'Jost', sans-serif; background: var(--gold); color: var(--dark); padding: 1.2rem; border-radius: 100px; border: none; font-weight: 600; cursor: pointer; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.8rem; transition: all 0.3s ease; width: 100%; }
-    .submit-btn:hover { background: var(--gold-light); }
-
-    /* ── BACK TO TOP ARROW ── */
-    .back-to-top { position: fixed; bottom: 2rem; right: 2rem; width: 45px; height: 45px; background: rgba(43, 47, 58, 0.8); backdrop-filter: blur(5px); border: 1px solid rgba(201, 169, 110, 0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold); text-decoration: none; z-index: 99; transition: all 0.3s ease; font-size: 1.2rem; }
-    .back-to-top:hover { background: var(--gold); color: var(--dark); transform: translateY(-3px); }
-
-    /* ── FOOTER ── */
-    footer { border-top: 1px solid rgba(201, 169, 110, 0.12); padding: 3rem 4rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
-    .footer-logo { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
-    .footer-tagline { font-size: 0.75rem; font-weight: 300; font-style: italic; opacity: 0.4; margin-top: 0.25rem; }
-    .footer-links { display: flex; gap: 2rem; list-style: none; }
-    .footer-links a { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream); text-decoration: none; opacity: 0.4; transition: opacity 0.2s; }
-    .footer-links a:hover { opacity: 0.9; }
-    .footer-copy { font-size: 0.65rem; opacity: 0.25; letter-spacing: 0.08em; width: 100%; text-align: center; margin-top: 1rem; }
-
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp { 0% { opacity: 0; transform: translateY(24px); } 100% { opacity: 1; transform: translateY(0); } }
-    @keyframes scrollPulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
-      .nav-links { display: none; }
-      .branches-grid { grid-template-columns: 1fr; }
-      .branch-card { padding: 3rem 2rem; }
-      .two-voices { grid-template-columns: 1fr; padding: 0 1.5rem; }
-      .voice-mind { border-right: none; border-bottom: 1px solid rgba(201, 169, 110, 0.12); }
-      footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 900px) {
+      .products-grid { grid-template-columns: repeat(2,1fr); }
+      .about-inner,
+      .video-inner,
+      .faq-inner,
+      .bestseller-inner { grid-template-columns: 1fr; gap: 48px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .collections-grid { grid-template-columns: 1fr 1fr; }
+      .collections-grid .collection-card:first-child { grid-column: span 2; }
+      .sneak-grid { grid-template-columns: repeat(3,1fr); }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 20px; }
+      .banner-content { padding: 40px 24px; }
+      nav ul { display: none; }
+      .products-grid { grid-template-columns: repeat(2,1fr); gap: 16px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .collections-grid { grid-template-columns: 1fr; }
+      .collections-grid .collection-card:first-child { grid-column: span 1; }
+      .sneak-grid { grid-template-columns: repeat(2,1fr); }
+      .subscribe-form { flex-direction: column; }
+      .subscribe-form input { border-right: 1px solid var(--border); border-bottom: none; }
+      .logos-track { gap: 32px; }
     }
   </style>
 </head>
-<body id="top">
+<body>
 
-  <nav>
-    <a href="#top" class="nav-logo">SenseRevolt™</a>
-    <ul class="nav-links">
-      <li><a href="#story">Our Story</a></li>
-      <li><a href="#mind">Somatic</a></li>
-      <li><a href="#sel">For Kids</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+  <!-- TOP BAR -->
+  <div class="topbar">✦ New release: Somatic Pattern Workbook Vol. 2 — Free shipping on orders over $45 ✦</div>
 
-  <section class="hero">
-    <p class="hero-eyebrow"> One Ecosystem </p>
-    <h1 class="hero-title">Sense<span class="thin">Revolt</span><span class="tm">TM</span></h1>
-    <p class="hero-hook">
-      SenseRevolt™ is a brand that helps people of all ages break the cycle of emotional helplessness through smart visual language and somatic regulation.<br><br>
-      <strong>For children:</strong> SEL books with a 4-Channel Smart System for better absorption of knowledge and skills.<br>
-      <strong>For adults:</strong> Somatic tools guided by a <em>"Body-First. Pen-Second."</em> philosophy.
-    </p>
-    <div class="hero-buttons">
-      <a href="#mind" class="hero-btn hero-btn-mind">Somatic Practice Workbooks</a>
-      <a href="#sel" class="hero-btn hero-btn-sel">SEL Workbooks for Kids</a>
-    </div>
-  </section>
-
-  <section class="story" id="story">
-    <p class="section-label">Our Story</p>
-    <h2>Born from the Storm.<br>Built for the Body<br><em>When Breathing Wasn't Enough.</em></h2>
-    <p>SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine. Living through profoundly turbulent times, we realized that standard wellness advice simply doesn't work when your nervous system is truly overloaded.</p>
-    <p>When the war started, <strong>Yani began hand-drawing intricate patterns</strong> to ground her nervous system and find a state of deep hyperfocus. It worked — even in circumstances where very little else did. So we decided to share what we learned with anyone searching for something that actually reaches the body, not just the mind.</p>
-    <p>We combined our personal struggles and professional skills to build a complete emotional ecosystem — <strong>real, working tools</strong> to protect mental peace for both adults and children. Because nervous system regulation isn't only about calming the storm. Sometimes it's about finding the signal again.</p>
-  </section>
-
-  <div class="two-voices">
-    <div class="voice voice-mind">
-      <p class="voice-name">Yani · Somatic Tools</p>
-      <h3>"My body needed something my mind couldn't give it."</h3>
-      <p>Original hand-drawn pattern workbooks grounded in Somatic Experiencing and Polyvagal research. Body-first protocols for real nervous system states.</p>
-    </div>
-    <div class="voice voice-sel">
-      <p class="voice-name">Lisi · SEL Tools</p>
-      <h3>"I still remember that sense of childhood helplessness."</h3>
-      <p>Multisensory SEL workbooks built on the CASEL framework — through visuals, original music, kinesthetic choice, and real-life missions. For children whose big feelings matter.</p>
-    </div>
-  </div>
-
-  <div class="divider">· · ·</div>
-
-  <section class="media-section" id="visuals">
-    <p class="section-label">Inside the Ecosystem</p>
-    <h2>Smart Visual Language</h2>
-    https://www.youtube.com/watch?v=zjF7COQAqOE
-    <div class="video-wrapper">
-      <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4?controls=0" title="SenseRevolt Visuals" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
-
-    <div class="gallery-grid">
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop" alt="SenseRevolt Pattern 1">
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1604871000636-074fa5117945?q=80&w=600&auto=format&fit=crop" alt="SenseRevolt SEL Spread">
-      </div>
-      <div class="gallery-item">
-        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=600&auto=format&fit=crop" alt="SenseRevolt Pattern 2">
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="logo">Sense<span>Revolt</span>™</a>
+        <nav>
+          <ul>
+            <li><a href="#about">Our Story</a></li>
+            <li><a href="#releases">New Releases</a></li>
+            <li><a href="#collections">Collections</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </nav>
+        <div class="nav-actions">
+          <!-- Search icon -->
+          <svg class="nav-icon" viewBox="0 0 24 24" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>
+          <!-- Cart icon -->
+          <svg class="nav-icon" viewBox="0 0 24 24" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        </div>
       </div>
     </div>
-  </section>
+  </header>
 
-  <div class="divider" style="margin-top: 2rem;">· · ·</div>
+  <!-- ① HERO BANNERS -->
+  <section class="banner-section" aria-label="Hero banners">
+    <div class="banner-slides" id="bannerSlides">
 
-  <section class="branches" id="branches">
-    <div class="branches-header">
-      <p class="section-label">Two Directions. One Ecosystem.</p>
-      <h2>Where would you like to go?</h2>
-    </div>
-    <div class="branches-grid">
-      <div class="branch-card branch-mind" id="mind">
-        <div class="branch-number">01</div>
-        <span class="branch-tag">Adults · Somatic</span>
-        <h3>SenseRevolt™<br>Mind</h3>
-        <p class="branch-sub">Body First. Pen Follows.</p>
-        <p>Somatic workbooks for real nervous system states — anxiety, panic, anger, burnout, insomnia, ADHD. Body-first protocols grounded in Somatic Experiencing and Polyvagal research. Original hand-drawn patterns. Measurable results.</p>
-        <a href="https://www.etsy.com/shop/SenseRevoltMind" target="_blank" class="branch-cta">Shop on Etsy <span class="arrow">→</span></a>
+      <!-- Slide 1 -->
+      <div class="banner-slide slide-1">
+        <div class="banner-bg"></div>
+        <div class="banner-overlay"></div>
+        <div class="banner-content">
+          <p class="section-label">New Release · 2025</p>
+          <h1>Somatic Pattern<br><em>Workbook Vol. 2</em></h1>
+          <p>Body-first nervous system regulation. Original hand-drawn patterns grounded in somatic experiencing and polyvagal research.</p>
+          <div class="banner-actions">
+            <a href="#" class="btn btn-solid">Shop Now</a>
+            <a href="#about" class="btn">Learn More</a>
+          </div>
+        </div>
       </div>
-      <div class="branch-card branch-sel" id="sel">
-        <div class="branch-number">02</div>
-        <span class="branch-tag">Kids · SEL</span>
-        <h3>SenseRevolt™<br>SEL</h3>
-        <p class="branch-sub">Big Feelings, Big Fun.</p>
-        <p>SEL activity books and emotional intelligence tools for children. Built on proven CASEL principles — through visuals, original music, kinesthetic activities and real-life social missions. Tools for big feelings, designed for small hands.</p>
-        <a href="https://www.amazon.com" target="_blank" class="branch-cta">Shop on Amazon <span class="arrow">→</span></a>
+
+      <!-- Slide 2 -->
+      <div class="banner-slide slide-2">
+        <div class="banner-bg"></div>
+        <div class="banner-overlay"></div>
+        <div class="banner-content">
+          <p class="section-label">SEL Collection · For Kids</p>
+          <h1>Big Feelings,<br><em>Big Fun</em></h1>
+          <p>Multisensory SEL workbooks built on the CASEL framework — through visuals, music, and real-life missions.</p>
+          <div class="banner-actions">
+            <a href="#" class="btn btn-solid">Explore SEL</a>
+            <a href="#releases" class="btn">View All</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="banner-slide slide-3">
+        <div class="banner-bg"></div>
+        <div class="banner-overlay"></div>
+        <div class="banner-content">
+          <p class="section-label">Adults · Somatic Tools</p>
+          <h1>Body First.<br><em>Pen Follows.</em></h1>
+          <p>When breathing isn't enough — protocols for real nervous system states: anxiety, burnout, ADHD, insomnia.</p>
+          <div class="banner-actions">
+            <a href="#" class="btn btn-solid">Shop Somatic</a>
+            <a href="#" class="btn">Etsy Shop →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Arrows -->
+    <button class="banner-arrow prev" onclick="moveBanner(-1)" aria-label="Previous">&#8592;</button>
+    <button class="banner-arrow next" onclick="moveBanner(1)" aria-label="Next">&#8594;</button>
+
+    <!-- Dots -->
+    <div class="banner-dots">
+      <span class="dot active" onclick="goToBanner(0)"></span>
+      <span class="dot" onclick="goToBanner(1)"></span>
+      <span class="dot" onclick="goToBanner(2)"></span>
+    </div>
+  </section>
+
+  <!-- ② ABOUT US -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-image">
+          <!-- Replace with: <img src="assets/about.jpg" alt="About SenseRevolt"> -->
+          <span class="about-image-label">"Born from the storm."</span>
+        </div>
+        <div class="about-text fade-up">
+          <p class="section-label">Our Story</p>
+          <h2 class="section-title">Born from the Storm.<br><em>Built for the Body.</em></h2>
+          <p>SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine. Living through profoundly turbulent times, we realized that standard wellness advice simply doesn't work when your nervous system is truly overloaded.</p>
+          <p>We combined our personal struggles and professional skills to build a complete emotional ecosystem — real, working tools to protect mental peace for both adults and children.</p>
+          <a href="#" class="btn">Read Our Full Story</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="forms-section" id="newsletter">
-    <p class="section-label">Stay in the loop</p>
-    <h2>Be the first to know</h2>
-    <p style="opacity: 0.8; margin-bottom: 2rem; font-weight: 300;">Leave your email to get updates when our new somatic tools and SEL collections launch.</p>
-    <form action="https://formspree.io/f/maqabqwg" method="POST" style="display: flex; gap: 0.5rem;">
-      <input type="email" name="email" placeholder="Enter your email" required style="border-radius: 100px;">
-      <button type="submit" class="submit-btn" style="width: auto; padding: 0 2rem;">Notify Me</button>
-    </form>
+  <!-- ③ NEW RELEASES -->
+  <section class="releases-section" id="releases">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="section-label">Just Launched</p>
+          <h2 class="section-title">New <em>Releases</em></h2>
+        </div>
+        <a href="#" class="view-all">View All →</a>
+      </div>
+      <div class="products-grid">
+        <div class="product-card p1 fade-up">
+          <div class="product-thumb">
+            <div class="product-thumb-bg"></div>
+            <span class="product-badge">New</span>
+          </div>
+          <p class="product-name">Somatic Pattern Workbook Vol. 2</p>
+          <p class="product-sub">Adults · Nervous System</p>
+          <p class="product-price">$24.99</p>
+        </div>
+        <div class="product-card p2 fade-up">
+          <div class="product-thumb">
+            <div class="product-thumb-bg"></div>
+            <span class="product-badge">New</span>
+          </div>
+          <p class="product-name">Big Feelings Activity Book</p>
+          <p class="product-sub">Kids · SEL · Ages 5–10</p>
+          <p class="product-price">$18.99</p>
+        </div>
+        <div class="product-card p3 fade-up">
+          <div class="product-thumb">
+            <div class="product-thumb-bg"></div>
+            <span class="product-badge">Sale</span>
+          </div>
+          <p class="product-name">Anxiety Protocol Journal</p>
+          <p class="product-sub">Adults · Somatic</p>
+          <p class="product-price"><s>$29.99</s> $21.99</p>
+        </div>
+        <div class="product-card p4 fade-up">
+          <div class="product-thumb">
+            <div class="product-thumb-bg"></div>
+          </div>
+          <p class="product-name">Emotional Compass for Kids</p>
+          <p class="product-sub">Kids · SEL · Ages 3–8</p>
+          <p class="product-price">$16.99</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <section class="forms-section" id="contact" style="padding-top: 0;">
-    <p class="section-label">Get in Touch</p>
-    <h2>Ready to Connect?</h2>
-    <form action="https://formspree.io/f/maqabqwg" method="POST" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem;">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
-      <button type="submit" class="submit-btn" style="background: transparent; color: var(--gold); border: 1px solid var(--gold);">Send Message</button>
-    </form>
+  <!-- ④ VIDEO BLOCK -->
+  <section class="video-section" id="video">
+    <div class="container">
+      <div class="video-inner">
+        <div class="video-wrap">
+          <div class="video-placeholder">
+            <!-- Replace with: <iframe src="https://www.youtube.com/embed/YOUR_ID" ...></iframe> -->
+            <div class="play-btn" onclick="loadVideo()">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--accent)" stroke="none"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="video-text fade-up">
+          <p class="section-label">Inside the Ecosystem</p>
+          <h2 class="section-title">Smart Visual<br><em>Language</em></h2>
+          <p>Watch how our somatic patterns and SEL tools work — and why they reach the body in ways that words alone can't. A tour of the creative process behind SenseRevolt™.</p>
+          <a href="#" class="btn">Watch on YouTube →</a>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <a href="#top" class="back-to-top" title="Back to top">↑</a>
+  <!-- ⑤ BEST SELLER -->
+  <section class="bestseller-section" id="bestseller">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="section-label">Fan Favourites</p>
+          <h2 class="section-title">Best <em>Sellers</em></h2>
+        </div>
+        <a href="#" class="view-all">View All →</a>
+      </div>
+      <div class="bestseller-inner">
+        <div class="bestseller-featured">
+          <div class="bestseller-image">
+            <span class="bestseller-badge">#1 Bestseller</span>
+            <!-- Replace with: <img src="assets/bestseller.jpg" alt=""> -->
+          </div>
+          <h3 class="bestseller-name">Somatic Pattern Workbook Vol. 1</h3>
+          <p class="bestseller-price">$24.99</p>
+          <a href="#" class="btn">Add to Cart</a>
+        </div>
+        <div class="bestseller-list">
+          <div class="bestseller-item">
+            <div class="item-thumb t1"></div>
+            <div class="item-info">
+              <p class="item-name">Grounding Ritual Journal</p>
+              <p class="item-sub">Adults · Somatic</p>
+            </div>
+            <p class="item-price">$22.99</p>
+          </div>
+          <div class="bestseller-item">
+            <div class="item-thumb t2"></div>
+            <div class="item-info">
+              <p class="item-name">Big Feelings Starter Kit</p>
+              <p class="item-sub">Kids · SEL · Ages 4–9</p>
+            </div>
+            <p class="item-price">$34.99</p>
+          </div>
+          <div class="bestseller-item">
+            <div class="item-thumb t3"></div>
+            <div class="item-info">
+              <p class="item-name">Burnout Recovery Workbook</p>
+              <p class="item-sub">Adults · Nervous System</p>
+            </div>
+            <p class="item-price">$26.99</p>
+          </div>
+          <div class="bestseller-item">
+            <div class="item-thumb t4"></div>
+            <div class="item-info">
+              <p class="item-name">My Emotions Activity Book</p>
+              <p class="item-sub">Kids · SEL · Ages 6–12</p>
+            </div>
+            <p class="item-price">$19.99</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ⑥ COLLECTIONS -->
+  <section class="collections-section" id="collections">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="section-label">Browse</p>
+          <h2 class="section-title">Our <em>Collections</em></h2>
+        </div>
+        <a href="#" class="view-all">View All →</a>
+      </div>
+    </div>
+    <div class="collections-grid" style="padding: 0 32px; max-width: 1200px; margin: 0 auto;">
+      <div class="collection-card c1">
+        <div class="collection-bg"></div>
+        <div class="collection-overlay"></div>
+        <div class="collection-info">
+          <p class="collection-name">Somatic Workbooks</p>
+          <p class="collection-count">12 Products</p>
+        </div>
+      </div>
+      <div class="collection-card c2">
+        <div class="collection-bg"></div>
+        <div class="collection-overlay"></div>
+        <div class="collection-info">
+          <p class="collection-name">SEL for Kids</p>
+          <p class="collection-count">8 Products</p>
+        </div>
+      </div>
+      <div class="collection-card c3">
+        <div class="collection-bg"></div>
+        <div class="collection-overlay"></div>
+        <div class="collection-info">
+          <p class="collection-name">Starter Bundles</p>
+          <p class="collection-count">4 Products</p>
+        </div>
+      </div>
+      <div class="collection-card c4">
+        <div class="collection-bg"></div>
+        <div class="collection-overlay"></div>
+        <div class="collection-info">
+          <p class="collection-name">Digital Downloads</p>
+          <p class="collection-count">6 Products</p>
+        </div>
+      </div>
+      <div class="collection-card c5">
+        <div class="collection-bg"></div>
+        <div class="collection-overlay"></div>
+        <div class="collection-info">
+          <p class="collection-name">Gift Sets</p>
+          <p class="collection-count">3 Products</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑦ BLOG POSTS -->
+  <section class="blog-section" id="blog">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="section-label">From the Journal</p>
+          <h2 class="section-title">Blog <em>Posts</em></h2>
+        </div>
+        <a href="#" class="view-all">View All →</a>
+      </div>
+      <div class="blog-grid">
+        <div class="blog-card b1 fade-up">
+          <div class="blog-thumb"><div class="blog-thumb-bg"></div></div>
+          <p class="blog-cat">Somatic Tools</p>
+          <h3 class="blog-title">Why Your Body Needs Pattern Before Words</h3>
+          <p class="blog-excerpt">When the nervous system is overwhelmed, language processing shuts down first. Here's how visual somatic input bypasses that block.</p>
+          <p class="blog-meta"><span>Yani</span> · April 2025 · 5 min read</p>
+        </div>
+        <div class="blog-card b2 fade-up">
+          <div class="blog-thumb"><div class="blog-thumb-bg"></div></div>
+          <p class="blog-cat">SEL for Kids</p>
+          <h3 class="blog-title">Teaching Emotional Vocabulary Without the Lecture</h3>
+          <p class="blog-excerpt">Children learn emotional language through play, movement, and choice — not through being told what to feel. Here's our approach.</p>
+          <p class="blog-meta"><span>Lisi</span> · March 2025 · 4 min read</p>
+        </div>
+        <div class="blog-card b3 fade-up">
+          <div class="blog-thumb"><div class="blog-thumb-bg"></div></div>
+          <p class="blog-cat">Our Story</p>
+          <h3 class="blog-title">How War Became the Origin Story of SenseRevolt™</h3>
+          <p class="blog-excerpt">We didn't plan to create a wellness brand. But when standard coping tools fail in the middle of an air raid, you build your own.</p>
+          <p class="blog-meta"><span>Yani & Lisi</span> · February 2025 · 7 min read</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑧ FEATURED ON -->
+  <section class="featured-section" id="press">
+    <div class="container">
+      <p class="section-label">As Seen In</p>
+      <div class="logos-track">
+        <span class="logo-item">Forbes</span>
+        <span class="logo-item">Mindful Magazine</span>
+        <span class="logo-item">Etsy Editors</span>
+        <span class="logo-item">Psychology Today</span>
+        <span class="logo-item">The Guardian</span>
+        <span class="logo-item">Amazon Best Sellers</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑨ SNEAK PEEKS / COZY MOMENTS -->
+  <section class="sneak-section" id="gallery">
+    <div class="container">
+      <div class="sneak-title-wrap">
+        <p class="section-label" style="text-align:center">Community Gallery</p>
+        <h2 class="section-title" style="text-align:center">Sneak <em>Peeks</em></h2>
+      </div>
+    </div>
+    <div class="sneak-grid" style="max-width:1200px;margin:0 auto;padding:0 32px;">
+      <div class="sneak-item s1"></div>
+      <div class="sneak-item s2"></div>
+      <div class="sneak-item s3"></div>
+      <div class="sneak-item s4"></div>
+      <div class="sneak-item s5"></div>
+    </div>
+  </section>
+
+  <!-- ⑩ FAQ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="faq-inner">
+        <div>
+          <p class="section-label">Got Questions</p>
+          <h2 class="section-title">Frequently<br><em>Asked</em></h2>
+          <p style="color:var(--muted);margin-top:20px;line-height:1.8;">Don't see your question here? Write us at <a href="mailto:support@senserevolt.com" style="color:var(--accent)">support@senserevolt.com</a></p>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Are these books available as physical copies?
+              <svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer"><p>Yes! Our physical workbooks are printed on premium paper and available via our Etsy shop and Amazon. Digital PDF versions are also available for instant download.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              What age range are the SEL books designed for?
+              <svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer"><p>Our SEL collection is designed for children aged 3–12, with specific books targeted at different age groups. Each product page clearly indicates the recommended age range.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Do I need any experience with somatic practices?
+              <svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer"><p>Not at all. Our workbooks are designed to guide you from zero — each session includes clear instructions, breathing prompts, and body-check-in cues. No prior knowledge needed.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Do you ship internationally?
+              <svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer"><p>Yes, we ship worldwide through our Etsy and Amazon storefronts. Shipping times vary by location. Digital downloads are available anywhere instantly.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" onclick="toggleFaq(this)">
+              Can these tools be used by therapists or educators?
+              <svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer"><p>Absolutely. Many therapists, school counselors, and educators use our tools in sessions and classrooms. Contact us for bulk pricing and licensing options.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑪ SUBSCRIBE -->
+  <section class="subscribe-section" id="subscribe">
+    <div class="container">
+      <p class="section-label">Stay Connected</p>
+      <h2 class="section-title">Subscribe for<br><em>Updates</em></h2>
+      <p>Be the first to know when new somatic tools and SEL collections launch.<br>No spam. Just meaningful updates.</p>
+      <div class="subscribe-form">
+        <input type="email" placeholder="your@email.com" />
+        <button class="btn btn-solid">Subscribe</button>
+      </div>
+      <p class="subscribe-note">We respect your privacy. Unsubscribe anytime.</p>
+    </div>
+  </section>
+
+  <!-- ⑫ FOOTER -->
   <footer>
-    <div>
-      <div class="footer-logo">SenseRevolt™</div>
-      <div class="footer-tagline">Two sisters. One ecosystem.</div>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <p class="logo">Sense<span style="color:var(--accent)">Revolt</span>™</p>
+          <p>Two sisters from Ukraine. One ecosystem built to protect mental peace — for adults and children — when standard wellness advice isn't enough.</p>
+          <div class="social-links">
+            <a href="#" class="social-link" aria-label="Instagram">IG</a>
+            <a href="#" class="social-link" aria-label="YouTube">YT</a>
+            <a href="#" class="social-link" aria-label="Pinterest">PT</a>
+            <a href="#" class="social-link" aria-label="Etsy">Et</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="#">Somatic Workbooks</a></li>
+            <li><a href="#">SEL for Kids</a></li>
+            <li><a href="#">Digital Downloads</a></li>
+            <li><a href="#">Bundles & Gift Sets</a></li>
+            <li><a href="#">New Releases</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Info</h4>
+          <ul>
+            <li><a href="#">Our Story</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Gallery</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4>
+          <ul>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">For Educators</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 SenseRevolt™ · Lisi Vetta Studio · All rights reserved</span>
+        <div style="display:flex;gap:24px;">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="https://etsy.com" target="_blank">Etsy Shop</a>
+          <a href="https://amazon.com" target="_blank">Amazon</a>
+        </div>
+      </div>
     </div>
-    <ul class="footer-links">
-      <li><a href="mailto:support@senserevolt.com">Support</a></li>
-      <li><a href="mailto:mind@senserevolt.com">Somatic</a></li>
-      <li><a href="https://www.etsy.com/shop/SenseRevoltMind" target="_blank">Etsy</a></li>
-      <li><a href="https://www.amazon.com" target="_blank">Amazon</a></li>
-    </ul>
-    <p class="footer-copy">© 2026 SenseRevolt™ · Lisi Vetta Studio · All rights reserved</p>
   </footer>
 
+  <script>
+    // ── BANNER CAROUSEL ──────────────────────────
+    let current = 0;
+    const total = 3;
+    const slides = document.getElementById('bannerSlides');
+    const dots = document.querySelectorAll('.dot');
+
+    function updateBanner() {
+      slides.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    }
+    function moveBanner(dir) {
+      current = (current + dir + total) % total;
+      updateBanner();
+    }
+    function goToBanner(i) {
+      current = i;
+      updateBanner();
+    }
+    // Auto-advance every 5s
+    setInterval(() => moveBanner(1), 5000);
+
+    // ── FAQ ACCORDION ────────────────────────────
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // ── SCROLL ANIMATIONS ────────────────────────
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // ── VIDEO PLACEHOLDER ────────────────────────
+    function loadVideo() {
+      const wrap = document.querySelector('.video-placeholder');
+      wrap.innerHTML = '<iframe width="100%" height="100%" src="https://www.youtube.com/embed/zjF7COQAqOE?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="position:absolute;inset:0;"></iframe>';
+    }
+  </script>
 </body>
 </html>
-
