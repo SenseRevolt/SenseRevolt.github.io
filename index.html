@@ -1,17 +1,13 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>SenseRevolt™</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --bg:#0e0e0c;--surface:#151512;--border:#2a2a26;--text:#e8e4db;
-      --muted:#7a7568;--accent:#c8b89a;--accent2:#8a6f52;--white:#f5f2ec;
-      --serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',sans-serif;
-    }
+    :root{--bg:#0e0e0c;--surface:#151512;--border:#2a2a26;--text:#e8e4db;--muted:#7a7568;--accent:#c8b89a;--accent2:#8a6f52;--white:#f5f2ec;--serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',sans-serif;}
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.65;overflow-x:hidden}
@@ -30,31 +26,57 @@
     .view-all{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:2px;transition:color .2s,border-color .2s}
     .view-all:hover{color:var(--accent);border-color:var(--accent)}
 
-    /* TOP BAR */
-    .topbar{background:var(--accent2);text-align:center;padding:9px 16px;font-size:11px;letter-spacing:.12em;color:var(--white)}
+    /* ── TOPBAR ── */
+    .topbar{background:var(--accent2);text-align:center;padding:9px 16px;font-size:11px;letter-spacing:.1em;color:var(--white)}
 
-    /* HEADER */
-    header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border)}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
-    .logo{font-family:var(--serif);font-size:1.4rem;font-weight:600;letter-spacing:.04em;color:var(--white)}
+    /* ── HEADER ── */
+    header{position:sticky;top:0;z-index:200;background:var(--bg);border-bottom:1px solid var(--border)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;gap:24px}
+    .logo{font-family:var(--serif);font-size:1.4rem;font-weight:600;letter-spacing:.04em;color:var(--white);white-space:nowrap}
     .logo span{color:var(--accent)}
-    nav ul{display:flex;gap:36px}
-    nav a{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);transition:color .2s}
-    nav a:hover{color:var(--white)}
-    .nav-actions{display:flex;align-items:center;gap:20px}
-    .nav-icon{width:18px;height:18px;stroke:var(--muted);fill:none;cursor:pointer;transition:stroke .2s}
+    .nav-icon{width:18px;height:18px;stroke:var(--muted);fill:none;cursor:pointer;transition:stroke .2s;flex-shrink:0}
     .nav-icon:hover{stroke:var(--white)}
 
-    /* ① BANNER */
+    /* ── MEGA MENU ── */
+    .main-nav{display:flex;align-items:center;gap:4px}
+    .nav-item{position:relative}
+    .nav-link{display:flex;align-items:center;gap:5px;padding:8px 14px;font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);transition:color .2s;white-space:nowrap;cursor:pointer;border:none;background:none;font-family:var(--sans)}
+    .nav-link:hover,.nav-item:hover .nav-link{color:var(--white)}
+    .nav-arrow{width:10px;height:10px;stroke:currentColor;fill:none;transition:transform .2s;flex-shrink:0}
+    .nav-item:hover .nav-arrow{transform:rotate(180deg)}
+    /* dropdown */
+    .nav-dropdown{position:absolute;top:calc(100% + 1px);left:0;min-width:220px;background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--accent);padding:8px 0;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s;z-index:300}
+    .nav-item:hover .nav-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+    .nav-dropdown a{display:block;padding:10px 20px;font-size:12px;color:var(--muted);letter-spacing:.06em;transition:color .2s,background .2s}
+    .nav-dropdown a:hover{color:var(--white);background:rgba(200,184,154,.06)}
+    .nav-dropdown .drop-label{padding:10px 20px 4px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent2);font-weight:600}
+    .nav-dropdown .drop-divider{border:none;border-top:1px solid var(--border);margin:6px 0}
+
+    /* ── LANGUAGE SWITCHER ── */
+    .lang-switcher{position:relative;margin-left:8px}
+    .lang-btn{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.1em;cursor:pointer;transition:border-color .2s,color .2s;white-space:nowrap}
+    .lang-btn:hover{border-color:var(--accent);color:var(--white)}
+    .lang-flag{font-size:14px;line-height:1}
+    .lang-code{font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+    .lang-chevron{width:10px;height:10px;stroke:currentColor;fill:none;transition:transform .2s}
+    .lang-switcher.open .lang-chevron{transform:rotate(180deg)}
+    .lang-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--accent);padding:6px 0;min-width:150px;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .2s,transform .2s,visibility .2s;z-index:300}
+    .lang-switcher.open .lang-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
+    .lang-option{display:flex;align-items:center;gap:10px;padding:9px 16px;font-size:12px;color:var(--muted);cursor:pointer;transition:color .2s,background .2s;letter-spacing:.04em}
+    .lang-option:hover{color:var(--white);background:rgba(200,184,154,.06)}
+    .lang-option.active{color:var(--accent)}
+    .lang-option .flag{font-size:16px}
+
+    /* ── BANNER ── */
     .banner-section{position:relative;overflow:hidden}
     .banner-slides{display:flex;transition:transform .7s cubic-bezier(.77,0,.18,1)}
-    .banner-slide{min-width:100%;height:clamp(480px,70vh,760px);position:relative;display:flex;align-items:flex-end}
+    .banner-slide{min-width:100%;height:clamp(480px,72vh,780px);position:relative;display:flex;align-items:flex-end}
     .banner-bg{position:absolute;inset:0;background-size:cover;background-position:center}
     .slide-1 .banner-bg{background-image:url('clap-and-shine-banner.jpg');background-position:center top}
     .slide-2 .banner-bg{background:linear-gradient(135deg,#12161a,#1a2230 50%,#0e0e0c)}
     .slide-3 .banner-bg{background:linear-gradient(135deg,#141210,#251d15 50%,#0e0e0c)}
-    .banner-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,14,12,.85) 0%,rgba(14,14,12,.2) 60%,transparent 100%)}
-    .banner-content{position:relative;z-index:2;padding:64px;max-width:600px}
+    .banner-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,14,12,.88) 0%,rgba(14,14,12,.15) 65%,transparent 100%)}
+    .banner-content{position:relative;z-index:2;padding:64px;max-width:620px}
     .banner-content .section-label{color:var(--accent)}
     .banner-content h1{font-family:var(--serif);font-size:clamp(2.4rem,6vw,4.8rem);font-weight:300;line-height:1.1;color:var(--white);margin:10px 0 20px}
     .banner-content h1 em{font-style:italic;color:var(--accent)}
@@ -68,22 +90,22 @@
     .banner-arrow.prev{left:28px}
     .banner-arrow.next{right:28px}
 
-    /* ② ABOUT */
+    /* ── ABOUT ── */
     .about-section{padding:120px 0;border-top:1px solid var(--border)}
     .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-    .about-image{aspect-ratio:3/4;background:var(--surface);position:relative;overflow:hidden}
+    .about-image{aspect-ratio:3/4;background:var(--surface);overflow:hidden}
     .about-image img{width:100%;height:100%;object-fit:cover}
     .about-text .section-label{margin-bottom:20px}
     .about-text .section-title{margin-bottom:28px}
     .about-text p{color:var(--muted);margin-bottom:16px;font-size:15px;line-height:1.8}
     .about-text .btn{margin-top:20px}
 
-    /* ③ NEW RELEASES */
+    /* ── NEW RELEASES ── */
     .releases-section{padding:100px 0;border-top:1px solid var(--border)}
     .products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
     .product-card{cursor:pointer;display:block}
     .product-thumb{aspect-ratio:3/4;background:var(--surface);margin-bottom:16px;overflow:hidden;position:relative}
-    .product-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.25,.46,.45,.94)}
+    .product-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
     .product-card:hover .product-thumb img{transform:scale(1.04)}
     .product-thumb-bg{position:absolute;inset:0;transition:transform .5s}
     .product-card:hover .product-thumb-bg{transform:scale(1.04)}
@@ -97,7 +119,7 @@
     .product-price{font-size:13px;color:var(--accent);font-weight:500}
     .product-price s{color:var(--muted);margin-right:6px}
 
-    /* ④ VIDEO */
+    /* ── VIDEO ── */
     .video-section{padding:100px 0;border-top:1px solid var(--border)}
     .video-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
     .video-wrap{aspect-ratio:16/9;background:var(--surface);position:relative;overflow:hidden}
@@ -105,23 +127,22 @@
     .play-btn{width:72px;height:72px;border:1.5px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s,transform .3s}
     .play-btn:hover{background:var(--accent);transform:scale(1.06)}
     .play-btn svg{margin-left:4px}
-    .video-text .section-label{margin-bottom:20px}
-    .video-text .section-title{margin-bottom:24px}
-    .video-text p{color:var(--muted);line-height:1.8;margin-bottom:32px}
+    .video-text .section-title{margin:12px 0 20px}
+    .video-text p{color:var(--muted);line-height:1.8;margin-bottom:28px}
 
-    /* ⑤ BEST SELLER */
+    /* ── BESTSELLER ── */
     .bestseller-section{padding:100px 0;border-top:1px solid var(--border);background:var(--surface)}
     .bestseller-inner{display:grid;grid-template-columns:380px 1fr;gap:80px;align-items:start}
     .bestseller-featured{position:sticky;top:100px}
     .bestseller-image{aspect-ratio:1/1;background:var(--bg);margin-bottom:24px;position:relative;overflow:hidden}
     .bestseller-image img{width:100%;height:100%;object-fit:cover}
-    .bestseller-badge{position:absolute;top:0;left:0;padding:8px 18px;background:var(--accent2);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--white);z-index:2}
+    .bestseller-badge-tag{position:absolute;top:0;left:0;padding:8px 18px;background:var(--accent2);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--white);z-index:2}
     .bestseller-name{font-family:var(--serif);font-size:1.6rem;font-weight:300;color:var(--white);margin-bottom:10px}
     .bestseller-price{color:var(--accent);font-size:1.1rem;margin-bottom:20px}
     .bestseller-list{display:flex;flex-direction:column}
     .bestseller-item{display:grid;grid-template-columns:80px 1fr auto;gap:20px;align-items:center;padding:20px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:opacity .2s}
     .bestseller-item:hover{opacity:.75}
-    .item-thumb{aspect-ratio:1;overflow:hidden}
+    .item-thumb{aspect-ratio:1}
     .t1{background:linear-gradient(135deg,#1e1810,#2d2318)}
     .t2{background:linear-gradient(135deg,#12161e,#1a2230)}
     .t3{background:linear-gradient(135deg,#1a1010,#2d1818)}
@@ -130,20 +151,20 @@
     .item-sub{font-size:11px;color:var(--muted)}
     .item-price{font-size:13px;color:var(--accent);white-space:nowrap}
 
-    /* ⑥ COLLECTIONS — 6 рівних 3×2 */
+    /* ── COLLECTIONS 3×2 ── */
     .collections-section{padding:100px 0;border-top:1px solid var(--border)}
     .collections-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
     .collection-card{aspect-ratio:4/5;position:relative;overflow:hidden;cursor:pointer;border:1px solid var(--border);transition:border-color .3s}
     .collection-card:hover{border-color:var(--accent)}
     .collection-bg{position:absolute;inset:0;overflow:hidden}
-    .collection-bg img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.25,.46,.45,.94)}
+    .collection-bg img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
     .collection-card:hover .collection-bg img{transform:scale(1.04)}
     .collection-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,14,12,.88) 0%,rgba(14,14,12,.1) 50%,transparent 100%)}
     .collection-info{position:absolute;bottom:24px;left:24px;right:24px;z-index:2}
     .collection-name{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:var(--white);margin-bottom:4px}
     .collection-count{font-size:11px;color:var(--muted);letter-spacing:.1em}
 
-    /* ⑦ BLOG */
+    /* ── BLOG ── */
     .blog-section{padding:100px 0;border-top:1px solid var(--border)}
     .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
     .blog-card{cursor:pointer}
@@ -159,14 +180,14 @@
     .blog-excerpt{font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:16px}
     .blog-meta{font-size:11px;color:var(--muted)}
 
-    /* ⑧ FEATURED ON */
+    /* ── FEATURED ON ── */
     .featured-section{padding:80px 0;border-top:1px solid var(--border);background:var(--surface);text-align:center}
     .featured-section .section-label{text-align:center;margin-bottom:48px}
-    .logos-track{display:flex;gap:64px;align-items:center;justify-content:center;flex-wrap:wrap}
+    .logos-track{display:flex;gap:56px;align-items:center;justify-content:center;flex-wrap:wrap}
     .logo-item{font-family:var(--serif);font-size:1.2rem;font-weight:300;font-style:italic;color:var(--border);letter-spacing:.06em;transition:color .3s}
     .logo-item:hover{color:var(--muted)}
 
-    /* ⑨ SNEAK PEEKS */
+    /* ── SNEAK PEEKS ── */
     .sneak-section{padding:100px 0;border-top:1px solid var(--border)}
     .sneak-title-wrap{text-align:center;margin-bottom:56px}
     .sneak-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;max-width:1200px;margin:0 auto;padding:0 32px}
@@ -179,7 +200,7 @@
     .s4{background:linear-gradient(135deg,#101a10,#182d18)}
     .s5{background:linear-gradient(135deg,#1a1018,#2d1828)}
 
-    /* ⑩ FAQ */
+    /* ── FAQ ── */
     .faq-section{padding:100px 0;border-top:1px solid var(--border)}
     .faq-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
     .faq-list{display:flex;flex-direction:column}
@@ -192,17 +213,18 @@
     .faq-item.open .faq-answer{max-height:200px}
     .faq-answer p{color:var(--muted);font-size:14px;line-height:1.8;padding-bottom:22px}
 
-    /* ⑪ SUBSCRIBE */
+    /* ── SUBSCRIBE ── */
     .subscribe-section{padding:120px 0;border-top:1px solid var(--border);text-align:center;background:var(--surface);position:relative;overflow:hidden}
     .subscribe-section::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(200,184,154,.07) 0%,transparent 70%);pointer-events:none}
-    .sub-p{color:var(--muted);margin:16px 0 40px}
+    .subscribe-section .section-title{margin-bottom:16px}
+    .sub-p{color:var(--muted);margin-bottom:40px}
     .subscribe-form{display:flex;max-width:480px;margin:0 auto 16px}
     .subscribe-form input{flex:1;padding:14px 20px;background:var(--bg);border:1px solid var(--border);border-right:none;color:var(--text);font-family:var(--sans);font-size:13px;outline:none;transition:border-color .2s}
     .subscribe-form input:focus{border-color:var(--accent)}
     .subscribe-form input::placeholder{color:var(--muted)}
     .subscribe-note{font-size:11px;color:var(--muted)}
 
-    /* ⑫ FOOTER */
+    /* ── FOOTER ── */
     footer{border-top:1px solid var(--border);padding:64px 0 32px}
     .footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px}
     .footer-logo{font-family:var(--serif);font-size:1.2rem;font-weight:600;color:var(--white);margin-bottom:16px;display:block}
@@ -217,28 +239,27 @@
     .footer-col a:hover{color:var(--white)}
     .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)}
     .fbl{display:flex;gap:24px}
-    .fbl a{transition:color .2s}
     .fbl a:hover{color:var(--white)}
 
-    /* FADE UP */
+    /* ── ANIMATIONS ── */
     .fade-up{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
     .fade-up.visible{opacity:1;transform:none}
 
-    /* RESPONSIVE */
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){.main-nav{gap:0}.nav-link{padding:8px 10px;font-size:10px}}
     @media(max-width:900px){
-      .products-grid{grid-template-columns:repeat(2,1fr)}
-      .collections-grid{grid-template-columns:repeat(2,1fr)}
+      .products-grid,.collections-grid{grid-template-columns:repeat(2,1fr)}
       .about-inner,.video-inner,.faq-inner,.bestseller-inner{grid-template-columns:1fr;gap:48px}
       .footer-inner{grid-template-columns:1fr 1fr}
       .sneak-grid{grid-template-columns:repeat(3,1fr)}
       .blog-grid{grid-template-columns:1fr 1fr}
     }
+    @media(max-width:768px){.main-nav{display:none}}
     @media(max-width:600px){
       .container{padding:0 20px}
       .banner-content{padding:40px 24px}
-      nav ul{display:none}
       .collections-grid{grid-template-columns:repeat(2,1fr)}
-      .products-grid{grid-template-columns:repeat(2,1fr);gap:16px}
+      .products-grid{gap:16px}
       .blog-grid{grid-template-columns:1fr}
       .footer-inner{grid-template-columns:1fr}
       .sneak-grid{grid-template-columns:repeat(2,1fr);padding:0 20px}
@@ -250,23 +271,74 @@
 </head>
 <body>
 
-<div class="topbar">✦ New: Christmas Kindness & Joy — Interactive SEL Activity Book for Kids 4–8 · Free shipping over $45 ✦</div>
+<!-- TOPBAR -->
+<div class="topbar" data-i18n="topbar">✦ New: Christmas Kindness & Joy — Interactive SEL Activity Book for Kids 4–8 · Free shipping over $45 ✦</div>
 
+<!-- HEADER -->
 <header>
   <div class="container">
     <div class="nav-inner">
       <a href="index.html" class="logo">Sense<span>Revolt</span>™</a>
-      <nav><ul>
-        <li><a href="#about">Our Story</a></li>
-        <li><a href="#releases">New Releases</a></li>
-        <li><a href="#collections">Collections</a></li>
-        <li><a href="#blog">Blog</a></li>
-        <li><a href="#faq">FAQ</a></li>
-      </ul></nav>
-      <div class="nav-actions">
+
+      <!-- MEGA MENU -->
+      <nav class="main-nav">
+
+        <div class="nav-item">
+          <button class="nav-link" data-i18n="nav_shop">Shop
+            <svg class="nav-arrow" viewBox="0 0 24 24" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="nav-dropdown">
+            <span class="drop-label" data-i18n="nav_somatic">Somatic for Adults</span>
+            <a href="#" data-i18n="nav_somatic_anger">Anger & Frustration</a>
+            <a href="#" data-i18n="nav_somatic_anxiety">Anxiety & Stress</a>
+            <a href="#" data-i18n="nav_somatic_burnout">Burnout & Fatigue</a>
+            <hr class="drop-divider"/>
+            <span class="drop-label" data-i18n="nav_kids">SEL for Kids</span>
+            <a href="#" data-i18n="nav_kids_36">Ages 3–6</a>
+            <a href="#" data-i18n="nav_kids_612">Ages 6–12</a>
+            <hr class="drop-divider"/>
+            <a href="#" data-i18n="nav_digital">Digital Downloads</a>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <a class="nav-link" href="#about" data-i18n="nav_story">Our Story</a>
+        </div>
+        <div class="nav-item">
+          <a class="nav-link" href="#releases" data-i18n="nav_releases">New Releases</a>
+        </div>
+        <div class="nav-item">
+          <a class="nav-link" href="#collections" data-i18n="nav_collections">Collections</a>
+        </div>
+        <div class="nav-item">
+          <a class="nav-link" href="#blog" data-i18n="nav_blog">Blog</a>
+        </div>
+        <div class="nav-item">
+          <a class="nav-link" href="#faq" data-i18n="nav_faq">FAQ</a>
+        </div>
+      </nav>
+
+      <!-- RIGHT: SEARCH + LANG -->
+      <div style="display:flex;align-items:center;gap:16px">
         <svg class="nav-icon" viewBox="0 0 24 24" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>
-        <svg class="nav-icon" viewBox="0 0 24 24" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+
+        <!-- LANGUAGE DROPDOWN -->
+        <div class="lang-switcher" id="langSwitcher">
+          <button class="lang-btn" onclick="toggleLang()" id="langBtn">
+            <span class="lang-flag" id="currentFlag">🇬🇧</span>
+            <span class="lang-code" id="currentCode">EN</span>
+            <svg class="lang-chevron" viewBox="0 0 24 24" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="lang-dropdown" id="langDropdown">
+            <div class="lang-option" onclick="setLang('en')"><span class="flag">🇬🇧</span> English</div>
+            <div class="lang-option" onclick="setLang('es')"><span class="flag">🇪🇸</span> Español</div>
+            <div class="lang-option" onclick="setLang('uk')"><span class="flag">🇺🇦</span> Українська</div>
+            <div class="lang-option" onclick="setLang('de')"><span class="flag">🇩🇪</span> Deutsch</div>
+            <div class="lang-option" onclick="setLang('fr')"><span class="flag">🇫🇷</span> Français</div>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </header>
@@ -275,40 +347,37 @@
 <section class="banner-section">
   <div class="banner-slides" id="bannerSlides">
     <div class="banner-slide slide-1">
-      <div class="banner-bg"></div>
-      <div class="banner-overlay"></div>
+      <div class="banner-bg"></div><div class="banner-overlay"></div>
       <div class="banner-content">
         <p class="section-label">SEL Song · Official Audio</p>
         <h1>Clap and Shine —<br><em>It's Christmas Time!</em></h1>
-        <p>From "Christmas Kindness & Joy" — Interactive SEL Activity Book for Kids 4–8. Love the song? Get the book!</p>
+        <p>From "Christmas Kindness & Joy" — Interactive SEL Activity Book for Kids 4–8.</p>
         <div class="banner-actions">
-          <a href="product.html" class="assets/clap-and-shine-banner.jpg">Get the Book</a>
+          <a href="product.html" class="btn btn-solid" data-i18n="buy_etsy">Buy on Etsy</a>
           <a href="#video" class="btn">Watch Video</a>
         </div>
       </div>
     </div>
     <div class="banner-slide slide-2">
-      <div class="banner-bg"></div>
-      <div class="banner-overlay"></div>
+      <div class="banner-bg"></div><div class="banner-overlay"></div>
       <div class="banner-content">
         <p class="section-label">Adults · Somatic Tools</p>
         <h1>Body First.<br><em>Pen Follows.</em></h1>
-        <p>When breathing isn't enough — somatic workbooks for real nervous system states: anxiety, burnout, ADHD, insomnia.</p>
+        <p>When breathing isn't enough — somatic workbooks for real nervous system states.</p>
         <div class="banner-actions">
-          <a href="#releases" class="btn btn-solid">Shop Somatic</a>
-          <a href="#about" class="btn">Our Story</a>
+          <a href="#releases" class="btn btn-solid" data-i18n="nav_releases">New Releases</a>
+          <a href="#about" class="btn" data-i18n="nav_story">Our Story</a>
         </div>
       </div>
     </div>
     <div class="banner-slide slide-3">
-      <div class="banner-bg"></div>
-      <div class="banner-overlay"></div>
+      <div class="banner-bg"></div><div class="banner-overlay"></div>
       <div class="banner-content">
         <p class="section-label">Kids · SEL Collection</p>
         <h1>Big Feelings,<br><em>Big Fun.</em></h1>
-        <p>Multisensory SEL workbooks — through visuals, original music, kinesthetic activities and real-life social missions.</p>
+        <p>Multisensory SEL workbooks — through visuals, original music and real-life social missions.</p>
         <div class="banner-actions">
-          <a href="#releases" class="assets/clap-and-shine-banner.jpg">Explore SEL</a>
+          <a href="#releases" class="btn btn-solid" data-i18n="nav_releases">New Releases</a>
           <a href="#" class="btn">Amazon →</a>
         </div>
       </div>
@@ -327,13 +396,13 @@
 <section class="about-section" id="about">
   <div class="container">
     <div class="about-inner">
-      <div class="about-image"><img src="assets/christmas-book-cover.png" alt="Christmas Kindness & Joy" /></div>
+      <div class="about-image"><img src="christmas-book-cover.png" alt="SenseRevolt Book"/></div>
       <div class="about-text fade-up">
-        <p class="section-label">Our Story</p>
-        <h2 class="section-title">Born from the Storm.<br><em>Built for the Body.</em></h2>
-        <p>SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine. Living through profoundly turbulent times, we realized that standard wellness advice simply doesn't work when your nervous system is truly overloaded.</p>
-        <p>We combined our personal struggles and professional skills to build a complete emotional ecosystem — real, working tools to protect mental peace for both adults and children.</p>
-        <a href="#" class="btn">Read Our Full Story</a>
+        <p class="section-label" data-i18n="about_label">Our Story</p>
+        <h2 class="section-title"><span data-i18n="about_title">Born from the Storm.</span><br><em data-i18n="about_title_em">Built for the Body.</em></h2>
+        <p data-i18n="about_p1">SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine.</p>
+        <p data-i18n="about_p2">We combined our personal struggles and professional skills to build a complete emotional ecosystem.</p>
+        <a href="#" class="btn" data-i18n="about_btn">Read Our Full Story</a>
       </div>
     </div>
   </div>
@@ -343,36 +412,27 @@
 <section class="releases-section" id="releases">
   <div class="container">
     <div class="section-header">
-      <div><p class="section-label">Just Launched</p><h2 class="section-title">New <em>Releases</em></h2></div>
-      <a href="#" class="view-all">View All →</a>
+      <div><p class="section-label" data-i18n="releases_label">Just Launched</p><h2 class="section-title"><span data-i18n="releases_title">New</span> <em data-i18n="releases_title_em">Releases</em></h2></div>
+      <a href="#" class="view-all" data-i18n="view_all">View All →</a>
     </div>
     <div class="products-grid">
       <a href="product.html" class="product-card">
-        <div class="product-thumb">
-          <img src="assets/christmas-book-cover.png" alt="Christmas Kindness & Joy" />
-          <span class="product-badge">New</span>
-        </div>
+        <div class="product-thumb"><img src="christmas-book-cover.png" alt="Christmas Kindness & Joy"/><span class="product-badge" data-i18n="product_new">New Release</span></div>
         <p class="product-name">Christmas Kindness & Joy</p>
         <p class="product-sub">Kids · SEL · Ages 4–8</p>
         <p class="product-price">$12.99</p>
       </a>
       <div class="product-card p2">
-        <div class="product-thumb"><div class="product-thumb-bg"></div><span class="product-badge">New</span></div>
-        <p class="product-name">Somatic Pattern Workbook Vol. 2</p>
-        <p class="product-sub">Adults · Nervous System</p>
-        <p class="product-price">$24.99</p>
+        <div class="product-thumb"><div class="product-thumb-bg"></div><span class="product-badge" data-i18n="product_new">New Release</span></div>
+        <p class="product-name">Somatic Pattern Workbook Vol. 2</p><p class="product-sub">Adults · Nervous System</p><p class="product-price">$24.99</p>
       </div>
       <div class="product-card p3">
         <div class="product-thumb"><div class="product-thumb-bg"></div><span class="product-badge">Sale</span></div>
-        <p class="product-name">Anxiety Protocol Journal</p>
-        <p class="product-sub">Adults · Somatic</p>
-        <p class="product-price"><s>$29.99</s> $21.99</p>
+        <p class="product-name">Anxiety Protocol Journal</p><p class="product-sub">Adults · Somatic</p><p class="product-price"><s>$29.99</s> $21.99</p>
       </div>
       <div class="product-card p4">
         <div class="product-thumb"><div class="product-thumb-bg"></div></div>
-        <p class="product-name">Emotional Compass for Kids</p>
-        <p class="product-sub">Kids · SEL · Ages 3–8</p>
-        <p class="product-price">$16.99</p>
+        <p class="product-name">Emotional Compass for Kids</p><p class="product-sub">Kids · SEL · Ages 3–8</p><p class="product-price">$16.99</p>
       </div>
     </div>
   </div>
@@ -384,37 +444,32 @@
     <div class="video-inner">
       <div class="video-wrap">
         <div class="video-placeholder" id="videoPlaceholder">
-          <div class="play-btn" onclick="loadVideo()">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--accent)" stroke="none"><polygon points="5,3 19,12 5,21"/></svg>
-          </div>
+          <div class="play-btn" onclick="loadVideo()"><svg width="22" height="22" viewBox="0 0 24 24" fill="var(--accent)" stroke="none"><polygon points="5,3 19,12 5,21"/></svg></div>
         </div>
       </div>
       <div class="video-text fade-up">
-        <p class="section-label">Inside the Ecosystem</p>
-        <h2 class="section-title">Smart Visual<br><em>Language</em></h2>
-        <p>Watch how our somatic patterns and SEL tools work — and why they reach the body in ways that words alone can't. A tour of the creative process behind SenseRevolt™.</p>
-        <a href="#" class="btn">Watch on YouTube →</a>
+        <p class="section-label" data-i18n="video_label">Inside the Ecosystem</p>
+        <h2 class="section-title"><span data-i18n="video_title">Smart Visual</span><br><em data-i18n="video_title_em">Language</em></h2>
+        <p data-i18n="video_p">Watch how our somatic patterns and SEL tools work.</p>
+        <a href="#" class="btn" data-i18n="video_btn">Watch on YouTube →</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ⑤ BEST SELLER -->
+<!-- ⑤ BESTSELLER -->
 <section class="bestseller-section" id="bestseller">
   <div class="container">
     <div class="section-header">
-      <div><p class="section-label">Fan Favourites</p><h2 class="section-title">Best <em>Sellers</em></h2></div>
-      <a href="#" class="view-all">View All →</a>
+      <div><p class="section-label" data-i18n="bestseller_label">Fan Favourites</p><h2 class="section-title"><span data-i18n="bestseller_title">Best</span> <em data-i18n="bestseller_title_em">Sellers</em></h2></div>
+      <a href="#" class="view-all" data-i18n="view_all">View All →</a>
     </div>
     <div class="bestseller-inner">
       <div class="bestseller-featured">
-        <div class="bestseller-image">
-          <span class="bestseller-badge">#1 Bestseller</span>
-          <img src="assets/christmas-book-cover.png" alt="Christmas Kindness & Joy" />
-        </div>
+        <div class="bestseller-image"><span class="bestseller-badge-tag">#1 Bestseller</span><img src="christmas-book-cover.png" alt=""/></div>
         <h3 class="bestseller-name">Christmas Kindness & Joy</h3>
         <p class="bestseller-price">$12.99</p>
-        <a href="product.html" class="btn btn-solid">Get the Book</a>
+        <a href="product.html" class="btn btn-solid" data-i18n="buy_etsy">Buy on Etsy</a>
       </div>
       <div class="bestseller-list">
         <div class="bestseller-item"><div class="item-thumb t1"></div><div><p class="item-name">Grounding Ritual Journal</p><p class="item-sub">Adults · Somatic</p></div><p class="item-price">$22.99</p></div>
@@ -426,20 +481,20 @@
   </div>
 </section>
 
-<!-- ⑥ COLLECTIONS 3×2 -->
+<!-- ⑥ COLLECTIONS -->
 <section class="collections-section" id="collections">
   <div class="container">
     <div class="section-header">
-      <div><p class="section-label">Browse</p><h2 class="section-title">Our <em>Collections</em></h2></div>
-      <a href="#" class="view-all">View All →</a>
+      <div><p class="section-label" data-i18n="collections_label">Browse</p><h2 class="section-title"><span data-i18n="collections_title">Our</span> <em data-i18n="collections_title_em">Collections</em></h2></div>
+      <a href="#" class="view-all" data-i18n="view_all">View All →</a>
     </div>
     <div class="collections-grid">
-      <div class="collection-card"><div class="collection-bg"><img src="assets/christmas-book-cover.png" alt="SEL for Kids"/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">SEL for Kids</p><p class="collection-count">8 Products</p></div></div>
-      <div class="collection-card"><div class="collection-bg"><img src="assets/christmas-book-cover.png" alt="Somatic Workbooks"/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">Somatic Workbooks</p><p class="collection-count">12 Products</p></div></div>
-      <div class="collection-card"><div class="collection-bg"><img src="assets/christmas-book-cover.png" alt="Starter Bundles"/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">Starter Bundles</p><p class="collection-count">4 Products</p></div></div>
-      <div class="collection-card"><div class="collection-bg"><img src="assets/christmas-book-cover.png" alt="Digital Downloads"/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">Digital Downloads</p><p class="collection-count">6 Products</p></div></div>
-      <div class="collection-card"><div class="collection-bg"><img src="assets/christmas-book-cover.png" alt="Gift Sets"/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">Gift Sets</p><p class="collection-count">3 Products</p></div></div>
-      <div class="collection-card"><div class="collection-bg"><img src="assets/christmas-book-cover.png" alt="New Releases"/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">New Releases</p><p class="collection-count">5 Products</p></div></div>
+      <div class="collection-card"><div class="collection-bg"><img src="christmas-book-cover.png" alt=""/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">SEL for Kids</p><p class="collection-count">8 Products</p></div></div>
+      <div class="collection-card"><div class="collection-bg"><img src="christmas-book-cover.png" alt=""/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">Somatic Workbooks</p><p class="collection-count">12 Products</p></div></div>
+      <div class="collection-card"><div class="collection-bg"><img src="christmas-book-cover.png" alt=""/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">Starter Bundles</p><p class="collection-count">4 Products</p></div></div>
+      <div class="collection-card"><div class="collection-bg"><img src="christmas-book-cover.png" alt=""/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">Digital Downloads</p><p class="collection-count">6 Products</p></div></div>
+      <div class="collection-card"><div class="collection-bg"><img src="christmas-book-cover.png" alt=""/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">Gift Sets</p><p class="collection-count">3 Products</p></div></div>
+      <div class="collection-card"><div class="collection-bg"><img src="christmas-book-cover.png" alt=""/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">New Releases</p><p class="collection-count">5 Products</p></div></div>
     </div>
   </div>
 </section>
@@ -448,13 +503,13 @@
 <section class="blog-section" id="blog">
   <div class="container">
     <div class="section-header">
-      <div><p class="section-label">From the Journal</p><h2 class="section-title">Blog <em>Posts</em></h2></div>
-      <a href="#" class="view-all">View All →</a>
+      <div><p class="section-label" data-i18n="blog_label">From the Journal</p><h2 class="section-title"><span data-i18n="blog_title">Blog</span> <em data-i18n="blog_title_em">Posts</em></h2></div>
+      <a href="#" class="view-all" data-i18n="view_all">View All →</a>
     </div>
     <div class="blog-grid">
-      <div class="blog-card b1 fade-up"><div class="blog-thumb"><div class="blog-thumb-bg"></div></div><p class="blog-cat">Somatic Tools</p><h3 class="blog-title">Why Your Body Needs Pattern Before Words</h3><p class="blog-excerpt">When the nervous system is overwhelmed, language processing shuts down first. Here's how visual somatic input bypasses that block.</p><p class="blog-meta">Yani · April 2025 · 5 min read</p></div>
-      <div class="blog-card b2 fade-up"><div class="blog-thumb"><div class="blog-thumb-bg"></div></div><p class="blog-cat">SEL for Kids</p><h3 class="blog-title">Teaching Emotional Vocabulary Without the Lecture</h3><p class="blog-excerpt">Children learn emotional language through play, movement, and choice — not through being told what to feel.</p><p class="blog-meta">Lisi · March 2025 · 4 min read</p></div>
-      <div class="blog-card b3 fade-up"><div class="blog-thumb"><div class="blog-thumb-bg"></div></div><p class="blog-cat">Our Story</p><h3 class="blog-title">How War Became the Origin Story of SenseRevolt™</h3><p class="blog-excerpt">We didn't plan to create a wellness brand. But when standard coping tools fail in the middle of an air raid, you build your own.</p><p class="blog-meta">Yani &amp; Lisi · February 2025 · 7 min read</p></div>
+      <div class="blog-card b1 fade-up"><div class="blog-thumb"><div class="blog-thumb-bg"></div></div><p class="blog-cat">Somatic Tools</p><h3 class="blog-title">Why Your Body Needs Pattern Before Words</h3><p class="blog-excerpt">When the nervous system is overwhelmed, language processing shuts down first.</p><p class="blog-meta">Yani · April 2025 · 5 min read</p></div>
+      <div class="blog-card b2 fade-up"><div class="blog-thumb"><div class="blog-thumb-bg"></div></div><p class="blog-cat">SEL for Kids</p><h3 class="blog-title">Teaching Emotional Vocabulary Without the Lecture</h3><p class="blog-excerpt">Children learn emotional language through play, movement, and choice.</p><p class="blog-meta">Lisi · March 2025 · 4 min read</p></div>
+      <div class="blog-card b3 fade-up"><div class="blog-thumb"><div class="blog-thumb-bg"></div></div><p class="blog-cat">Our Story</p><h3 class="blog-title">How War Became the Origin Story of SenseRevolt™</h3><p class="blog-excerpt">We didn't plan to create a wellness brand. But when standard coping tools fail, you build your own.</p><p class="blog-meta">Yani &amp; Lisi · February 2025 · 7 min read</p></div>
     </div>
   </div>
 </section>
@@ -462,28 +517,17 @@
 <!-- ⑧ FEATURED ON -->
 <section class="featured-section">
   <div class="container">
-    <p class="section-label">As Seen In</p>
+    <p class="section-label" data-i18n="featured_label">As Seen In</p>
     <div class="logos-track">
-      <span class="logo-item">Forbes</span>
-      <span class="logo-item">Mindful Magazine</span>
-      <span class="logo-item">Etsy Editors</span>
-      <span class="logo-item">Psychology Today</span>
-      <span class="logo-item">The Guardian</span>
-      <span class="logo-item">Amazon Best Sellers</span>
+      <span class="logo-item">Forbes</span><span class="logo-item">Mindful Magazine</span><span class="logo-item">Etsy Editors</span><span class="logo-item">Psychology Today</span><span class="logo-item">The Guardian</span><span class="logo-item">Amazon Best Sellers</span>
     </div>
   </div>
 </section>
 
 <!-- ⑨ SNEAK PEEKS -->
 <section class="sneak-section" id="gallery">
-  <div class="container"><div class="sneak-title-wrap"><p class="section-label" style="text-align:center">Community Gallery</p><h2 class="section-title" style="text-align:center">Sneak <em>Peeks</em></h2></div></div>
-  <div class="sneak-grid">
-    <div class="sneak-item s1"></div>
-    <div class="sneak-item s2"></div>
-    <div class="sneak-item s3"></div>
-    <div class="sneak-item s4"></div>
-    <div class="sneak-item s5"></div>
-  </div>
+  <div class="container"><div class="sneak-title-wrap"><p class="section-label" style="text-align:center" data-i18n="sneak_label">Community Gallery</p><h2 class="section-title" style="text-align:center"><span data-i18n="sneak_title">Sneak</span> <em data-i18n="sneak_title_em">Peeks</em></h2></div></div>
+  <div class="sneak-grid"><div class="sneak-item s1"></div><div class="sneak-item s2"></div><div class="sneak-item s3"></div><div class="sneak-item s4"></div><div class="sneak-item s5"></div></div>
 </section>
 
 <!-- ⑩ FAQ -->
@@ -491,16 +535,16 @@
   <div class="container">
     <div class="faq-inner">
       <div>
-        <p class="section-label">Got Questions</p>
-        <h2 class="section-title">Frequently<br><em>Asked</em></h2>
-        <p style="color:var(--muted);margin-top:20px;line-height:1.8">Don't see your question? Write us at <a href="mailto:support@senserevolt.com" style="color:var(--accent)">support@senserevolt.com</a></p>
+        <p class="section-label">FAQ</p>
+        <h2 class="section-title"><span data-i18n="faq_title">Frequently</span><br><em data-i18n="faq_title_em">Asked</em></h2>
+        <p style="color:var(--muted);margin-top:20px;line-height:1.8">support@senserevolt.com</p>
       </div>
       <div class="faq-list">
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Are these books available as physical copies?<svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p>Yes! Physical workbooks are available via Amazon and Etsy. Digital PDF versions are also available for instant download.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">What age range are the SEL books designed for?<svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p>Our SEL collection is designed for children aged 3–12, with specific books targeted at different age groups.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Do I need experience with somatic practices?<svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p>Not at all. Each session includes clear instructions, breathing prompts, and body-check-in cues. No prior knowledge needed.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Do you ship internationally?<svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p>Yes, worldwide through Etsy and Amazon. Digital downloads are available anywhere instantly.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)">Can educators use these tools in classrooms?<svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p>Absolutely. Many therapists, counselors, and educators use our tools. Contact us for bulk pricing and licensing.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q1">Are these books available as physical copies?</span><svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p data-i18n="faq_a1">Yes! Physical workbooks are available via Amazon and Etsy.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q2">What age range are the SEL books designed for?</span><svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p data-i18n="faq_a2">Our SEL collection is designed for children aged 3–12.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q3">Do I need experience with somatic practices?</span><svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p data-i18n="faq_a3">Not at all. Each session includes clear instructions.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q4">Do you ship internationally?</span><svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p data-i18n="faq_a4">Yes, worldwide through Etsy and Amazon.</p></div></div>
+        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q5">Can educators use these tools?</span><svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p data-i18n="faq_a5">Absolutely. Contact us for bulk pricing.</p></div></div>
       </div>
     </div>
   </div>
@@ -509,14 +553,11 @@
 <!-- ⑪ SUBSCRIBE -->
 <section class="subscribe-section" id="subscribe">
   <div class="container">
-    <p class="section-label">Stay Connected</p>
-    <h2 class="section-title">Subscribe for<br><em>Updates</em></h2>
-    <p class="sub-p">Be the first to know when new somatic tools and SEL collections launch.<br>No spam. Just meaningful updates.</p>
-    <div class="subscribe-form">
-      <input type="email" placeholder="your@email.com" />
-      <button class="btn btn-solid">Subscribe</button>
-    </div>
-    <p class="subscribe-note">We respect your privacy. Unsubscribe anytime.</p>
+    <p class="section-label" data-i18n="subscribe_label">Stay Connected</p>
+    <h2 class="section-title"><span data-i18n="subscribe_title">Subscribe for</span><br><em data-i18n="subscribe_title_em">Updates</em></h2>
+    <p class="sub-p" data-i18n="subscribe_p">Be the first to know when new somatic tools and SEL collections launch.</p>
+    <div class="subscribe-form"><input type="email" placeholder="your@email.com"/><button class="btn btn-solid" data-i18n="subscribe_btn">Subscribe</button></div>
+    <p class="subscribe-note" data-i18n="subscribe_note">We respect your privacy. Unsubscribe anytime.</p>
   </div>
 </section>
 
@@ -526,40 +567,116 @@
     <div class="footer-inner">
       <div>
         <span class="footer-logo">Sense<span>Revolt</span>™</span>
-        <p class="footer-desc">Two sisters from Ukraine. One ecosystem built to protect mental peace — for adults and children — when standard wellness advice isn't enough.</p>
-        <div class="social-links">
-          <a href="#" class="social-link">IG</a>
-          <a href="#" class="social-link">YT</a>
-          <a href="#" class="social-link">PT</a>
-          <a href="#" class="social-link">Et</a>
-        </div>
+        <p class="footer-desc">Two sisters from Ukraine. One ecosystem built to protect mental peace — for adults and children.</p>
+        <div class="social-links"><a href="#" class="social-link">IG</a><a href="#" class="social-link">YT</a><a href="#" class="social-link">PT</a><a href="#" class="social-link">Et</a></div>
       </div>
-      <div class="footer-col"><h4>Shop</h4><ul><li><a href="#">Somatic Workbooks</a></li><li><a href="#">SEL for Kids</a></li><li><a href="#">Digital Downloads</a></li><li><a href="#">Bundles & Gift Sets</a></li><li><a href="#">New Releases</a></li></ul></div>
-      <div class="footer-col"><h4>Info</h4><ul><li><a href="#">Our Story</a></li><li><a href="#">Blog</a></li><li><a href="#">Gallery</a></li><li><a href="#">Press</a></li><li><a href="#faq">FAQ</a></li></ul></div>
-      <div class="footer-col"><h4>Support</h4><ul><li><a href="#">Shipping Policy</a></li><li><a href="#">Returns</a></li><li><a href="#">Contact Us</a></li><li><a href="#">For Educators</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+      <div class="footer-col"><h4 data-i18n="nav_shop">Shop</h4><ul><li><a href="#" data-i18n="nav_somatic">Somatic for Adults</a></li><li><a href="#" data-i18n="nav_kids">SEL for Kids</a></li><li><a href="#" data-i18n="nav_digital">Digital Downloads</a></li></ul></div>
+      <div class="footer-col"><h4 data-i18n="nav_releases">New Releases</h4><ul><li><a href="#">Our Story</a></li><li><a href="#" data-i18n="nav_blog">Blog</a></li><li><a href="#" data-i18n="nav_faq">FAQ</a></li></ul></div>
+      <div class="footer-col"><h4>Support</h4><ul><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy</a></li></ul></div>
     </div>
     <div class="footer-bottom">
-      <span>© 2026 SenseRevolt™ · All rights reserved</span>
-      <div class="fbl"><a href="#">Privacy</a><a href="#">Terms</a><a href="https://etsy.com" target="_blank">Etsy</a><a href="https://amazon.com" target="_blank">Amazon</a></div>
+      <span data-i18n="footer_copy">© 2026 SenseRevolt™ · All rights reserved</span>
+      <div class="fbl"><a href="#">Privacy</a><a href="https://etsy.com" target="_blank">Etsy</a><a href="https://amazon.com" target="_blank">Amazon</a></div>
     </div>
   </div>
 </footer>
 
 <script>
-  let current=0,total=3;
-  const slides=document.getElementById('bannerSlides');
-  const dots=document.querySelectorAll('.dot');
-  function updateBanner(){slides.style.transform=`translateX(-${current*100}%)`;dots.forEach((d,i)=>d.classList.toggle('active',i===current));}
-  function moveBanner(dir){current=(current+dir+total)%total;updateBanner();}
-  function goToBanner(i){current=i;updateBanner();}
-  setInterval(()=>moveBanner(1),5500);
+// ── i18n ──────────────────────────────────────────────
+const LANGS = {
+  en:{flag:'🇬🇧',name:'EN'},
+  es:{flag:'🇪🇸',name:'ES'},
+  uk:{flag:'🇺🇦',name:'UK'},
+  de:{flag:'🇩🇪',name:'DE'},
+  fr:{flag:'🇫🇷',name:'FR'}
+};
 
-  function toggleFaq(btn){const item=btn.closest('.faq-item');const isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));if(!isOpen)item.classList.add('open');}
+let translations = {};
+let currentLang = 'en';
 
-  const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:.12});
-  document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+function detectLang(){
+  const saved = localStorage.getItem('sr_lang');
+  if(saved && LANGS[saved]) return saved;
+  const browser = (navigator.language || 'en').toLowerCase().slice(0,2);
+  const map = {es:'es',uk:'uk',de:'de',fr:'fr',en:'en'};
+  return map[browser] || 'en';
+}
 
-  function loadVideo(){document.getElementById('videoPlaceholder').innerHTML='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/zjF7COQAqOE?autoplay=1" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;"></iframe>';}
+async function loadLang(lang){
+  if(!LANGS[lang]) lang = 'en';
+  try {
+    const r = await fetch(`locales/${lang}.json`);
+    translations = await r.json();
+  } catch(e){
+    // fallback — translations stay empty, defaults show
+    translations = {};
+  }
+  currentLang = lang;
+  localStorage.setItem('sr_lang', lang);
+  applyTranslations();
+  updateLangBtn();
+  document.querySelectorAll('.lang-option').forEach(o=>{
+    o.classList.toggle('active', o.getAttribute('onclick').includes(`'${lang}'`));
+  });
+}
+
+function applyTranslations(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(translations[key]) el.textContent = translations[key];
+  });
+}
+
+function updateLangBtn(){
+  document.getElementById('currentFlag').textContent = LANGS[currentLang].flag;
+  document.getElementById('currentCode').textContent  = LANGS[currentLang].name;
+}
+
+function setLang(lang){
+  loadLang(lang);
+  closeLang();
+}
+
+function toggleLang(){
+  document.getElementById('langSwitcher').classList.toggle('open');
+}
+function closeLang(){
+  document.getElementById('langSwitcher').classList.remove('open');
+}
+document.addEventListener('click', e=>{
+  if(!e.target.closest('#langSwitcher')) closeLang();
+});
+
+// init
+loadLang(detectLang());
+
+// ── BANNER ───────────────────────────────────────────
+let current=0,total=3;
+const slides=document.getElementById('bannerSlides');
+const dots=document.querySelectorAll('.dot');
+function updateBanner(){slides.style.transform=`translateX(-${current*100}%)`;dots.forEach((d,i)=>d.classList.toggle('active',i===current));}
+function moveBanner(dir){current=(current+dir+total)%total;updateBanner();}
+function goToBanner(i){current=i;updateBanner();}
+setInterval(()=>moveBanner(1),5500);
+
+// ── FAQ ──────────────────────────────────────────────
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item');
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+// ── SCROLL ANIMATION ─────────────────────────────────
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+},{threshold:.12});
+document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
+
+// ── VIDEO ────────────────────────────────────────────
+function loadVideo(){
+  document.getElementById('videoPlaceholder').innerHTML='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/zjF7COQAqOE?autoplay=1" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;"></iframe>';
+}
 </script>
 </body>
 </html>
