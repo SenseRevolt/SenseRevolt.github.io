@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SenseRevolt | Somatic & SEL Interactive Workbooks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@700&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --font-heading: 'El Messiri', sans-serif;
+    --font-body: 'Jost', sans-serif;
+    
+    /* Кольорова палітра з макета */
+    --c-dark: #333333;
+    --c-light: #ebebeb;
+    --c-story: #d6dbdc;
+    --c-header: #262321;
+    --c-text-dark: #1a1a1a;
+    --c-text-light: #ffffff;
+    --c-border: #555555;
+    
+    /* Типографіка */
+    --t1: 48px;
+    --t2: 36px;
+    --t3: 24px;
+    --p-size: 18px;
+  }
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body { 
+    font-family: var(--font-body); 
+    font-size: var(--p-size); 
+    line-height: 1.6; 
+    color: var(--c-text-dark); 
+    background: var(--c-light); 
+  }
+  
+  h1, h2, h3 { 
+    font-family: var(--font-heading); 
+    font-weight: 700; 
+    line-height: 1.2; 
+  }
+  h1 { font-size: var(--t1); margin-bottom: 20px; }
+  h2 { font-size: var(--t2); margin-bottom: 20px; }
+  h3 { font-size: var(--t3); margin-bottom: 15px; }
+  p { margin-bottom: 20px; }
+  a { text-decoration: none; color: inherit; transition: opacity 0.3s; }
+  a:hover { opacity: 0.7; }
+  
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  
+  .btn { 
+    display: inline-block; 
+    background: var(--c-text-dark); 
+    color: var(--c-text-light); 
+    padding: 12px 32px; 
+    border-radius: 30px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    border: none; 
+    transition: 0.3s; 
+    font-family: var(--font-body);
+  }
+  .btn:hover { background: #555; }
+  .btn-dark { background-color: #3b3b3b; color: #fff; }
+  
+  /* Базові секції */
+  .section-dark { background: var(--c-dark); color: var(--c-text-light); padding: 80px 0; }
+  .section-light { background: var(--c-light); color: var(--c-text-dark); padding: 80px 0; }
+  
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  
+  /* Header */
+  header { background: var(--c-header); color: #fff; padding: 15px 0; font-size: 14px; }
+  .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: var(--font-heading); font-size: 24px; letter-spacing: 1px; }
+  .nav-links { display: flex; gap: 25px; }
+  
+  /* Hero */
+  .hero { padding: 80px 0; }
+  .hero-label { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; color: #666; }
+  .placeholder-img { background: #d9d9d9; width: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #888; border: 1px dashed #bbb; }
+  .hero .placeholder-img { height: 500px; }
+  
+  /* Ecosystem */
+  .ecosystem-intro { text-align: center; max-width: 800px; margin: 0 auto 60px; }
+  .card-img { height: 320px; background: #4a4a4a; border-radius: 4px; margin-bottom: 25px; display: flex; align-items: center; justify-content: center; color: #888; overflow: hidden; }
+  .num-label { font-family: var(--font-heading); font-size: var(--t3); margin-bottom: 10px; display: block; color: #aaa; }
+  
+  /* --- СЕКЦІЯ OUR STORY --- */
+  .section-story { 
+    background-color: var(--c-story); 
+    color: var(--c-text-dark); 
+    padding-top: 80px; 
+    padding-bottom: 0; /* Притискає картинку до низу */
+    overflow: hidden; 
+  }
+  .grid-story { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  
+  .story-visuals {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  .quote-wrapper { text-align: center; max-width: 420px; margin-top: 20px; }
+  .quote-text { font-style: italic; font-size: 16px; line-height: 1.5; margin-bottom: 15px; }
+  .quote-icon { font-size: 60px; line-height: 0.5; color: var(--c-dark); font-family: serif; }
+  
+  .sisters-img {
+    display: block;
+    width: 100%;
+    max-width: 650px; /* Трохи збільшено для кращих пропорцій */
+    height: auto;
+    margin-top: 40px;
+    align-self: flex-end; /* Вирівнює по нижньому краю */
+  }
+
+  .story-content {
+    padding-bottom: 80px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .story-content p { margin-bottom: 25px; }
+  .story-content .btn-dark { align-self: flex-start; }
+  /* ------------------------ */
+
+  /* Formats */
+  .formats-intro { text-align: center; margin-bottom: 60px; }
+  .format-col h3 { border-bottom: 1px solid var(--c-border); padding-bottom: 15px; margin-bottom: 25px; }
+  .feature-item { margin-bottom: 25px; }
+  .feature-num { font-family: var(--font-heading); font-size: 20px; color: #888; display: block; margin-bottom: 5px; }
+  
+  /* Blog Grid */
+  .blog-card .placeholder-img { height: 250px; margin-bottom: 20px; }
+  .blog-card h3 { font-size: 20px; text-align: center; }
+  .blog-card p { font-size: 16px; text-align: center; color: #ccc; }
+
+  /* FAQ */
+  .faq-container { max-width: 800px; margin: 40px auto 0; }
+  .faq-item { border-bottom: 1px solid var(--c-border); padding: 20px 0; }
+  .faq-question { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: var(--p-size); font-weight: 500; }
+  .faq-answer { display: none; padding-top: 15px; color: #ccc; font-size: 16px; }
+  .faq-item.active .faq-answer { display: block; }
+  .toggle-icon { background: #555; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  
+  /* Newsletter */
+  .newsletter-form { margin-top: 30px; }
+  .newsletter-form input { width: 100%; padding: 16px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; font-family: var(--font-body); font-size: 16px; background: #fff; }
+  
+  /* Адаптив */
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-story { grid-template-columns: 1fr; gap: 40px; }
+    .nav-links { display: none; }
+    :root { --t1: 38px; --t2: 30px; --t3: 22px; --p-size: 16px; }
+    .hero { padding: 40px 0; }
+    .story-content { padding-bottom: 40px; padding-top: 40px; }
+    .sisters-img { max-width: 80%; margin: 0 auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav-wrapper">
+    <div class="logo">SENSEREVOLT™</div>
+    <div class="nav-links">
+      <a href="#">Somatic Tools</a>
+      <a href="#">SEL Tools for Kids</a>
+      <a href="#">Our Philosophy</a>
+      <a href="#">Choose Format</a>
+      <a href="#">Blog</a>
+    </div>
+  </div>
+</header>
+
+<!-- Hero Section -->
+<section class="section-light hero">
+  <div class="container grid-2">
+    <div>
+      <span class="hero-label">Vol 1</span>
+      <h1>Somatic Anger Kit</h1>
+      <p>Story-Based Practices to Move Through Rage & Understand What's Underneath.</p>
+      <button class="btn">Start the Practice</button>
+    </div>
+    <div class="placeholder-img">[ Book Cover Mockup ]</div>
+  </div>
+</section>
+
+<!-- Ecosystem Section -->
+<section class="section-dark">
+  <div class="container">
+    <div class="ecosystem-intro">
+      <h2>One Ecosystem for the Whole Family</h2>
+      <p>Invest in your child’s successful future... and enjoy your coffee while it is still HOT! Our multisensory system works through 4 perception channels: SEE, HEAR, DO, LIVE.</p>
+    </div>
+    <div class="grid-2">
+      <div>
+        <div class="card-img">[ Somatic Pattern Image ]</div>
+        <span class="num-label">01</span>
+        <h3>Somatic Tools</h3>
+        <p>Strategic interactive workbooks featuring hand-drawn neuro-art patterns to process complex feelings.</p>
+        <button class="btn" style="background:#fff; color:#1a1a1a;">Explore the Practice</button>
+      </div>
+      <div>
+        <div class="card-img" style="background:#8c2020; color:#fff;">[ Christmas Kindness Cover ]</div>
+        <span class="num-label">02</span>
+        <h3>SEL Tools for Kids</h3>
+        <p>Minimum text, maximum emotion. Smart visual tools backed by the CASEL framework to build real-life emotional resilience.</p>
+        <button class="btn" style="background:#fff; color:#1a1a1a;">Explore SEL Skills</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our Story Section -->
+<section class="section-story">
+  <div class="container grid-story">
+    
+    <div class="story-visuals">
+      <div class="quote-wrapper">
+        <p class="quote-text">Our superpowers are to translate mental chaos into structured calm and turn complex feelings into engaging, multi-sensory missions that families can enjoy together.</p>
+        <div class="quote-icon">❞</div> 
+      </div>
+      <!-- ВАЖЛИВО: Назва файлу має збігатися з твоєю картинкою на прозорому фоні -->
+      <img src="sisters-transparent.png" alt="SenseRevolt Creators" class="sisters-img">
+    </div>
+
+    <div class="story-content">
+      <h2>Our Story</h2>
+      <p>SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine. Living through profoundly turbulent times, we realized that standard wellness advice simply doesn't work when your nervous system is truly overloaded.</p>
+      <p>We combined our personal struggles and professional skills to build a complete emotional ecosystem — real, working tools to protect mental peace for both adults and children.</p>
+      <button class="btn btn-dark">Dive in deeper</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- Formats Section -->
+<section class="section-dark">
+  <div class="container">
+    <div class="formats-intro">
+      <h2>Choose Your Format</h2>
+      <p>Get the tools you need in the format that works best for your family or practice.</p>
+    </div>
+    <div class="grid-3">
+      <div class="format-col">
+        <h3>Etsy</h3>
+        <div class="feature-item"><span class="feature-num">01</span><p>Print. Practice. Repeat.</p></div>
+        <div class="feature-item"><span class="feature-num">02</span><p>Instant Access.</p></div>
+        <div class="feature-item"><span class="feature-num">03</span><p>Exclusive Inventory.</p></div>
+      </div>
+      <div class="format-col">
+        <h3>Amazon Kindle</h3>
+        <div class="feature-item"><span class="feature-num">01</span><p>Ready to Use.</p></div>
+        <div class="feature-item"><span class="feature-num">02</span><p>Worldwide Shipping.</p></div>
+        <div class="feature-item"><span class="feature-num">03</span><p>The Perfect Gift.</p></div>
+      </div>
+      <div class="format-col">
+        <h3>TPT</h3>
+        <div class="feature-item"><span class="feature-num">01</span><p>Educational Licensing.</p></div>
+        <div class="feature-item"><span class="feature-num">02</span><p>Group Practices Ready.</p></div>
+        <div class="feature-item"><span class="feature-num">03</span><p>Specialist Choice.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Blog Section -->
+<section class="section-dark" style="background: #2b2b2b;">
+  <div class="container">
+    <h2 style="text-align: center; margin-bottom: 50px;">Blog Posts</h2>
+    <div class="grid-3">
+      <div class="blog-card">
+        <div class="placeholder-img">[ Blog Image 1 ]</div>
+        <h3>Somatic World</h3>
+        <p>Deep dive into neuro art.</p>
+      </div>
+      <div class="blog-card">
+        <div class="placeholder-img">[ Blog Image 2 ]</div>
+        <h3>The Christmas Formula</h3>
+        <p>How we designed the SEL tools.</p>
+      </div>
+      <div class="blog-card">
+        <div class="placeholder-img">[ Blog Image 3 ]</div>
+        <h3>Tools & Practices</h3>
+        <p>Tips for emotional regulation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="section-dark" style="border-top: 1px solid #444;">
+  <div class="container">
+    <h2 style="text-align: center;">FAQs</h2>
+    <div class="faq-container">
+      <div class="faq-item">
+        <div class="faq-question">Where can I buy SenseRevolt physical interactive workbooks? <span class="toggle-icon">+</span></div>
+        <div class="faq-answer">Our physical tools are available globally via Amazon. Digital files can be found on Etsy.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What makes these strategic tools different? <span class="toggle-icon">+</span></div>
+        <div class="faq-answer">They utilize our multisensory SEE, HEAR, DO, LIVE system to process emotions and build social skills, turning theory into practical application rather than just passive reading.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How does the Audio Learning work? <span class="toggle-icon">+</span></div>
+        <div class="faq-answer">Scan the QR codes inside the workbooks to listen to Original SEL Songs. These are musical storytelling tools designed to lock emotional lessons in children's hearts.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer / Stay Connected -->
+<section class="section-light">
+  <div class="container grid-2">
+    <div>
+      <h2>Stay Connected</h2>
+      <p>Stay updated on our latest releases and exclusive materials. We don't spam, we share pure value for your family.</p>
+      <div class="newsletter-form">
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <button class="btn btn-dark">Subscribe</button>
+      </div>
+    </div>
+    <div class="placeholder-img" style="height: 350px;">[ Newsletter Preview Image ]</div>
+  </div>
+</section>
+
+<script>
+  // Скрипт для акордеона в FAQ
+  document.querySelectorAll('.faq-question').forEach(item => {
+    item.addEventListener('click', () => {
+      const parent = item.parentElement;
+      const isActive = parent.classList.contains('active');
+      
+      document.querySelectorAll('.faq-item').forEach(el => {
+        el.classList.remove('active');
+        el.querySelector('.toggle-icon').textContent = '+';
+      });
+
+      if (!isActive) {
+        parent.classList.add('active');
+        item.querySelector('.toggle-icon').textContent = '-';
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
