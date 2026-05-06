@@ -1,682 +1,995 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SenseRevolt™</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SenseRevolt™ — One Ecosystem for the Whole Family</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    :root{--bg:#0e0e0c;--surface:#151512;--border:#2a2a26;--text:#e8e4db;--muted:#7a7568;--accent:#c8b89a;--accent2:#8a6f52;--white:#f5f2ec;--serif:'Cormorant Garamond',Georgia,serif;--sans:'DM Sans',sans-serif;}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html{scroll-behavior:smooth}
-    body{background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.65;overflow-x:hidden}
-    img{display:block;max-width:100%}
-    a{color:inherit;text-decoration:none}
-    ul{list-style:none}
-    .container{max-width:1200px;margin:0 auto;padding:0 32px}
-    .section-label{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
-    .section-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:300;line-height:1.15;color:var(--white)}
-    .section-title em{font-style:italic;color:var(--accent)}
-    .btn{display:inline-block;padding:12px 28px;border:1px solid var(--accent);color:var(--accent);font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;transition:background .25s,color .25s;cursor:pointer;background:transparent}
-    .btn:hover{background:var(--accent);color:var(--bg)}
-    .btn-solid{background:var(--accent);color:var(--bg)}
-    .btn-solid:hover{background:var(--white);border-color:var(--white)}
-    .section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:56px}
-    .view-all{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);padding-bottom:2px;transition:color .2s,border-color .2s}
-    .view-all:hover{color:var(--accent);border-color:var(--accent)}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    /* ── TOPBAR ── */
-    .topbar{background:var(--accent2);text-align:center;padding:9px 16px;font-size:11px;letter-spacing:.1em;color:var(--white)}
+    :root {
+      --dark: #2b2b2b;
+      --dark2: #3a3939;
+      --light-bg: #f5f3ef;
+      --cream: #f0ece4;
+      --text: #2b2b2b;
+      --text-light: #5a5a5a;
+      --accent: #c8a96e;
+      --btn-dark: #2b2b2b;
+      --btn-outline: transparent;
+      --white: #ffffff;
+      --font-title: 'El Messiri', serif;
+      --font-body: 'Jost', sans-serif;
+      --max-w: 1200px;
+    }
 
-    /* ── HEADER ── */
-    header{position:sticky;top:0;z-index:200;background:var(--bg);border-bottom:1px solid var(--border)}
-    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px;gap:24px}
-    .logo{font-family:var(--serif);font-size:1.4rem;font-weight:600;letter-spacing:.04em;color:var(--white);white-space:nowrap}
-    .logo span{color:var(--accent)}
-    .nav-icon{width:18px;height:18px;stroke:var(--muted);fill:none;cursor:pointer;transition:stroke .2s;flex-shrink:0}
-    .nav-icon:hover{stroke:var(--white)}
+    html { scroll-behavior: smooth; }
 
-    /* ── MEGA MENU ── */
-    .main-nav{display:flex;align-items:center;gap:4px}
-    .nav-item{position:relative}
-    .nav-link{display:flex;align-items:center;gap:5px;padding:8px 14px;font-size:11px;font-weight:500;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);transition:color .2s;white-space:nowrap;cursor:pointer;border:none;background:none;font-family:var(--sans)}
-    .nav-link:hover,.nav-item:hover .nav-link{color:var(--white)}
-    .nav-arrow{width:10px;height:10px;stroke:currentColor;fill:none;transition:transform .2s;flex-shrink:0}
-    .nav-item:hover .nav-arrow{transform:rotate(180deg)}
-    /* dropdown */
-    .nav-dropdown{position:absolute;top:calc(100% + 1px);left:0;min-width:220px;background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--accent);padding:8px 0;opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .2s,transform .2s,visibility .2s;z-index:300}
-    .nav-item:hover .nav-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
-    .nav-dropdown a{display:block;padding:10px 20px;font-size:12px;color:var(--muted);letter-spacing:.06em;transition:color .2s,background .2s}
-    .nav-dropdown a:hover{color:var(--white);background:rgba(200,184,154,.06)}
-    .nav-dropdown .drop-label{padding:10px 20px 4px;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent2);font-weight:600}
-    .nav-dropdown .drop-divider{border:none;border-top:1px solid var(--border);margin:6px 0}
+    body {
+      font-family: var(--font-body);
+      font-size: 18px;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
 
-    /* ── LANGUAGE SWITCHER ── */
-    .lang-switcher{position:relative;margin-left:8px}
-    .lang-btn{display:flex;align-items:center;gap:6px;padding:7px 12px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.1em;cursor:pointer;transition:border-color .2s,color .2s;white-space:nowrap}
-    .lang-btn:hover{border-color:var(--accent);color:var(--white)}
-    .lang-flag{font-size:14px;line-height:1}
-    .lang-code{font-size:10px;letter-spacing:.14em;text-transform:uppercase}
-    .lang-chevron{width:10px;height:10px;stroke:currentColor;fill:none;transition:transform .2s}
-    .lang-switcher.open .lang-chevron{transform:rotate(180deg)}
-    .lang-dropdown{position:absolute;top:calc(100% + 6px);right:0;background:var(--surface);border:1px solid var(--border);border-top:2px solid var(--accent);padding:6px 0;min-width:150px;opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .2s,transform .2s,visibility .2s;z-index:300}
-    .lang-switcher.open .lang-dropdown{opacity:1;visibility:visible;transform:translateY(0)}
-    .lang-option{display:flex;align-items:center;gap:10px;padding:9px 16px;font-size:12px;color:var(--muted);cursor:pointer;transition:color .2s,background .2s;letter-spacing:.04em}
-    .lang-option:hover{color:var(--white);background:rgba(200,184,154,.06)}
-    .lang-option.active{color:var(--accent)}
-    .lang-option .flag{font-size:16px}
+    /* ── ANNOUNCEMENT BAR ── */
+    .announcement-bar {
+      background: var(--dark);
+      color: var(--white);
+      text-align: center;
+      padding: 8px 20px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .announcement-bar span { opacity: 0.9; }
+    .countdown {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+    }
+    .countdown-unit {
+      background: var(--dark2);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-weight: 600;
+      font-size: 13px;
+      min-width: 28px;
+      text-align: center;
+    }
+    .btn-preorder {
+      background: var(--white);
+      color: var(--dark);
+      border: none;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-preorder:hover { opacity: 0.85; }
 
-    /* ── BANNER ── */
-    .banner-section{position:relative;overflow:hidden}
-    .banner-slides{display:flex;transition:transform .7s cubic-bezier(.77,0,.18,1)}
-    .banner-slide{min-width:100%;height:clamp(480px,72vh,780px);position:relative;display:flex;align-items:flex-end}
-    .banner-bg{position:absolute;inset:0;background-size:cover;background-position:center}
-    .slide-1 .banner-bg{background-image:url('clap-and-shine-banner.jpg');background-position:center top}
-    .slide-2 .banner-bg{background:linear-gradient(135deg,#12161a,#1a2230 50%,#0e0e0c)}
-    .slide-3 .banner-bg{background:linear-gradient(135deg,#141210,#251d15 50%,#0e0e0c)}
-    .banner-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,14,12,.88) 0%,rgba(14,14,12,.15) 65%,transparent 100%)}
-    .banner-content{position:relative;z-index:2;padding:64px;max-width:620px}
-    .banner-content .section-label{color:var(--accent)}
-    .banner-content h1{font-family:var(--serif);font-size:clamp(2.4rem,6vw,4.8rem);font-weight:300;line-height:1.1;color:var(--white);margin:10px 0 20px}
-    .banner-content h1 em{font-style:italic;color:var(--accent)}
-    .banner-content p{font-size:15px;color:var(--muted);max-width:440px;margin-bottom:32px}
-    .banner-actions{display:flex;gap:16px}
-    .banner-dots{position:absolute;bottom:28px;right:64px;z-index:10;display:flex;gap:8px}
-    .dot{width:6px;height:6px;border-radius:50%;background:var(--muted);cursor:pointer;transition:background .3s,transform .3s}
-    .dot.active{background:var(--accent);transform:scale(1.4)}
-    .banner-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:10;width:44px;height:44px;border:1px solid var(--border);background:rgba(14,14,12,.7);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:border-color .2s,color .2s}
-    .banner-arrow:hover{border-color:var(--accent);color:var(--accent)}
-    .banner-arrow.prev{left:28px}
-    .banner-arrow.next{right:28px}
+    /* ── NAVBAR ── */
+    .navbar {
+      background: var(--dark);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .logo-name {
+      font-family: var(--font-title);
+      font-size: 22px;
+      color: var(--white);
+      letter-spacing: 0.5px;
+    }
+    .logo-name span { font-family: var(--font-body); font-weight: 400; }
+    .logo-sub {
+      font-size: 10px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.5px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: rgba(255,255,255,0.85);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .nav-icons a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 18px; }
+    .lang-btn {
+      border: 1px solid rgba(255,255,255,0.4);
+      background: none;
+      color: var(--white);
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      cursor: pointer;
+    }
 
-    /* ── ABOUT ── */
-    .about-section{padding:120px 0;border-top:1px solid var(--border)}
-    .about-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-    .about-image{aspect-ratio:3/4;background:var(--surface);overflow:hidden}
-    .about-image img{width:100%;height:100%;object-fit:cover}
-    .about-text .section-label{margin-bottom:20px}
-    .about-text .section-title{margin-bottom:28px}
-    .about-text p{color:var(--muted);margin-bottom:16px;font-size:15px;line-height:1.8}
-    .about-text .btn{margin-top:20px}
+    /* ── HERO ── */
+    .hero {
+      background: var(--light-bg);
+      min-height: 480px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      max-width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-content {
+      padding: 60px 60px 60px 80px;
+      max-width: 560px;
+    }
+    .hero-vol {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+      display: block;
+      width: 100%;
+    }
+    .hero h1 {
+      font-family: var(--font-title);
+      font-size: 48px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+      color: var(--dark);
+    }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text-light);
+      margin-bottom: 36px;
+      line-height: 1.5;
+    }
+    .btn-dark {
+      background: var(--dark);
+      color: var(--white);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-dark:hover { background: #444; transform: translateY(-1px); }
 
-    /* ── NEW RELEASES ── */
-    .releases-section{padding:100px 0;border-top:1px solid var(--border)}
-    .products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
-    .product-card{cursor:pointer;display:block}
-    .product-thumb{aspect-ratio:3/4;background:var(--surface);margin-bottom:16px;overflow:hidden;position:relative}
-    .product-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
-    .product-card:hover .product-thumb img{transform:scale(1.04)}
-    .product-thumb-bg{position:absolute;inset:0;transition:transform .5s}
-    .product-card:hover .product-thumb-bg{transform:scale(1.04)}
-    .p2 .product-thumb-bg{background:linear-gradient(160deg,#12161e,#1a2230)}
-    .p3 .product-thumb-bg{background:linear-gradient(160deg,#1a1010,#2d1818)}
-    .p4 .product-thumb-bg{background:linear-gradient(160deg,#101a10,#182d18)}
-    .product-badge{position:absolute;top:14px;left:14px;padding:4px 10px;background:var(--accent);color:var(--bg);font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase}
-    .product-name{font-family:var(--serif);font-size:1.05rem;color:var(--white);margin-bottom:6px;transition:color .2s}
-    .product-card:hover .product-name{color:var(--accent)}
-    .product-sub{font-size:12px;color:var(--muted);margin-bottom:8px}
-    .product-price{font-size:13px;color:var(--accent);font-weight:500}
-    .product-price s{color:var(--muted);margin-right:6px}
+    .hero-image {
+      position: relative;
+      height: 100%;
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero-dots {
+      position: absolute;
+      bottom: 24px;
+      left: 80px;
+      display: flex;
+      gap: 8px;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .dot.active { background: var(--dark); }
 
-    /* ── VIDEO ── */
-    .video-section{padding:100px 0;border-top:1px solid var(--border)}
-    .video-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-    .video-wrap{aspect-ratio:16/9;background:var(--surface);position:relative;overflow:hidden}
-    .video-placeholder{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1510,#0e0e0c)}
-    .play-btn{width:72px;height:72px;border:1.5px solid var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .3s,transform .3s}
-    .play-btn:hover{background:var(--accent);transform:scale(1.06)}
-    .play-btn svg{margin-left:4px}
-    .video-text .section-title{margin:12px 0 20px}
-    .video-text p{color:var(--muted);line-height:1.8;margin-bottom:28px}
+    /* ── ECOSYSTEM ── */
+    .ecosystem {
+      background: var(--dark);
+      color: var(--white);
+      padding: 70px 40px;
+      text-align: center;
+    }
+    .ecosystem h2 {
+      font-family: var(--font-title);
+      font-size: 36px;
+      margin-bottom: 24px;
+    }
+    .ecosystem p {
+      max-width: 640px;
+      margin: 0 auto 12px;
+      font-size: 16px;
+      opacity: 0.85;
+      line-height: 1.7;
+    }
+    .ecosystem-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: var(--max-w);
+      margin: 48px auto 0;
+    }
+    .eco-card {
+      background: var(--dark2);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .eco-card-img {
+      width: 100%;
+      aspect-ratio: 16/10;
+      object-fit: cover;
+      background: #444;
+      display: block;
+    }
+    .eco-card-img-placeholder {
+      width: 100%;
+      aspect-ratio: 16/10;
+      background: #444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.3);
+      font-size: 14px;
+    }
+    .eco-card-body { padding: 28px 32px 36px; text-align: left; }
+    .eco-num {
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 8px;
+      display: block;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .eco-card h3 {
+      font-family: var(--font-title);
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+    .eco-card p {
+      font-size: 15px;
+      opacity: 0.8;
+      margin: 0 0 24px;
+      text-align: left;
+      max-width: 100%;
+    }
+    .btn-outline {
+      border: 1px solid rgba(255,255,255,0.5);
+      background: transparent;
+      color: var(--white);
+      padding: 10px 26px;
+      border-radius: 30px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
 
-    /* ── BESTSELLER ── */
-    .bestseller-section{padding:100px 0;border-top:1px solid var(--border);background:var(--surface)}
-    .bestseller-inner{display:grid;grid-template-columns:380px 1fr;gap:80px;align-items:start}
-    .bestseller-featured{position:sticky;top:100px}
-    .bestseller-image{aspect-ratio:1/1;background:var(--bg);margin-bottom:24px;position:relative;overflow:hidden}
-    .bestseller-image img{width:100%;height:100%;object-fit:cover}
-    .bestseller-badge-tag{position:absolute;top:0;left:0;padding:8px 18px;background:var(--accent2);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--white);z-index:2}
-    .bestseller-name{font-family:var(--serif);font-size:1.6rem;font-weight:300;color:var(--white);margin-bottom:10px}
-    .bestseller-price{color:var(--accent);font-size:1.1rem;margin-bottom:20px}
-    .bestseller-list{display:flex;flex-direction:column}
-    .bestseller-item{display:grid;grid-template-columns:80px 1fr auto;gap:20px;align-items:center;padding:20px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:opacity .2s}
-    .bestseller-item:hover{opacity:.75}
-    .item-thumb{aspect-ratio:1}
-    .t1{background:linear-gradient(135deg,#1e1810,#2d2318)}
-    .t2{background:linear-gradient(135deg,#12161e,#1a2230)}
-    .t3{background:linear-gradient(135deg,#1a1010,#2d1818)}
-    .t4{background:linear-gradient(135deg,#101a10,#182d18)}
-    .item-name{font-family:var(--serif);font-size:1rem;color:var(--white);margin-bottom:4px}
-    .item-sub{font-size:11px;color:var(--muted)}
-    .item-price{font-size:13px;color:var(--accent);white-space:nowrap}
+    /* ── OUR STORY ── */
+    .our-story {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 500px;
+      background: var(--cream);
+    }
+    .story-left {
+      position: relative;
+      overflow: hidden;
+      background: #d6d2cc;
+    }
+    .story-left img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .story-quote {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      padding: 0 40px;
+    }
+    .story-quote p {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 15px;
+      color: var(--dark);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .quote-mark {
+      font-family: Georgia, serif;
+      font-size: 36px;
+      color: var(--dark);
+      line-height: 1;
+      opacity: 0.7;
+    }
+    .story-right {
+      padding: 60px 60px 60px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .story-right h2 {
+      font-family: var(--font-title);
+      font-size: 36px;
+      margin-bottom: 24px;
+      color: var(--dark);
+    }
+    .story-right p {
+      font-size: 16px;
+      color: var(--text-light);
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+    .btn-dark-rounded {
+      background: var(--dark);
+      color: var(--white);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+      margin-top: 8px;
+      transition: background 0.2s;
+      align-self: flex-start;
+    }
+    .btn-dark-rounded:hover { background: #444; }
 
-    /* ── COLLECTIONS 3×2 ── */
-    .collections-section{padding:100px 0;border-top:1px solid var(--border)}
-    .collections-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-    .collection-card{aspect-ratio:4/5;position:relative;overflow:hidden;cursor:pointer;border:1px solid var(--border);transition:border-color .3s}
-    .collection-card:hover{border-color:var(--accent)}
-    .collection-bg{position:absolute;inset:0;overflow:hidden}
-    .collection-bg img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-    .collection-card:hover .collection-bg img{transform:scale(1.04)}
-    .collection-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(14,14,12,.88) 0%,rgba(14,14,12,.1) 50%,transparent 100%)}
-    .collection-info{position:absolute;bottom:24px;left:24px;right:24px;z-index:2}
-    .collection-name{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:var(--white);margin-bottom:4px}
-    .collection-count{font-size:11px;color:var(--muted);letter-spacing:.1em}
+    /* ── CHOOSE FORMAT ── */
+    .choose-format {
+      background: var(--dark);
+      padding: 70px 40px;
+      text-align: center;
+    }
+    .choose-format h2 {
+      font-family: var(--font-title);
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: var(--white);
+    }
+    .choose-format > p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.7);
+      max-width: 600px;
+      margin: 0 auto 48px;
+      line-height: 1.6;
+    }
+    .format-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .format-col {
+      text-align: left;
+      padding: 0 40px;
+      border-right: 1px solid rgba(255,255,255,0.12);
+    }
+    .format-col:first-child { padding-left: 0; }
+    .format-col:last-child { border-right: none; padding-right: 0; }
+    .format-logo {
+      font-family: var(--font-title);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 28px;
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+    .format-logo img { height: 28px; }
+    .format-item { margin-bottom: 24px; }
+    .format-num {
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+    .format-item h4 {
+      font-family: var(--font-title);
+      font-size: 16px;
+      margin-bottom: 4px;
+      color: var(--white);
+    }
+    .format-item p {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.5;
+    }
 
     /* ── BLOG ── */
-    .blog-section{padding:100px 0;border-top:1px solid var(--border)}
-    .blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
-    .blog-card{cursor:pointer}
-    .blog-thumb{aspect-ratio:16/10;background:var(--surface);margin-bottom:20px;overflow:hidden;position:relative}
-    .blog-thumb-bg{position:absolute;inset:0;transition:transform .5s}
-    .blog-card:hover .blog-thumb-bg{transform:scale(1.04)}
-    .b1 .blog-thumb-bg{background:linear-gradient(135deg,#1e1810,#2d2318)}
-    .b2 .blog-thumb-bg{background:linear-gradient(135deg,#12161e,#1a2230)}
-    .b3 .blog-thumb-bg{background:linear-gradient(135deg,#1a1010,#2d1818)}
-    .blog-cat{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
-    .blog-title{font-family:var(--serif);font-size:1.25rem;color:var(--white);line-height:1.3;margin-bottom:10px;transition:color .2s}
-    .blog-card:hover .blog-title{color:var(--accent)}
-    .blog-excerpt{font-size:13px;color:var(--muted);line-height:1.75;margin-bottom:16px}
-    .blog-meta{font-size:11px;color:var(--muted)}
-
-    /* ── FEATURED ON ── */
-    .featured-section{padding:80px 0;border-top:1px solid var(--border);background:var(--surface);text-align:center}
-    .featured-section .section-label{text-align:center;margin-bottom:48px}
-    .logos-track{display:flex;gap:56px;align-items:center;justify-content:center;flex-wrap:wrap}
-    .logo-item{font-family:var(--serif);font-size:1.2rem;font-weight:300;font-style:italic;color:var(--border);letter-spacing:.06em;transition:color .3s}
-    .logo-item:hover{color:var(--muted)}
-
-    /* ── SNEAK PEEKS ── */
-    .sneak-section{padding:100px 0;border-top:1px solid var(--border)}
-    .sneak-title-wrap{text-align:center;margin-bottom:56px}
-    .sneak-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3px;max-width:1200px;margin:0 auto;padding:0 32px}
-    .sneak-item{aspect-ratio:1;overflow:hidden;position:relative;cursor:pointer}
-    .sneak-item::after{content:'';position:absolute;inset:0;background:rgba(14,14,12,0);transition:background .3s}
-    .sneak-item:hover::after{background:rgba(14,14,12,.4)}
-    .s1{background:linear-gradient(135deg,#1e1810,#2d2318)}
-    .s2{background:linear-gradient(135deg,#12161e,#1a2230)}
-    .s3{background:linear-gradient(135deg,#1a1010,#2d1818)}
-    .s4{background:linear-gradient(135deg,#101a10,#182d18)}
-    .s5{background:linear-gradient(135deg,#1a1018,#2d1828)}
+    .blog-section {
+      background: var(--white);
+      padding: 70px 40px;
+      text-align: center;
+    }
+    .blog-section h2 {
+      font-family: var(--font-title);
+      font-size: 36px;
+      margin-bottom: 40px;
+      color: var(--dark);
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .blog-card { text-align: left; cursor: pointer; }
+    .blog-card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 16px;
+      background: #ddd;
+      display: block;
+    }
+    .blog-card-img-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #e8e4dc, #d4cfc6);
+      border-radius: 4px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 13px;
+    }
+    .blog-card h3 {
+      font-family: var(--font-title);
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: var(--dark);
+    }
+    .blog-card p { font-size: 14px; color: var(--text-light); line-height: 1.5; }
 
     /* ── FAQ ── */
-    .faq-section{padding:100px 0;border-top:1px solid var(--border)}
-    .faq-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
-    .faq-list{display:flex;flex-direction:column}
-    .faq-item{border-bottom:1px solid var(--border)}
-    .faq-question{width:100%;background:none;border:none;color:var(--white);font-family:var(--serif);font-size:1.05rem;text-align:left;padding:22px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:color .2s}
-    .faq-question:hover{color:var(--accent)}
-    .faq-chevron{width:16px;height:16px;stroke:var(--muted);fill:none;flex-shrink:0;transition:transform .3s}
-    .faq-item.open .faq-chevron{transform:rotate(180deg);stroke:var(--accent)}
-    .faq-answer{overflow:hidden;max-height:0;transition:max-height .35s ease}
-    .faq-item.open .faq-answer{max-height:200px}
-    .faq-answer p{color:var(--muted);font-size:14px;line-height:1.8;padding-bottom:22px}
+    .faq-section {
+      background: var(--light-bg);
+      padding: 70px 40px;
+    }
+    .faq-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .faq-section h2 {
+      font-family: var(--font-title);
+      font-size: 36px;
+      color: var(--dark);
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .faq-item {
+      border-bottom: 1px solid rgba(0,0,0,0.12);
+    }
+    .faq-question {
+      display: grid;
+      grid-template-columns: 40px 1fr 36px;
+      align-items: center;
+      padding: 20px 0;
+      cursor: pointer;
+      color: var(--dark);
+      font-size: 16px;
+      font-weight: 500;
+      gap: 16px;
+    }
+    .faq-question:hover { opacity: 0.75; }
+    .faq-q-num {
+      font-size: 13px;
+      color: var(--text-light);
+      font-weight: 400;
+    }
+    .faq-icon {
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(0,0,0,0.25);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 20px;
+      font-weight: 300;
+      line-height: 1;
+      transition: transform 0.3s;
+      color: var(--dark);
+    }
+    .faq-answer {
+      color: var(--text-light);
+      font-size: 15px;
+      line-height: 1.7;
+      max-height: 0;
+      overflow: hidden;
+      padding-left: 56px;
+      transition: max-height 0.4s ease, padding 0.3s;
+    }
+    .faq-item.open .faq-answer { max-height: 300px; padding-bottom: 20px; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
 
-    /* ── SUBSCRIBE ── */
-    .subscribe-section{padding:120px 0;border-top:1px solid var(--border);text-align:center;background:var(--surface);position:relative;overflow:hidden}
-    .subscribe-section::before{content:'';position:absolute;top:-200px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(200,184,154,.07) 0%,transparent 70%);pointer-events:none}
-    .subscribe-section .section-title{margin-bottom:16px}
-    .sub-p{color:var(--muted);margin-bottom:40px}
-    .subscribe-form{display:flex;max-width:480px;margin:0 auto 16px}
-    .subscribe-form input{flex:1;padding:14px 20px;background:var(--bg);border:1px solid var(--border);border-right:none;color:var(--text);font-family:var(--sans);font-size:13px;outline:none;transition:border-color .2s}
-    .subscribe-form input:focus{border-color:var(--accent)}
-    .subscribe-form input::placeholder{color:var(--muted)}
-    .subscribe-note{font-size:11px;color:var(--muted)}
+    /* ── STAY CONNECTED ── */
+    .stay-connected {
+      background: var(--cream);
+      padding: 70px 40px;
+    }
+    .stay-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .stay-left h2 {
+      font-family: var(--font-title);
+      font-size: 36px;
+      margin-bottom: 12px;
+      color: var(--dark);
+    }
+    .stay-left p {
+      font-size: 16px;
+      color: var(--text-light);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .stay-form { display: flex; flex-direction: column; gap: 12px; }
+    .stay-form input {
+      border: 1px solid rgba(0,0,0,0.2);
+      background: var(--white);
+      padding: 13px 18px;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .stay-form input:focus { border-color: var(--dark); }
+    .stay-form input::placeholder { color: #aaa; }
+    .btn-subscribe {
+      background: var(--dark);
+      color: var(--white);
+      border: none;
+      padding: 14px 32px;
+      border-radius: 4px;
+      font-family: var(--font-body);
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+      align-self: flex-start;
+    }
+    .btn-subscribe:hover { background: #444; }
+    .stay-right {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+    .stay-right img {
+      width: 48%;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+    .stay-img-placeholder {
+      width: 48%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(135deg, #e0dbd2, #ccc8c0);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-size: 12px;
+    }
 
     /* ── FOOTER ── */
-    footer{border-top:1px solid var(--border);padding:64px 0 32px}
-    .footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:56px}
-    .footer-logo{font-family:var(--serif);font-size:1.2rem;font-weight:600;color:var(--white);margin-bottom:16px;display:block}
-    .footer-logo span{color:var(--accent)}
-    .footer-desc{font-size:13px;color:var(--muted);line-height:1.8;max-width:280px;margin-bottom:24px}
-    .social-links{display:flex;gap:14px}
-    .social-link{width:36px;height:36px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;transition:border-color .2s,color .2s}
-    .social-link:hover{border-color:var(--accent);color:var(--accent)}
-    .footer-col h4{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
-    .footer-col ul{display:flex;flex-direction:column;gap:10px}
-    .footer-col a{font-size:13px;color:var(--muted);transition:color .2s}
-    .footer-col a:hover{color:var(--white)}
-    .footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid var(--border);font-size:11px;color:var(--muted)}
-    .fbl{display:flex;gap:24px}
-    .fbl a:hover{color:var(--white)}
-
-    /* ── ANIMATIONS ── */
-    .fade-up{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
-    .fade-up.visible{opacity:1;transform:none}
+    .footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 28px 40px;
+      font-size: 13px;
+    }
+    .footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    .footer a:hover { color: var(--white); }
 
     /* ── RESPONSIVE ── */
-    @media(max-width:1024px){.main-nav{gap:0}.nav-link{padding:8px 10px;font-size:10px}}
-    @media(max-width:900px){
-      .products-grid,.collections-grid{grid-template-columns:repeat(2,1fr)}
-      .about-inner,.video-inner,.faq-inner,.bestseller-inner{grid-template-columns:1fr;gap:48px}
-      .footer-inner{grid-template-columns:1fr 1fr}
-      .sneak-grid{grid-template-columns:repeat(3,1fr)}
-      .blog-grid{grid-template-columns:1fr 1fr}
+    @media (max-width: 1024px) {
+      .hero-content { padding: 50px 40px; }
+      .ecosystem-cards { gap: 16px; }
+      .format-grid { gap: 20px; }
     }
-    @media(max-width:768px){.main-nav{display:none}}
-    @media(max-width:600px){
-      .container{padding:0 20px}
-      .banner-content{padding:40px 24px}
-      .collections-grid{grid-template-columns:repeat(2,1fr)}
-      .products-grid{gap:16px}
-      .blog-grid{grid-template-columns:1fr}
-      .footer-inner{grid-template-columns:1fr}
-      .sneak-grid{grid-template-columns:repeat(2,1fr);padding:0 20px}
-      .subscribe-form{flex-direction:column}
-      .subscribe-form input{border-right:1px solid var(--border);border-bottom:none}
-      .logos-track{gap:32px}
+
+    @media (max-width: 768px) {
+      .navbar { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-image { min-height: 280px; }
+      .hero-content { padding: 40px 20px; max-width: 100%; }
+      .hero h1 { font-size: 36px; }
+      .hero-dots { left: 20px; }
+      .ecosystem { padding: 50px 20px; }
+      .ecosystem-cards { grid-template-columns: 1fr; }
+      .our-story { grid-template-columns: 1fr; }
+      .story-left { min-height: 400px; }
+      .story-right { padding: 40px 20px; }
+      .choose-format { padding: 50px 20px; }
+      .format-grid { grid-template-columns: 1fr; }
+      .format-divider { display: none; }
+      .blog-section { padding: 50px 20px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .faq-section { padding: 50px 20px; }
+      .stay-connected { padding: 50px 20px; }
+      .stay-inner { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    @media (min-width: 1920px) {
+      .hero-content { padding: 80px 80px 80px 120px; }
+      .ecosystem, .choose-format, .blog-section, .faq-section, .stay-connected { padding: 90px 80px; }
+      .navbar { padding: 0 80px; }
     }
   </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div class="topbar" data-i18n="topbar">✦ New: Christmas Kindness & Joy — Interactive SEL Activity Book for Kids 4–8 · Free shipping over $45 ✦</div>
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  <span>Somatic Anger Kit Vol.2</span>
+  <span>Coming Soon</span>
+  <div class="countdown">
+    <div class="countdown-unit" id="cd-days">31</div>
+    <span>:</span>
+    <div class="countdown-unit" id="cd-hours">08</div>
+    <span>:</span>
+    <div class="countdown-unit" id="cd-mins">24</div>
+    <span>:</span>
+    <div class="countdown-unit" id="cd-secs">50</div>
+  </div>
+  <button class="btn-preorder">Pre-Order Now</button>
+</div>
 
-<!-- HEADER -->
-<header>
-  <div class="container">
-    <div class="nav-inner">
-      <a href="index.html" class="logo">Sense<span>Revolt</span>™</a>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">
+    <div class="logo-name"><strong>SENSE</strong><span>REVOLT</span>™</div>
+    <div class="logo-sub">One Ecosystem for the Whole Family</div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#">Somatic Tools</a></li>
+    <li><a href="#">SEL Tools for Kids</a></li>
+    <li><a href="#">For Professionals</a></li>
+    <li><a href="#">Blog</a></li>
+    <li><a href="#">About Us</a></li>
+    <li><a href="#">FAQs</a></li>
+    <li><a href="#">Music</a></li>
+  </ul>
+  <div class="nav-icons">
+    <a href="#">✉</a>
+    <a href="#">♡</a>
+    <button class="lang-btn">En ↓</button>
+  </div>
+</nav>
 
-      <!-- MEGA MENU -->
-      <nav class="main-nav">
-
-        <div class="nav-item">
-          <button class="nav-link" data-i18n="nav_shop">Shop
-            <svg class="nav-arrow" viewBox="0 0 24 24" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="nav-dropdown">
-            <span class="drop-label" data-i18n="nav_somatic">Somatic for Adults</span>
-            <a href="#" data-i18n="nav_somatic_anger">Anger & Frustration</a>
-            <a href="#" data-i18n="nav_somatic_anxiety">Anxiety & Stress</a>
-            <a href="#" data-i18n="nav_somatic_burnout">Burnout & Fatigue</a>
-            <hr class="drop-divider"/>
-            <span class="drop-label" data-i18n="nav_kids">SEL for Kids</span>
-            <a href="#" data-i18n="nav_kids_36">Ages 3–6</a>
-            <a href="#" data-i18n="nav_kids_612">Ages 6–12</a>
-            <hr class="drop-divider"/>
-            <a href="#" data-i18n="nav_digital">Digital Downloads</a>
-          </div>
-        </div>
-
-        <div class="nav-item">
-          <a class="nav-link" href="#about" data-i18n="nav_story">Our Story</a>
-        </div>
-        <div class="nav-item">
-          <a class="nav-link" href="#releases" data-i18n="nav_releases">New Releases</a>
-        </div>
-        <div class="nav-item">
-          <a class="nav-link" href="#collections" data-i18n="nav_collections">Collections</a>
-        </div>
-        <div class="nav-item">
-          <a class="nav-link" href="#blog" data-i18n="nav_blog">Blog</a>
-        </div>
-        <div class="nav-item">
-          <a class="nav-link" href="#faq" data-i18n="nav_faq">FAQ</a>
-        </div>
-      </nav>
-
-      <!-- RIGHT: SEARCH + LANG -->
-      <div style="display:flex;align-items:center;gap:16px">
-        <svg class="nav-icon" viewBox="0 0 24 24" stroke-width="1.5"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="21" y2="21"/></svg>
-
-        <!-- LANGUAGE DROPDOWN -->
-        <div class="lang-switcher" id="langSwitcher">
-          <button class="lang-btn" onclick="toggleLang()" id="langBtn">
-            <span class="lang-flag" id="currentFlag">🇬🇧</span>
-            <span class="lang-code" id="currentCode">EN</span>
-            <svg class="lang-chevron" viewBox="0 0 24 24" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="lang-dropdown" id="langDropdown">
-            <div class="lang-option" onclick="setLang('en')"><span class="flag">🇬🇧</span> English</div>
-            <div class="lang-option" onclick="setLang('es')"><span class="flag">🇪🇸</span> Español</div>
-            <div class="lang-option" onclick="setLang('uk')"><span class="flag">🇺🇦</span> Українська</div>
-            <div class="lang-option" onclick="setLang('de')"><span class="flag">🇩🇪</span> Deutsch</div>
-            <div class="lang-option" onclick="setLang('fr')"><span class="flag">🇫🇷</span> Français</div>
-          </div>
-        </div>
-      </div>
-
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-vol">Vol.1</div>
+    <h1>Somatic Anger Kit</h1>
+    <p class="hero-sub">Body-Based Practices to Move Through Rage & Understand What's Underneath</p>
+    <a href="#" class="btn-dark">Start the Practice</a>
+    <div class="hero-dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
     </div>
   </div>
-</header>
-
-<!-- ① BANNERS -->
-<section class="banner-section">
-  <div class="banner-slides" id="bannerSlides">
-    <div class="banner-slide slide-1">
-      <div class="banner-bg"></div><div class="banner-overlay"></div>
-      <div class="banner-content">
-        <p class="section-label">SEL Song · Official Audio</p>
-        <h1>Clap and Shine —<br><em>It's Christmas Time!</em></h1>
-        <p>From "Christmas Kindness & Joy" — Interactive SEL Activity Book for Kids 4–8.</p>
-        <div class="banner-actions">
-          <a href="product.html" class="btn btn-solid" data-i18n="buy_etsy">Buy on Etsy</a>
-          <a href="#video" class="btn">Watch Video</a>
-        </div>
-      </div>
-    </div>
-    <div class="banner-slide slide-2">
-      <div class="banner-bg"></div><div class="banner-overlay"></div>
-      <div class="banner-content">
-        <p class="section-label">Adults · Somatic Tools</p>
-        <h1>Body First.<br><em>Pen Follows.</em></h1>
-        <p>When breathing isn't enough — somatic workbooks for real nervous system states.</p>
-        <div class="banner-actions">
-          <a href="#releases" class="btn btn-solid" data-i18n="nav_releases">New Releases</a>
-          <a href="#about" class="btn" data-i18n="nav_story">Our Story</a>
-        </div>
-      </div>
-    </div>
-    <div class="banner-slide slide-3">
-      <div class="banner-bg"></div><div class="banner-overlay"></div>
-      <div class="banner-content">
-        <p class="section-label">Kids · SEL Collection</p>
-        <h1>Big Feelings,<br><em>Big Fun.</em></h1>
-        <p>Multisensory SEL workbooks — through visuals, original music and real-life social missions.</p>
-        <div class="banner-actions">
-          <a href="#releases" class="btn btn-solid" data-i18n="nav_releases">New Releases</a>
-          <a href="#" class="btn">Amazon →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <button class="banner-arrow prev" onclick="moveBanner(-1)">&#8592;</button>
-  <button class="banner-arrow next" onclick="moveBanner(1)">&#8594;</button>
-  <div class="banner-dots">
-    <span class="dot active" onclick="goToBanner(0)"></span>
-    <span class="dot" onclick="goToBanner(1)"></span>
-    <span class="dot" onclick="goToBanner(2)"></span>
+  <div class="hero-image">
+    <div style="width:100%;height:100%;background:linear-gradient(135deg,#e8e4dc,#d0cbc2);display:flex;align-items:center;justify-content:center;color:#999;font-size:14px;min-height:480px;">Book image placeholder</div>
   </div>
 </section>
 
-<!-- ② ABOUT -->
-<section class="about-section" id="about">
-  <div class="container">
-    <div class="about-inner">
-      <div class="about-image"><img src="christmas-book-cover.png" alt="SenseRevolt Book"/></div>
-      <div class="about-text fade-up">
-        <p class="section-label" data-i18n="about_label">Our Story</p>
-        <h2 class="section-title"><span data-i18n="about_title">Born from the Storm.</span><br><em data-i18n="about_title_em">Built for the Body.</em></h2>
-        <p data-i18n="about_p1">SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine.</p>
-        <p data-i18n="about_p2">We combined our personal struggles and professional skills to build a complete emotional ecosystem.</p>
-        <a href="#" class="btn" data-i18n="about_btn">Read Our Full Story</a>
+<!-- ONE ECOSYSTEM -->
+<section class="ecosystem">
+  <h2>One Ecosystem for the Whole Family</h2>
+  <p>SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine. Living through profoundly turbulent times, we realized that standard wellness advice simply doesn't work when your nervous system is truly overloaded.</p>
+  <p>We combined our personal struggles and professional skills to build a complete emotional ecosystem — real, working tools to protect mental peace for both adults and children.</p>
+
+  <div class="ecosystem-cards">
+    <div class="eco-card">
+      <div class="eco-card-img-placeholder">Somatic Tools book image</div>
+      <div class="eco-card-body">
+        <span class="eco-num">01</span>
+        <h3>Somatic Tools</h3>
+        <p>SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine. We combined our personal struggles and professional skills to build a complete emotional ecosystem.</p>
+        <a href="#" class="btn-outline">Explore our system</a>
+      </div>
+    </div>
+    <div class="eco-card">
+      <div class="eco-card-img-placeholder" style="background:linear-gradient(135deg,#c0392b,#922b21);">SEL Tools for Kids image</div>
+      <div class="eco-card-body">
+        <span class="eco-num">02</span>
+        <h3>SEL Tools for Kids</h3>
+        <p>SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine. We combined our personal struggles and professional skills to build a complete emotional ecosystem.</p>
+        <a href="#" class="btn-outline">Explore why we differ</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ③ NEW RELEASES -->
-<section class="releases-section" id="releases">
-  <div class="container">
-    <div class="section-header">
-      <div><p class="section-label" data-i18n="releases_label">Just Launched</p><h2 class="section-title"><span data-i18n="releases_title">New</span> <em data-i18n="releases_title_em">Releases</em></h2></div>
-      <a href="#" class="view-all" data-i18n="view_all">View All →</a>
+<!-- OUR STORY -->
+<section class="our-story">
+  <div class="story-left">
+    <div style="width:100%;height:100%;min-height:500px;background:linear-gradient(180deg,#d6d2cc,#b8b4ae);display:flex;align-items:flex-end;justify-content:center;padding-bottom:40px;">
+      <div style="color:#666;font-size:13px;">Sisters photo placeholder</div>
     </div>
-    <div class="products-grid">
-      <a href="product.html" class="product-card">
-        <div class="product-thumb"><img src="christmas-book-cover.png" alt="Christmas Kindness & Joy"/><span class="product-badge" data-i18n="product_new">New Release</span></div>
-        <p class="product-name">Christmas Kindness & Joy</p>
-        <p class="product-sub">Kids · SEL · Ages 4–8</p>
-        <p class="product-price">$12.99</p>
-      </a>
-      <div class="product-card p2">
-        <div class="product-thumb"><div class="product-thumb-bg"></div><span class="product-badge" data-i18n="product_new">New Release</span></div>
-        <p class="product-name">Somatic Pattern Workbook Vol. 2</p><p class="product-sub">Adults · Nervous System</p><p class="product-price">$24.99</p>
+    <div class="story-quote">
+      <p>Our superpowers are to translate mental chaos into structured calm and turn complex feelings into engaging, multi-sensory missions that families can enjoy together.</p>
+      <div class="quote-mark">❝</div>
+    </div>
+  </div>
+  <div class="story-right">
+    <h2>Our Story</h2>
+    <p>SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine. Living through profoundly turbulent times, we realized that standard wellness advice simply doesn't work when your nervous system is truly overloaded.</p>
+    <p>We combined our personal struggles and professional skills to build a complete emotional ecosystem — real, working tools to protect mental peace for both adults and children.</p>
+    <p>We combined our personal struggles and professional skills to build a complete emotional ecosystem — real, working tools to protect mental peace for both adults and children.</p>
+    <a href="#" class="btn-dark-rounded">Dive in deeper</a>
+  </div>
+</section>
+
+<!-- CHOOSE YOUR FORMAT -->
+<section class="choose-format">
+  <h2>Choose Your Format</h2>
+  <p>Our interactive ecosystem is available across the major global platforms you already know and trust. Choose the marketplace and format that suits you best.</p>
+
+  <div class="format-grid">
+    <div class="format-col">
+      <div class="format-logo">Etsy</div>
+      <div class="format-item">
+        <div class="format-num">01</div>
+        <h4>Print. Practice. Repeat.</h4>
+        <p>One file, endless sessions for the whole family's journey.</p>
       </div>
-      <div class="product-card p3">
-        <div class="product-thumb"><div class="product-thumb-bg"></div><span class="product-badge">Sale</span></div>
-        <p class="product-name">Anxiety Protocol Journal</p><p class="product-sub">Adults · Somatic</p><p class="product-price"><s>$29.99</s> $21.99</p>
+      <div class="format-item">
+        <div class="format-num">02</div>
+        <h4>Pro-Paper Choice.</h4>
+        <p>No limits, use your favorite professional markers or heavyweight cardstock.</p>
       </div>
-      <div class="product-card p4">
-        <div class="product-thumb"><div class="product-thumb-bg"></div></div>
-        <p class="product-name">Emotional Compass for Kids</p><p class="product-sub">Kids · SEL · Ages 3–8</p><p class="product-price">$16.99</p>
+      <div class="format-item">
+        <div class="format-num">03</div>
+        <h4>Exclusive Inventory.</h4>
+        <p>Immediate access to our complete digital ecosystem and limited-release tools.</p>
+      </div>
+    </div>
+
+    <div class="format-col">
+      <div class="format-logo">amazon<strong>kindle</strong></div>
+      <div class="format-item">
+        <div class="format-num">01</div>
+        <h4>Ready-to-Use.</h4>
+        <p>Pro physical books delivered—no printing or assembly required for your practice.</p>
+      </div>
+      <div class="format-item">
+        <div class="format-num">02</div>
+        <h4>Worldwide Shipping.</h4>
+        <p>Reliable global delivery, bringing our interactive tools to your doorstep anywhere.</p>
+      </div>
+      <div class="format-item">
+        <div class="format-num">03</div>
+        <h4>The Perfect Gift.</h4>
+        <p>A high-quality, tangible version of our ecosystem—meaningful and ready to be gifted.</p>
+      </div>
+    </div>
+
+    <div class="format-col">
+      <div class="format-logo">✦ TPT</div>
+      <div class="format-item">
+        <div class="format-num">01</div>
+        <h4>Educational Licensing.</h4>
+        <p>Flexible options for schools, classrooms, and clinics.</p>
+      </div>
+      <div class="format-item">
+        <div class="format-num">02</div>
+        <h4>Group Practice Ready.</h4>
+        <p>Unlimited prints for all your students or clients.</p>
+      </div>
+      <div class="format-item">
+        <div class="format-num">03</div>
+        <h4>Specialist Choice.</h4>
+        <p>Premium materials designed specifically for educators and mental health specialists.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ④ VIDEO -->
-<section class="video-section" id="video">
-  <div class="container">
-    <div class="video-inner">
-      <div class="video-wrap">
-        <div class="video-placeholder" id="videoPlaceholder">
-          <div class="play-btn" onclick="loadVideo()"><svg width="22" height="22" viewBox="0 0 24 24" fill="var(--accent)" stroke="none"><polygon points="5,3 19,12 5,21"/></svg></div>
-        </div>
-      </div>
-      <div class="video-text fade-up">
-        <p class="section-label" data-i18n="video_label">Inside the Ecosystem</p>
-        <h2 class="section-title"><span data-i18n="video_title">Smart Visual</span><br><em data-i18n="video_title_em">Language</em></h2>
-        <p data-i18n="video_p">Watch how our somatic patterns and SEL tools work.</p>
-        <a href="#" class="btn" data-i18n="video_btn">Watch on YouTube →</a>
-      </div>
+<!-- BLOG POSTS -->
+<section class="blog-section">
+  <h2>Blog Posts</h2>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <div class="blog-card-img-placeholder">Blog image 1</div>
+      <h3>Somatic World</h3>
+      <p>Deep dives into somatic patterns, body-first tools, and the science behind why it works.</p>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img-placeholder">Blog image 2</div>
+      <h3>For Conscious Parents</h3>
+      <p>You're already doing the hard work. Tools and insights to make it a little easier — for you and your kids.</p>
+    </div>
+    <div class="blog-card">
+      <div class="blog-card-img-placeholder">Blog image 3</div>
+      <h3>Tools & Practice</h3>
+      <p>Step inside the SenseRevolt ecosystem. Guides and practical tips for every kit and workbook.</p>
     </div>
   </div>
 </section>
 
-<!-- ⑤ BESTSELLER -->
-<section class="bestseller-section" id="bestseller">
-  <div class="container">
-    <div class="section-header">
-      <div><p class="section-label" data-i18n="bestseller_label">Fan Favourites</p><h2 class="section-title"><span data-i18n="bestseller_title">Best</span> <em data-i18n="bestseller_title_em">Sellers</em></h2></div>
-      <a href="#" class="view-all" data-i18n="view_all">View All →</a>
-    </div>
-    <div class="bestseller-inner">
-      <div class="bestseller-featured">
-        <div class="bestseller-image"><span class="bestseller-badge-tag">#1 Bestseller</span><img src="christmas-book-cover.png" alt=""/></div>
-        <h3 class="bestseller-name">Christmas Kindness & Joy</h3>
-        <p class="bestseller-price">$12.99</p>
-        <a href="product.html" class="btn btn-solid" data-i18n="buy_etsy">Buy on Etsy</a>
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <h2>FAQs</h2>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-q-num">01</span>
+        <span>Where can I buy Coco Wyo physical coloring books?</span>
+        <div class="faq-icon">+</div>
       </div>
-      <div class="bestseller-list">
-        <div class="bestseller-item"><div class="item-thumb t1"></div><div><p class="item-name">Grounding Ritual Journal</p><p class="item-sub">Adults · Somatic</p></div><p class="item-price">$22.99</p></div>
-        <div class="bestseller-item"><div class="item-thumb t2"></div><div><p class="item-name">Big Feelings Starter Kit</p><p class="item-sub">Kids · SEL · Ages 4–9</p></div><p class="item-price">$34.99</p></div>
-        <div class="bestseller-item"><div class="item-thumb t3"></div><div><p class="item-name">Burnout Recovery Workbook</p><p class="item-sub">Adults · Nervous System</p></div><p class="item-price">$26.99</p></div>
-        <div class="bestseller-item"><div class="item-thumb t4"></div><div><p class="item-name">My Emotions Activity Book</p><p class="item-sub">Kids · SEL · Ages 6–12</p></div><p class="item-price">$19.99</p></div>
+      <div class="faq-answer">Amazon: Available on Amazon in the US, UK, Canada, Australia, Germany, France, Italy, and more. Availability depends on the official Amazon marketplace in your country.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-q-num">02</span>
+        <span>Where can I buy Coco Wyo physical coloring books?</span>
+        <div class="faq-icon">+</div>
       </div>
+      <div class="faq-answer">Barnes & Noble: Partners with Penguin Random House. Store selection, book always vary. SenseRevolt books may vary in your location.</div>
     </div>
-  </div>
-</section>
-
-<!-- ⑥ COLLECTIONS -->
-<section class="collections-section" id="collections">
-  <div class="container">
-    <div class="section-header">
-      <div><p class="section-label" data-i18n="collections_label">Browse</p><h2 class="section-title"><span data-i18n="collections_title">Our</span> <em data-i18n="collections_title_em">Collections</em></h2></div>
-      <a href="#" class="view-all" data-i18n="view_all">View All →</a>
-    </div>
-    <div class="collections-grid">
-      <div class="collection-card"><div class="collection-bg"><img src="christmas-book-cover.png" alt=""/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">SEL for Kids</p><p class="collection-count">8 Products</p></div></div>
-      <div class="collection-card"><div class="collection-bg"><img src="christmas-book-cover.png" alt=""/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">Somatic Workbooks</p><p class="collection-count">12 Products</p></div></div>
-      <div class="collection-card"><div class="collection-bg"><img src="christmas-book-cover.png" alt=""/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">Starter Bundles</p><p class="collection-count">4 Products</p></div></div>
-      <div class="collection-card"><div class="collection-bg"><img src="christmas-book-cover.png" alt=""/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">Digital Downloads</p><p class="collection-count">6 Products</p></div></div>
-      <div class="collection-card"><div class="collection-bg"><img src="christmas-book-cover.png" alt=""/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">Gift Sets</p><p class="collection-count">3 Products</p></div></div>
-      <div class="collection-card"><div class="collection-bg"><img src="christmas-book-cover.png" alt=""/></div><div class="collection-overlay"></div><div class="collection-info"><p class="collection-name">New Releases</p><p class="collection-count">5 Products</p></div></div>
-    </div>
-  </div>
-</section>
-
-<!-- ⑦ BLOG -->
-<section class="blog-section" id="blog">
-  <div class="container">
-    <div class="section-header">
-      <div><p class="section-label" data-i18n="blog_label">From the Journal</p><h2 class="section-title"><span data-i18n="blog_title">Blog</span> <em data-i18n="blog_title_em">Posts</em></h2></div>
-      <a href="#" class="view-all" data-i18n="view_all">View All →</a>
-    </div>
-    <div class="blog-grid">
-      <div class="blog-card b1 fade-up"><div class="blog-thumb"><div class="blog-thumb-bg"></div></div><p class="blog-cat">Somatic Tools</p><h3 class="blog-title">Why Your Body Needs Pattern Before Words</h3><p class="blog-excerpt">When the nervous system is overwhelmed, language processing shuts down first.</p><p class="blog-meta">Yani · April 2025 · 5 min read</p></div>
-      <div class="blog-card b2 fade-up"><div class="blog-thumb"><div class="blog-thumb-bg"></div></div><p class="blog-cat">SEL for Kids</p><h3 class="blog-title">Teaching Emotional Vocabulary Without the Lecture</h3><p class="blog-excerpt">Children learn emotional language through play, movement, and choice.</p><p class="blog-meta">Lisi · March 2025 · 4 min read</p></div>
-      <div class="blog-card b3 fade-up"><div class="blog-thumb"><div class="blog-thumb-bg"></div></div><p class="blog-cat">Our Story</p><h3 class="blog-title">How War Became the Origin Story of SenseRevolt™</h3><p class="blog-excerpt">We didn't plan to create a wellness brand. But when standard coping tools fail, you build your own.</p><p class="blog-meta">Yani &amp; Lisi · February 2025 · 7 min read</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- ⑧ FEATURED ON -->
-<section class="featured-section">
-  <div class="container">
-    <p class="section-label" data-i18n="featured_label">As Seen In</p>
-    <div class="logos-track">
-      <span class="logo-item">Forbes</span><span class="logo-item">Mindful Magazine</span><span class="logo-item">Etsy Editors</span><span class="logo-item">Psychology Today</span><span class="logo-item">The Guardian</span><span class="logo-item">Amazon Best Sellers</span>
-    </div>
-  </div>
-</section>
-
-<!-- ⑨ SNEAK PEEKS -->
-<section class="sneak-section" id="gallery">
-  <div class="container"><div class="sneak-title-wrap"><p class="section-label" style="text-align:center" data-i18n="sneak_label">Community Gallery</p><h2 class="section-title" style="text-align:center"><span data-i18n="sneak_title">Sneak</span> <em data-i18n="sneak_title_em">Peeks</em></h2></div></div>
-  <div class="sneak-grid"><div class="sneak-item s1"></div><div class="sneak-item s2"></div><div class="sneak-item s3"></div><div class="sneak-item s4"></div><div class="sneak-item s5"></div></div>
-</section>
-
-<!-- ⑩ FAQ -->
-<section class="faq-section" id="faq">
-  <div class="container">
-    <div class="faq-inner">
-      <div>
-        <p class="section-label">FAQ</p>
-        <h2 class="section-title"><span data-i18n="faq_title">Frequently</span><br><em data-i18n="faq_title_em">Asked</em></h2>
-        <p style="color:var(--muted);margin-top:20px;line-height:1.8">support@senserevolt.com</p>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-q-num">03</span>
+        <span>Where can I buy Coco Wyo physical coloring books?</span>
+        <div class="faq-icon">+</div>
       </div>
-      <div class="faq-list">
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q1">Are these books available as physical copies?</span><svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p data-i18n="faq_a1">Yes! Physical workbooks are available via Amazon and Etsy.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q2">What age range are the SEL books designed for?</span><svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p data-i18n="faq_a2">Our SEL collection is designed for children aged 3–12.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q3">Do I need experience with somatic practices?</span><svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p data-i18n="faq_a3">Not at all. Each session includes clear instructions.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q4">Do you ship internationally?</span><svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p data-i18n="faq_a4">Yes, worldwide through Etsy and Amazon.</p></div></div>
-        <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)"><span data-i18n="faq_q5">Can educators use these tools?</span><svg class="faq-chevron" viewBox="0 0 24 24" stroke-width="1.5"><polyline points="6 9 12 15 18 9"/></svg></button><div class="faq-answer"><p data-i18n="faq_a5">Absolutely. Contact us for bulk pricing.</p></div></div>
+      <div class="faq-answer">TikTok Shop: Currently available in the US with Vortex filter, Supply Core Vol. 2, Comfy Days, and Little Cuddlies.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-q-num">04</span>
+        <span>Where can I buy Coco Wyo physical coloring books?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-answer">You can find our full catalog on Etsy with instant digital download options available worldwide.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span class="faq-q-num">05</span>
+        <span>Where can I buy Coco Wyo physical coloring books?</span>
+        <div class="faq-icon">+</div>
+      </div>
+      <div class="faq-answer">For professional and educational use, visit our TPT store for group licensing options.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STAY CONNECTED -->
+<section class="stay-connected">
+  <div class="stay-inner">
+    <div class="stay-left">
+      <h2>Stay Connected</h2>
+      <p>Stay updated on our latest releases and exclusive materials. No spam, ever — just peace of mind as much as you do.</p>
+      <div class="stay-form">
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <button class="btn-subscribe">Subscribe</button>
       </div>
     </div>
+    <div class="stay-right">
+      <div class="stay-img-placeholder">Image 1</div>
+      <div class="stay-img-placeholder">Image 2</div>
+    </div>
   </div>
 </section>
 
-<!-- ⑪ SUBSCRIBE -->
-<section class="subscribe-section" id="subscribe">
-  <div class="container">
-    <p class="section-label" data-i18n="subscribe_label">Stay Connected</p>
-    <h2 class="section-title"><span data-i18n="subscribe_title">Subscribe for</span><br><em data-i18n="subscribe_title_em">Updates</em></h2>
-    <p class="sub-p" data-i18n="subscribe_p">Be the first to know when new somatic tools and SEL collections launch.</p>
-    <div class="subscribe-form"><input type="email" placeholder="your@email.com"/><button class="btn btn-solid" data-i18n="subscribe_btn">Subscribe</button></div>
-    <p class="subscribe-note" data-i18n="subscribe_note">We respect your privacy. Unsubscribe anytime.</p>
-  </div>
-</section>
-
-<!-- ⑫ FOOTER -->
-<footer>
-  <div class="container">
-    <div class="footer-inner">
-      <div>
-        <span class="footer-logo">Sense<span>Revolt</span>™</span>
-        <p class="footer-desc">Two sisters from Ukraine. One ecosystem built to protect mental peace — for adults and children.</p>
-        <div class="social-links"><a href="#" class="social-link">IG</a><a href="#" class="social-link">YT</a><a href="#" class="social-link">PT</a><a href="#" class="social-link">Et</a></div>
-      </div>
-      <div class="footer-col"><h4 data-i18n="nav_shop">Shop</h4><ul><li><a href="#" data-i18n="nav_somatic">Somatic for Adults</a></li><li><a href="#" data-i18n="nav_kids">SEL for Kids</a></li><li><a href="#" data-i18n="nav_digital">Digital Downloads</a></li></ul></div>
-      <div class="footer-col"><h4 data-i18n="nav_releases">New Releases</h4><ul><li><a href="#">Our Story</a></li><li><a href="#" data-i18n="nav_blog">Blog</a></li><li><a href="#" data-i18n="nav_faq">FAQ</a></li></ul></div>
-      <div class="footer-col"><h4>Support</h4><ul><li><a href="#">Shipping</a></li><li><a href="#">Returns</a></li><li><a href="#">Contact</a></li><li><a href="#">Privacy</a></li></ul></div>
-    </div>
-    <div class="footer-bottom">
-      <span data-i18n="footer_copy">© 2026 SenseRevolt™ · All rights reserved</span>
-      <div class="fbl"><a href="#">Privacy</a><a href="https://etsy.com" target="_blank">Etsy</a><a href="https://amazon.com" target="_blank">Amazon</a></div>
-    </div>
-  </div>
+<!-- FOOTER (placeholder) -->
+<footer class="footer">
+  <p>© 2026 SenseRevolt™ — One Ecosystem for the Whole Family &nbsp;|&nbsp; <a href="#">Privacy Policy</a> &nbsp;|&nbsp; <a href="#">Terms</a></p>
 </footer>
 
 <script>
-// ── i18n ──────────────────────────────────────────────
-const LANGS = {
-  en:{flag:'🇬🇧',name:'EN'},
-  es:{flag:'🇪🇸',name:'ES'},
-  uk:{flag:'🇺🇦',name:'UK'},
-  de:{flag:'🇩🇪',name:'DE'},
-  fr:{flag:'🇫🇷',name:'FR'}
-};
+  // Countdown timer
+  function updateCountdown() {
+    const target = new Date();
+    target.setDate(target.getDate() + 31);
+    target.setHours(target.getHours() + 8);
 
-let translations = {};
-let currentLang = 'en';
+    const stored = localStorage.getItem('sr_countdown');
+    const endTime = stored ? new Date(stored) : (() => {
+      const t = new Date(Date.now() + (31*24*60*60 + 8*60*60 + 24*60 + 50) * 1000);
+      localStorage.setItem('sr_countdown', t.toISOString());
+      return t;
+    })();
 
-function detectLang(){
-  const saved = localStorage.getItem('sr_lang');
-  if(saved && LANGS[saved]) return saved;
-  const browser = (navigator.language || 'en').toLowerCase().slice(0,2);
-  const map = {es:'es',uk:'uk',de:'de',fr:'fr',en:'en'};
-  return map[browser] || 'en';
-}
-
-async function loadLang(lang){
-  if(!LANGS[lang]) lang = 'en';
-  try {
-    const r = await fetch(`locales/${lang}.json`);
-    translations = await r.json();
-  } catch(e){
-    // fallback — translations stay empty, defaults show
-    translations = {};
+    function tick() {
+      const now = new Date();
+      const diff = endTime - now;
+      if (diff <= 0) return;
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
+      document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+      document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
+      document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
+    }
+    tick();
+    setInterval(tick, 1000);
   }
-  currentLang = lang;
-  localStorage.setItem('sr_lang', lang);
-  applyTranslations();
-  updateLangBtn();
-  document.querySelectorAll('.lang-option').forEach(o=>{
-    o.classList.toggle('active', o.getAttribute('onclick').includes(`'${lang}'`));
-  });
-}
+  updateCountdown();
 
-function applyTranslations(){
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const key = el.getAttribute('data-i18n');
-    if(translations[key]) el.textContent = translations[key];
-  });
-}
-
-function updateLangBtn(){
-  document.getElementById('currentFlag').textContent = LANGS[currentLang].flag;
-  document.getElementById('currentCode').textContent  = LANGS[currentLang].name;
-}
-
-function setLang(lang){
-  loadLang(lang);
-  closeLang();
-}
-
-function toggleLang(){
-  document.getElementById('langSwitcher').classList.toggle('open');
-}
-function closeLang(){
-  document.getElementById('langSwitcher').classList.remove('open');
-}
-document.addEventListener('click', e=>{
-  if(!e.target.closest('#langSwitcher')) closeLang();
-});
-
-// init
-loadLang(detectLang());
-
-// ── BANNER ───────────────────────────────────────────
-let current=0,total=3;
-const slides=document.getElementById('bannerSlides');
-const dots=document.querySelectorAll('.dot');
-function updateBanner(){slides.style.transform=`translateX(-${current*100}%)`;dots.forEach((d,i)=>d.classList.toggle('active',i===current));}
-function moveBanner(dir){current=(current+dir+total)%total;updateBanner();}
-function goToBanner(i){current=i;updateBanner();}
-setInterval(()=>moveBanner(1),5500);
-
-// ── FAQ ──────────────────────────────────────────────
-function toggleFaq(btn){
-  const item=btn.closest('.faq-item');
-  const isOpen=item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));
-  if(!isOpen) item.classList.add('open');
-}
-
-// ── SCROLL ANIMATION ─────────────────────────────────
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
-},{threshold:.12});
-document.querySelectorAll('.fade-up').forEach(el=>obs.observe(el));
-
-// ── VIDEO ────────────────────────────────────────────
-function loadVideo(){
-  document.getElementById('videoPlaceholder').innerHTML='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/zjF7COQAqOE?autoplay=1" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;"></iframe>';
-}
+  // FAQ accordion
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
 </script>
+
 </body>
 </html>
