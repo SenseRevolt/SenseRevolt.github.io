@@ -1,994 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SenseRevolt™ — One Ecosystem for the Whole Family</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SenseRevolt | Somatic & SEL Interactive Workbooks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@700&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --font-heading: 'El Messiri', sans-serif;
+    --font-body: 'Jost', sans-serif;
+    
+    /* Кольорова палітра з макета */
+    --c-dark: #333333;
+    --c-light: #ebebeb;
+    --c-story: #d6dbdc;
+    --c-header: #262321;
+    --c-text-dark: #1a1a1a;
+    --c-text-light: #ffffff;
+    --c-border: #555555;
+    
+    /* Типографіка */
+    --t1: 48px;
+    --t2: 36px;
+    --t3: 24px;
+    --p-size: 18px;
+  }
+  
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body { 
+    font-family: var(--font-body); 
+    font-size: var(--p-size); 
+    line-height: 1.6; 
+    color: var(--c-text-dark); 
+    background: var(--c-light); 
+  }
+  
+  h1, h2, h3 { 
+    font-family: var(--font-heading); 
+    font-weight: 700; 
+    line-height: 1.2; 
+  }
+  h1 { font-size: var(--t1); margin-bottom: 20px; }
+  h2 { font-size: var(--t2); margin-bottom: 20px; }
+  h3 { font-size: var(--t3); margin-bottom: 15px; }
+  p { margin-bottom: 20px; }
+  a { text-decoration: none; color: inherit; transition: opacity 0.3s; }
+  a:hover { opacity: 0.7; }
+  
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+  
+  .btn { 
+    display: inline-block; 
+    background: var(--c-text-dark); 
+    color: var(--c-text-light); 
+    padding: 12px 32px; 
+    border-radius: 30px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    border: none; 
+    transition: 0.3s; 
+    font-family: var(--font-body);
+  }
+  .btn:hover { background: #555; }
+  .btn-dark { background-color: #3b3b3b; color: #fff; }
+  
+  /* Базові секції */
+  .section-dark { background: var(--c-dark); color: var(--c-text-light); padding: 80px 0; }
+  .section-light { background: var(--c-light); color: var(--c-text-dark); padding: 80px 0; }
+  
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  
+  /* Header */
+  header { background: var(--c-header); color: #fff; padding: 15px 0; font-size: 14px; }
+  .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: var(--font-heading); font-size: 24px; letter-spacing: 1px; }
+  .nav-links { display: flex; gap: 25px; }
+  
+  /* Hero */
+  .hero { padding: 80px 0; }
+  .hero-label { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; display: block; color: #666; }
+  .placeholder-img { background: #d9d9d9; width: 100%; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #888; border: 1px dashed #bbb; }
+  .hero .placeholder-img { height: 500px; }
+  
+  /* Ecosystem */
+  .ecosystem-intro { text-align: center; max-width: 800px; margin: 0 auto 60px; }
+  .card-img { height: 320px; background: #4a4a4a; border-radius: 4px; margin-bottom: 25px; display: flex; align-items: center; justify-content: center; color: #888; overflow: hidden; }
+  .num-label { font-family: var(--font-heading); font-size: var(--t3); margin-bottom: 10px; display: block; color: #aaa; }
+  
+  /* --- СЕКЦІЯ OUR STORY --- */
+  .section-story { 
+    background-color: var(--c-story); 
+    color: var(--c-text-dark); 
+    padding-top: 80px; 
+    padding-bottom: 0; /* Притискає картинку до низу */
+    overflow: hidden; 
+  }
+  .grid-story { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  
+  .story-visuals {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+  .quote-wrapper { text-align: center; max-width: 420px; margin-top: 20px; }
+  .quote-text { font-style: italic; font-size: 16px; line-height: 1.5; margin-bottom: 15px; }
+  .quote-icon { font-size: 60px; line-height: 0.5; color: var(--c-dark); font-family: serif; }
+  
+  .sisters-img {
+    display: block;
+    width: 100%;
+    max-width: 650px; /* Трохи збільшено для кращих пропорцій */
+    height: auto;
+    margin-top: 40px;
+    align-self: flex-end; /* Вирівнює по нижньому краю */
+  }
 
-    :root {
-      --dark: #2b2b2b;
-      --dark2: #3a3939;
-      --light-bg: #f5f3ef;
-      --cream: #f0ece4;
-      --text: #2b2b2b;
-      --text-light: #5a5a5a;
-      --accent: #c8a96e;
-      --btn-dark: #2b2b2b;
-      --btn-outline: transparent;
-      --white: #ffffff;
-      --font-title: 'El Messiri', serif;
-      --font-body: 'Jost', sans-serif;
-      --max-w: 1200px;
-    }
+  .story-content {
+    padding-bottom: 80px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .story-content p { margin-bottom: 25px; }
+  .story-content .btn-dark { align-self: flex-start; }
+  /* ------------------------ */
 
-    html { scroll-behavior: smooth; }
+  /* Formats */
+  .formats-intro { text-align: center; margin-bottom: 60px; }
+  .format-col h3 { border-bottom: 1px solid var(--c-border); padding-bottom: 15px; margin-bottom: 25px; }
+  .feature-item { margin-bottom: 25px; }
+  .feature-num { font-family: var(--font-heading); font-size: 20px; color: #888; display: block; margin-bottom: 5px; }
+  
+  /* Blog Grid */
+  .blog-card .placeholder-img { height: 250px; margin-bottom: 20px; }
+  .blog-card h3 { font-size: 20px; text-align: center; }
+  .blog-card p { font-size: 16px; text-align: center; color: #ccc; }
 
-    body {
-      font-family: var(--font-body);
-      font-size: 18px;
-      color: var(--text);
-      background: var(--white);
-      line-height: 1.6;
-    }
-
-    /* ── ANNOUNCEMENT BAR ── */
-    .announcement-bar {
-      background: var(--dark);
-      color: var(--white);
-      text-align: center;
-      padding: 8px 20px;
-      font-size: 13px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .announcement-bar span { opacity: 0.9; }
-    .countdown {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-    }
-    .countdown-unit {
-      background: var(--dark2);
-      border: 1px solid rgba(255,255,255,0.2);
-      padding: 2px 7px;
-      border-radius: 3px;
-      font-weight: 600;
-      font-size: 13px;
-      min-width: 28px;
-      text-align: center;
-    }
-    .btn-preorder {
-      background: var(--white);
-      color: var(--dark);
-      border: none;
-      padding: 5px 14px;
-      border-radius: 20px;
-      font-family: var(--font-body);
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-    .btn-preorder:hover { opacity: 0.85; }
-
-    /* ── NAVBAR ── */
-    .navbar {
-      background: var(--dark);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding: 0 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .logo {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
-    .logo-name {
-      font-family: var(--font-title);
-      font-size: 22px;
-      color: var(--white);
-      letter-spacing: 0.5px;
-    }
-    .logo-name span { font-family: var(--font-body); font-weight: 400; }
-    .logo-sub {
-      font-size: 10px;
-      color: rgba(255,255,255,0.5);
-      letter-spacing: 0.5px;
-    }
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: rgba(255,255,255,0.85);
-      font-size: 14px;
-      font-weight: 500;
-      transition: color 0.2s;
-    }
-    .nav-links a:hover { color: var(--white); }
-    .nav-icons {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .nav-icons a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 18px; }
-    .lang-btn {
-      border: 1px solid rgba(255,255,255,0.4);
-      background: none;
-      color: var(--white);
-      padding: 3px 10px;
-      border-radius: 4px;
-      font-family: var(--font-body);
-      font-size: 13px;
-      cursor: pointer;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      background: var(--light-bg);
-      min-height: 480px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      max-width: 100%;
-      overflow: hidden;
-      position: relative;
-    }
-    .hero-content {
-      padding: 60px 60px 60px 80px;
-      max-width: 560px;
-    }
-    .hero-vol {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text-light);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 16px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(0,0,0,0.2);
-      display: block;
-      width: 100%;
-    }
-    .hero h1 {
-      font-family: var(--font-title);
-      font-size: 48px;
-      line-height: 1.1;
-      margin-bottom: 16px;
-      color: var(--dark);
-    }
-    .hero-sub {
-      font-size: 18px;
-      color: var(--text-light);
-      margin-bottom: 36px;
-      line-height: 1.5;
-    }
-    .btn-dark {
-      background: var(--dark);
-      color: var(--white);
-      border: none;
-      padding: 14px 32px;
-      border-radius: 30px;
-      font-family: var(--font-body);
-      font-size: 16px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      display: inline-block;
-      text-decoration: none;
-    }
-    .btn-dark:hover { background: #444; transform: translateY(-1px); }
-
-    .hero-image {
-      position: relative;
-      height: 100%;
-      min-height: 480px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .hero-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-    }
-    .hero-dots {
-      position: absolute;
-      bottom: 24px;
-      left: 80px;
-      display: flex;
-      gap: 8px;
-    }
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.2);
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .dot.active { background: var(--dark); }
-
-    /* ── ECOSYSTEM ── */
-    .ecosystem {
-      background: var(--dark);
-      color: var(--white);
-      padding: 70px 40px;
-      text-align: center;
-    }
-    .ecosystem h2 {
-      font-family: var(--font-title);
-      font-size: 36px;
-      margin-bottom: 24px;
-    }
-    .ecosystem p {
-      max-width: 640px;
-      margin: 0 auto 12px;
-      font-size: 16px;
-      opacity: 0.85;
-      line-height: 1.7;
-    }
-    .ecosystem-cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      max-width: var(--max-w);
-      margin: 48px auto 0;
-    }
-    .eco-card {
-      background: var(--dark2);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .eco-card-img {
-      width: 100%;
-      aspect-ratio: 16/10;
-      object-fit: cover;
-      background: #444;
-      display: block;
-    }
-    .eco-card-img-placeholder {
-      width: 100%;
-      aspect-ratio: 16/10;
-      background: #444;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255,255,255,0.3);
-      font-size: 14px;
-    }
-    .eco-card-body { padding: 28px 32px 36px; text-align: left; }
-    .eco-num {
-      font-size: 13px;
-      color: rgba(255,255,255,0.45);
-      margin-bottom: 8px;
-      display: block;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-    }
-    .eco-card h3 {
-      font-family: var(--font-title);
-      font-size: 24px;
-      margin-bottom: 14px;
-    }
-    .eco-card p {
-      font-size: 15px;
-      opacity: 0.8;
-      margin: 0 0 24px;
-      text-align: left;
-      max-width: 100%;
-    }
-    .btn-outline {
-      border: 1px solid rgba(255,255,255,0.5);
-      background: transparent;
-      color: var(--white);
-      padding: 10px 26px;
-      border-radius: 30px;
-      font-family: var(--font-body);
-      font-size: 15px;
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
-      display: inline-block;
-      text-decoration: none;
-    }
-    .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.08); }
-
-    /* ── OUR STORY ── */
-    .our-story {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      min-height: 500px;
-      background: var(--cream);
-    }
-    .story-left {
-      position: relative;
-      overflow: hidden;
-      background: #d6d2cc;
-    }
-    .story-left img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: top center;
-    }
-    .story-quote {
-      position: absolute;
-      top: 40px;
-      left: 0;
-      right: 0;
-      text-align: center;
-      padding: 0 40px;
-    }
-    .story-quote p {
-      font-family: var(--font-body);
-      font-style: italic;
-      font-size: 15px;
-      color: var(--dark);
-      line-height: 1.7;
-      margin-bottom: 12px;
-    }
-    .quote-mark {
-      font-family: Georgia, serif;
-      font-size: 36px;
-      color: var(--dark);
-      line-height: 1;
-      opacity: 0.7;
-    }
-    .story-right {
-      padding: 60px 60px 60px 50px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .story-right h2 {
-      font-family: var(--font-title);
-      font-size: 36px;
-      margin-bottom: 24px;
-      color: var(--dark);
-    }
-    .story-right p {
-      font-size: 16px;
-      color: var(--text-light);
-      margin-bottom: 16px;
-      line-height: 1.7;
-    }
-    .btn-dark-rounded {
-      background: var(--dark);
-      color: var(--white);
-      border: none;
-      padding: 14px 32px;
-      border-radius: 30px;
-      font-family: var(--font-body);
-      font-size: 16px;
-      font-weight: 500;
-      cursor: pointer;
-      display: inline-block;
-      text-decoration: none;
-      margin-top: 8px;
-      transition: background 0.2s;
-      align-self: flex-start;
-    }
-    .btn-dark-rounded:hover { background: #444; }
-
-    /* ── CHOOSE FORMAT ── */
-    .choose-format {
-      background: var(--dark);
-      padding: 70px 40px;
-      text-align: center;
-    }
-    .choose-format h2 {
-      font-family: var(--font-title);
-      font-size: 36px;
-      margin-bottom: 12px;
-      color: var(--white);
-    }
-    .choose-format > p {
-      font-size: 16px;
-      color: rgba(255,255,255,0.7);
-      max-width: 600px;
-      margin: 0 auto 48px;
-      line-height: 1.6;
-    }
-    .format-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0;
-      max-width: var(--max-w);
-      margin: 0 auto;
-    }
-    .format-col {
-      text-align: left;
-      padding: 0 40px;
-      border-right: 1px solid rgba(255,255,255,0.12);
-    }
-    .format-col:first-child { padding-left: 0; }
-    .format-col:last-child { border-right: none; padding-right: 0; }
-    .format-logo {
-      font-family: var(--font-title);
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 28px;
-      color: var(--white);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid rgba(255,255,255,0.15);
-    }
-    .format-logo img { height: 28px; }
-    .format-item { margin-bottom: 24px; }
-    .format-num {
-      font-size: 12px;
-      color: rgba(255,255,255,0.4);
-      margin-bottom: 4px;
-      font-weight: 500;
-    }
-    .format-item h4 {
-      font-family: var(--font-title);
-      font-size: 16px;
-      margin-bottom: 4px;
-      color: var(--white);
-    }
-    .format-item p {
-      font-size: 14px;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.5;
-    }
-
-    /* ── BLOG ── */
-    .blog-section {
-      background: var(--white);
-      padding: 70px 40px;
-      text-align: center;
-    }
-    .blog-section h2 {
-      font-family: var(--font-title);
-      font-size: 36px;
-      margin-bottom: 40px;
-      color: var(--dark);
-    }
-    .blog-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      max-width: var(--max-w);
-      margin: 0 auto;
-    }
-    .blog-card { text-align: left; cursor: pointer; }
-    .blog-card-img {
-      width: 100%;
-      aspect-ratio: 4/3;
-      object-fit: cover;
-      border-radius: 4px;
-      margin-bottom: 16px;
-      background: #ddd;
-      display: block;
-    }
-    .blog-card-img-placeholder {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: linear-gradient(135deg, #e8e4dc, #d4cfc6);
-      border-radius: 4px;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #999;
-      font-size: 13px;
-    }
-    .blog-card h3 {
-      font-family: var(--font-title);
-      font-size: 20px;
-      margin-bottom: 8px;
-      color: var(--dark);
-    }
-    .blog-card p { font-size: 14px; color: var(--text-light); line-height: 1.5; }
-
-    /* ── FAQ ── */
-    .faq-section {
-      background: var(--light-bg);
-      padding: 70px 40px;
-    }
-    .faq-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-    }
-    .faq-section h2 {
-      font-family: var(--font-title);
-      font-size: 36px;
-      color: var(--dark);
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .faq-item {
-      border-bottom: 1px solid rgba(0,0,0,0.12);
-    }
-    .faq-question {
-      display: grid;
-      grid-template-columns: 40px 1fr 36px;
-      align-items: center;
-      padding: 20px 0;
-      cursor: pointer;
-      color: var(--dark);
-      font-size: 16px;
-      font-weight: 500;
-      gap: 16px;
-    }
-    .faq-question:hover { opacity: 0.75; }
-    .faq-q-num {
-      font-size: 13px;
-      color: var(--text-light);
-      font-weight: 400;
-    }
-    .faq-icon {
-      width: 32px;
-      height: 32px;
-      border: 1px solid rgba(0,0,0,0.25);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 20px;
-      font-weight: 300;
-      line-height: 1;
-      transition: transform 0.3s;
-      color: var(--dark);
-    }
-    .faq-answer {
-      color: var(--text-light);
-      font-size: 15px;
-      line-height: 1.7;
-      max-height: 0;
-      overflow: hidden;
-      padding-left: 56px;
-      transition: max-height 0.4s ease, padding 0.3s;
-    }
-    .faq-item.open .faq-answer { max-height: 300px; padding-bottom: 20px; }
-    .faq-item.open .faq-icon { transform: rotate(45deg); }
-
-    /* ── STAY CONNECTED ── */
-    .stay-connected {
-      background: var(--cream);
-      padding: 70px 40px;
-    }
-    .stay-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-    .stay-left h2 {
-      font-family: var(--font-title);
-      font-size: 36px;
-      margin-bottom: 12px;
-      color: var(--dark);
-    }
-    .stay-left p {
-      font-size: 16px;
-      color: var(--text-light);
-      margin-bottom: 28px;
-      line-height: 1.6;
-    }
-    .stay-form { display: flex; flex-direction: column; gap: 12px; }
-    .stay-form input {
-      border: 1px solid rgba(0,0,0,0.2);
-      background: var(--white);
-      padding: 13px 18px;
-      border-radius: 4px;
-      font-family: var(--font-body);
-      font-size: 15px;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .stay-form input:focus { border-color: var(--dark); }
-    .stay-form input::placeholder { color: #aaa; }
-    .btn-subscribe {
-      background: var(--dark);
-      color: var(--white);
-      border: none;
-      padding: 14px 32px;
-      border-radius: 4px;
-      font-family: var(--font-body);
-      font-size: 16px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.2s;
-      align-self: flex-start;
-    }
-    .btn-subscribe:hover { background: #444; }
-    .stay-right {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-    }
-    .stay-right img {
-      width: 48%;
-      border-radius: 4px;
-      object-fit: cover;
-    }
-    .stay-img-placeholder {
-      width: 48%;
-      aspect-ratio: 3/4;
-      background: linear-gradient(135deg, #e0dbd2, #ccc8c0);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #999;
-      font-size: 12px;
-    }
-
-    /* ── FOOTER ── */
-    .footer {
-      background: var(--dark);
-      color: rgba(255,255,255,0.6);
-      text-align: center;
-      padding: 28px 40px;
-      font-size: 13px;
-    }
-    .footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
-    .footer a:hover { color: var(--white); }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1024px) {
-      .hero-content { padding: 50px 40px; }
-      .ecosystem-cards { gap: 16px; }
-      .format-grid { gap: 20px; }
-    }
-
-    @media (max-width: 768px) {
-      .navbar { padding: 0 20px; }
-      .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; }
-      .hero-image { min-height: 280px; }
-      .hero-content { padding: 40px 20px; max-width: 100%; }
-      .hero h1 { font-size: 36px; }
-      .hero-dots { left: 20px; }
-      .ecosystem { padding: 50px 20px; }
-      .ecosystem-cards { grid-template-columns: 1fr; }
-      .our-story { grid-template-columns: 1fr; }
-      .story-left { min-height: 400px; }
-      .story-right { padding: 40px 20px; }
-      .choose-format { padding: 50px 20px; }
-      .format-grid { grid-template-columns: 1fr; }
-      .format-divider { display: none; }
-      .blog-section { padding: 50px 20px; }
-      .blog-grid { grid-template-columns: 1fr; }
-      .faq-section { padding: 50px 20px; }
-      .stay-connected { padding: 50px 20px; }
-      .stay-inner { grid-template-columns: 1fr; gap: 32px; }
-    }
-
-    @media (min-width: 1920px) {
-      .hero-content { padding: 80px 80px 80px 120px; }
-      .ecosystem, .choose-format, .blog-section, .faq-section, .stay-connected { padding: 90px 80px; }
-      .navbar { padding: 0 80px; }
-    }
-  </style>
+  /* FAQ */
+  .faq-container { max-width: 800px; margin: 40px auto 0; }
+  .faq-item { border-bottom: 1px solid var(--c-border); padding: 20px 0; }
+  .faq-question { display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-size: var(--p-size); font-weight: 500; }
+  .faq-answer { display: none; padding-top: 15px; color: #ccc; font-size: 16px; }
+  .faq-item.active .faq-answer { display: block; }
+  .toggle-icon { background: #555; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  
+  /* Newsletter */
+  .newsletter-form { margin-top: 30px; }
+  .newsletter-form input { width: 100%; padding: 16px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; font-family: var(--font-body); font-size: 16px; background: #fff; }
+  
+  /* Адаптив */
+  @media (max-width: 900px) {
+    .grid-2, .grid-3, .grid-story { grid-template-columns: 1fr; gap: 40px; }
+    .nav-links { display: none; }
+    :root { --t1: 38px; --t2: 30px; --t3: 22px; --p-size: 16px; }
+    .hero { padding: 40px 0; }
+    .story-content { padding-bottom: 40px; padding-top: 40px; }
+    .sisters-img { max-width: 80%; margin: 0 auto; }
+  }
+</style>
 </head>
 <body>
 
-<!-- ANNOUNCEMENT BAR -->
-<div class="announcement-bar">
-  <span>Somatic Anger Kit Vol.2</span>
-  <span>Coming Soon</span>
-  <div class="countdown">
-    <div class="countdown-unit" id="cd-days">31</div>
-    <span>:</span>
-    <div class="countdown-unit" id="cd-hours">08</div>
-    <span>:</span>
-    <div class="countdown-unit" id="cd-mins">24</div>
-    <span>:</span>
-    <div class="countdown-unit" id="cd-secs">50</div>
-  </div>
-  <button class="btn-preorder">Pre-Order Now</button>
-</div>
-
-<!-- NAVBAR -->
-<nav class="navbar">
-  <div class="logo">
-    <div class="logo-name"><strong>SENSE</strong><span>REVOLT</span>™</div>
-    <div class="logo-sub">One Ecosystem for the Whole Family</div>
-  </div>
-  <ul class="nav-links">
-    <li><a href="#">Somatic Tools</a></li>
-    <li><a href="#">SEL Tools for Kids</a></li>
-    <li><a href="#">For Professionals</a></li>
-    <li><a href="#">Blog</a></li>
-    <li><a href="#">About Us</a></li>
-    <li><a href="#">FAQs</a></li>
-    <li><a href="#">Music</a></li>
-  </ul>
-  <div class="nav-icons">
-    <a href="#">✉</a>
-    <a href="#">♡</a>
-    <button class="lang-btn">En ↓</button>
-  </div>
-</nav>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-content">
-    <div class="hero-vol">Vol.1</div>
-    <h1>Somatic Anger Kit</h1>
-    <p class="hero-sub">Body-Based Practices to Move Through Rage & Understand What's Underneath</p>
-    <a href="#" class="btn-dark">Start the Practice</a>
-    <div class="hero-dots">
-      <div class="dot active"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
+<header>
+  <div class="container nav-wrapper">
+    <div class="logo">SENSEREVOLT™</div>
+    <div class="nav-links">
+      <a href="#">Somatic Tools</a>
+      <a href="#">SEL Tools for Kids</a>
+      <a href="#">Our Philosophy</a>
+      <a href="#">Choose Format</a>
+      <a href="#">Blog</a>
     </div>
   </div>
-  <div class="hero-image">
-    <div style="width:100%;height:100%;background:linear-gradient(135deg,#e8e4dc,#d0cbc2);display:flex;align-items:center;justify-content:center;color:#999;font-size:14px;min-height:480px;">Book image placeholder</div>
+</header>
+
+<!-- Hero Section -->
+<section class="section-light hero">
+  <div class="container grid-2">
+    <div>
+      <span class="hero-label">Vol 1</span>
+      <h1>Somatic Anger Kit</h1>
+      <p>Story-Based Practices to Move Through Rage & Understand What's Underneath.</p>
+      <button class="btn">Start the Practice</button>
+    </div>
+    <div class="placeholder-img">[ Book Cover Mockup ]</div>
   </div>
 </section>
 
-<!-- ONE ECOSYSTEM -->
-<section class="ecosystem">
-  <h2>One Ecosystem for the Whole Family</h2>
-  <p>SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine. Living through profoundly turbulent times, we realized that standard wellness advice simply doesn't work when your nervous system is truly overloaded.</p>
-  <p>We combined our personal struggles and professional skills to build a complete emotional ecosystem — real, working tools to protect mental peace for both adults and children.</p>
-
-  <div class="ecosystem-cards">
-    <div class="eco-card">
-      <div class="eco-card-img-placeholder">Somatic Tools book image</div>
-      <div class="eco-card-body">
-        <span class="eco-num">01</span>
+<!-- Ecosystem Section -->
+<section class="section-dark">
+  <div class="container">
+    <div class="ecosystem-intro">
+      <h2>One Ecosystem for the Whole Family</h2>
+      <p>Invest in your child’s successful future... and enjoy your coffee while it is still HOT! Our multisensory system works through 4 perception channels: SEE, HEAR, DO, LIVE.</p>
+    </div>
+    <div class="grid-2">
+      <div>
+        <div class="card-img">[ Somatic Pattern Image ]</div>
+        <span class="num-label">01</span>
         <h3>Somatic Tools</h3>
-        <p>SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine. We combined our personal struggles and professional skills to build a complete emotional ecosystem.</p>
-        <a href="#" class="btn-outline">Explore our system</a>
+        <p>Strategic interactive workbooks featuring hand-drawn neuro-art patterns to process complex feelings.</p>
+        <button class="btn" style="background:#fff; color:#1a1a1a;">Explore the Practice</button>
       </div>
-    </div>
-    <div class="eco-card">
-      <div class="eco-card-img-placeholder" style="background:linear-gradient(135deg,#c0392b,#922b21);">SEL Tools for Kids image</div>
-      <div class="eco-card-body">
-        <span class="eco-num">02</span>
+      <div>
+        <div class="card-img" style="background:#8c2020; color:#fff;">[ Christmas Kindness Cover ]</div>
+        <span class="num-label">02</span>
         <h3>SEL Tools for Kids</h3>
-        <p>SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine. We combined our personal struggles and professional skills to build a complete emotional ecosystem.</p>
-        <a href="#" class="btn-outline">Explore why we differ</a>
+        <p>Minimum text, maximum emotion. Smart visual tools backed by the CASEL framework to build real-life emotional resilience.</p>
+        <button class="btn" style="background:#fff; color:#1a1a1a;">Explore SEL Skills</button>
       </div>
     </div>
   </div>
 </section>
 
-<!-- OUR STORY -->
-<section class="our-story">
-  <div class="story-left">
-    <div style="width:100%;height:100%;min-height:500px;background:linear-gradient(180deg,#d6d2cc,#b8b4ae);display:flex;align-items:flex-end;justify-content:center;padding-bottom:40px;">
-      <div style="color:#666;font-size:13px;">Sisters photo placeholder</div>
+<!-- Our Story Section -->
+<section class="section-story">
+  <div class="container grid-story">
+    
+    <div class="story-visuals">
+      <div class="quote-wrapper">
+        <p class="quote-text">Our superpowers are to translate mental chaos into structured calm and turn complex feelings into engaging, multi-sensory missions that families can enjoy together.</p>
+        <div class="quote-icon">❞</div> 
+      </div>
+      <!-- ВАЖЛИВО: Назва файлу має збігатися з твоєю картинкою на прозорому фоні -->
+      <img src="sisters-transparent.png" alt="SenseRevolt Creators" class="sisters-img">
     </div>
-    <div class="story-quote">
-      <p>Our superpowers are to translate mental chaos into structured calm and turn complex feelings into engaging, multi-sensory missions that families can enjoy together.</p>
-      <div class="quote-mark">❝</div>
+
+    <div class="story-content">
+      <h2>Our Story</h2>
+      <p>SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine. Living through profoundly turbulent times, we realized that standard wellness advice simply doesn't work when your nervous system is truly overloaded.</p>
+      <p>We combined our personal struggles and professional skills to build a complete emotional ecosystem — real, working tools to protect mental peace for both adults and children.</p>
+      <button class="btn btn-dark">Dive in deeper</button>
     </div>
-  </div>
-  <div class="story-right">
-    <h2>Our Story</h2>
-    <p>SenseRevolt™ is a project born from necessity, created by two sisters from Ukraine. Living through profoundly turbulent times, we realized that standard wellness advice simply doesn't work when your nervous system is truly overloaded.</p>
-    <p>We combined our personal struggles and professional skills to build a complete emotional ecosystem — real, working tools to protect mental peace for both adults and children.</p>
-    <p>We combined our personal struggles and professional skills to build a complete emotional ecosystem — real, working tools to protect mental peace for both adults and children.</p>
-    <a href="#" class="btn-dark-rounded">Dive in deeper</a>
+
   </div>
 </section>
 
-<!-- CHOOSE YOUR FORMAT -->
-<section class="choose-format">
-  <h2>Choose Your Format</h2>
-  <p>Our interactive ecosystem is available across the major global platforms you already know and trust. Choose the marketplace and format that suits you best.</p>
-
-  <div class="format-grid">
-    <div class="format-col">
-      <div class="format-logo">Etsy</div>
-      <div class="format-item">
-        <div class="format-num">01</div>
-        <h4>Print. Practice. Repeat.</h4>
-        <p>One file, endless sessions for the whole family's journey.</p>
-      </div>
-      <div class="format-item">
-        <div class="format-num">02</div>
-        <h4>Pro-Paper Choice.</h4>
-        <p>No limits, use your favorite professional markers or heavyweight cardstock.</p>
-      </div>
-      <div class="format-item">
-        <div class="format-num">03</div>
-        <h4>Exclusive Inventory.</h4>
-        <p>Immediate access to our complete digital ecosystem and limited-release tools.</p>
-      </div>
+<!-- Formats Section -->
+<section class="section-dark">
+  <div class="container">
+    <div class="formats-intro">
+      <h2>Choose Your Format</h2>
+      <p>Get the tools you need in the format that works best for your family or practice.</p>
     </div>
-
-    <div class="format-col">
-      <div class="format-logo">amazon<strong>kindle</strong></div>
-      <div class="format-item">
-        <div class="format-num">01</div>
-        <h4>Ready-to-Use.</h4>
-        <p>Pro physical books delivered—no printing or assembly required for your practice.</p>
+    <div class="grid-3">
+      <div class="format-col">
+        <h3>Etsy</h3>
+        <div class="feature-item"><span class="feature-num">01</span><p>Print. Practice. Repeat.</p></div>
+        <div class="feature-item"><span class="feature-num">02</span><p>Instant Access.</p></div>
+        <div class="feature-item"><span class="feature-num">03</span><p>Exclusive Inventory.</p></div>
       </div>
-      <div class="format-item">
-        <div class="format-num">02</div>
-        <h4>Worldwide Shipping.</h4>
-        <p>Reliable global delivery, bringing our interactive tools to your doorstep anywhere.</p>
+      <div class="format-col">
+        <h3>Amazon Kindle</h3>
+        <div class="feature-item"><span class="feature-num">01</span><p>Ready to Use.</p></div>
+        <div class="feature-item"><span class="feature-num">02</span><p>Worldwide Shipping.</p></div>
+        <div class="feature-item"><span class="feature-num">03</span><p>The Perfect Gift.</p></div>
       </div>
-      <div class="format-item">
-        <div class="format-num">03</div>
-        <h4>The Perfect Gift.</h4>
-        <p>A high-quality, tangible version of our ecosystem—meaningful and ready to be gifted.</p>
-      </div>
-    </div>
-
-    <div class="format-col">
-      <div class="format-logo">✦ TPT</div>
-      <div class="format-item">
-        <div class="format-num">01</div>
-        <h4>Educational Licensing.</h4>
-        <p>Flexible options for schools, classrooms, and clinics.</p>
-      </div>
-      <div class="format-item">
-        <div class="format-num">02</div>
-        <h4>Group Practice Ready.</h4>
-        <p>Unlimited prints for all your students or clients.</p>
-      </div>
-      <div class="format-item">
-        <div class="format-num">03</div>
-        <h4>Specialist Choice.</h4>
-        <p>Premium materials designed specifically for educators and mental health specialists.</p>
+      <div class="format-col">
+        <h3>TPT</h3>
+        <div class="feature-item"><span class="feature-num">01</span><p>Educational Licensing.</p></div>
+        <div class="feature-item"><span class="feature-num">02</span><p>Group Practices Ready.</p></div>
+        <div class="feature-item"><span class="feature-num">03</span><p>Specialist Choice.</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- BLOG POSTS -->
-<section class="blog-section">
-  <h2>Blog Posts</h2>
-  <div class="blog-grid">
-    <div class="blog-card">
-      <div class="blog-card-img-placeholder">Blog image 1</div>
-      <h3>Somatic World</h3>
-      <p>Deep dives into somatic patterns, body-first tools, and the science behind why it works.</p>
-    </div>
-    <div class="blog-card">
-      <div class="blog-card-img-placeholder">Blog image 2</div>
-      <h3>For Conscious Parents</h3>
-      <p>You're already doing the hard work. Tools and insights to make it a little easier — for you and your kids.</p>
-    </div>
-    <div class="blog-card">
-      <div class="blog-card-img-placeholder">Blog image 3</div>
-      <h3>Tools & Practice</h3>
-      <p>Step inside the SenseRevolt ecosystem. Guides and practical tips for every kit and workbook.</p>
+<!-- Blog Section -->
+<section class="section-dark" style="background: #2b2b2b;">
+  <div class="container">
+    <h2 style="text-align: center; margin-bottom: 50px;">Blog Posts</h2>
+    <div class="grid-3">
+      <div class="blog-card">
+        <div class="placeholder-img">[ Blog Image 1 ]</div>
+        <h3>Somatic World</h3>
+        <p>Deep dive into neuro art.</p>
+      </div>
+      <div class="blog-card">
+        <div class="placeholder-img">[ Blog Image 2 ]</div>
+        <h3>The Christmas Formula</h3>
+        <p>How we designed the SEL tools.</p>
+      </div>
+      <div class="blog-card">
+        <div class="placeholder-img">[ Blog Image 3 ]</div>
+        <h3>Tools & Practices</h3>
+        <p>Tips for emotional regulation.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="faq-section">
-  <div class="faq-inner">
-    <h2>FAQs</h2>
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFaq(this)">
-        <span class="faq-q-num">01</span>
-        <span>Where can I buy Coco Wyo physical coloring books?</span>
-        <div class="faq-icon">+</div>
+<!-- FAQ Section -->
+<section class="section-dark" style="border-top: 1px solid #444;">
+  <div class="container">
+    <h2 style="text-align: center;">FAQs</h2>
+    <div class="faq-container">
+      <div class="faq-item">
+        <div class="faq-question">Where can I buy SenseRevolt physical interactive workbooks? <span class="toggle-icon">+</span></div>
+        <div class="faq-answer">Our physical tools are available globally via Amazon. Digital files can be found on Etsy.</div>
       </div>
-      <div class="faq-answer">Amazon: Available on Amazon in the US, UK, Canada, Australia, Germany, France, Italy, and more. Availability depends on the official Amazon marketplace in your country.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFaq(this)">
-        <span class="faq-q-num">02</span>
-        <span>Where can I buy Coco Wyo physical coloring books?</span>
-        <div class="faq-icon">+</div>
+      <div class="faq-item">
+        <div class="faq-question">What makes these strategic tools different? <span class="toggle-icon">+</span></div>
+        <div class="faq-answer">They utilize our multisensory SEE, HEAR, DO, LIVE system to process emotions and build social skills, turning theory into practical application rather than just passive reading.</div>
       </div>
-      <div class="faq-answer">Barnes & Noble: Partners with Penguin Random House. Store selection, book always vary. SenseRevolt books may vary in your location.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFaq(this)">
-        <span class="faq-q-num">03</span>
-        <span>Where can I buy Coco Wyo physical coloring books?</span>
-        <div class="faq-icon">+</div>
+      <div class="faq-item">
+        <div class="faq-question">How does the Audio Learning work? <span class="toggle-icon">+</span></div>
+        <div class="faq-answer">Scan the QR codes inside the workbooks to listen to Original SEL Songs. These are musical storytelling tools designed to lock emotional lessons in children's hearts.</div>
       </div>
-      <div class="faq-answer">TikTok Shop: Currently available in the US with Vortex filter, Supply Core Vol. 2, Comfy Days, and Little Cuddlies.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFaq(this)">
-        <span class="faq-q-num">04</span>
-        <span>Where can I buy Coco Wyo physical coloring books?</span>
-        <div class="faq-icon">+</div>
-      </div>
-      <div class="faq-answer">You can find our full catalog on Etsy with instant digital download options available worldwide.</div>
-    </div>
-    <div class="faq-item">
-      <div class="faq-question" onclick="toggleFaq(this)">
-        <span class="faq-q-num">05</span>
-        <span>Where can I buy Coco Wyo physical coloring books?</span>
-        <div class="faq-icon">+</div>
-      </div>
-      <div class="faq-answer">For professional and educational use, visit our TPT store for group licensing options.</div>
     </div>
   </div>
 </section>
 
-<!-- STAY CONNECTED -->
-<section class="stay-connected">
-  <div class="stay-inner">
-    <div class="stay-left">
+<!-- Footer / Stay Connected -->
+<section class="section-light">
+  <div class="container grid-2">
+    <div>
       <h2>Stay Connected</h2>
-      <p>Stay updated on our latest releases and exclusive materials. No spam, ever — just peace of mind as much as you do.</p>
-      <div class="stay-form">
+      <p>Stay updated on our latest releases and exclusive materials. We don't spam, we share pure value for your family.</p>
+      <div class="newsletter-form">
         <input type="text" placeholder="Your Name">
         <input type="email" placeholder="Your Email">
-        <button class="btn-subscribe">Subscribe</button>
+        <button class="btn btn-dark">Subscribe</button>
       </div>
     </div>
-    <div class="stay-right">
-      <div class="stay-img-placeholder">Image 1</div>
-      <div class="stay-img-placeholder">Image 2</div>
-    </div>
+    <div class="placeholder-img" style="height: 350px;">[ Newsletter Preview Image ]</div>
   </div>
 </section>
 
-<!-- FOOTER (placeholder) -->
-<footer class="footer">
-  <p>© 2026 SenseRevolt™ — One Ecosystem for the Whole Family &nbsp;|&nbsp; <a href="#">Privacy Policy</a> &nbsp;|&nbsp; <a href="#">Terms</a></p>
-</footer>
-
 <script>
-  // Countdown timer
-  function updateCountdown() {
-    const target = new Date();
-    target.setDate(target.getDate() + 31);
-    target.setHours(target.getHours() + 8);
+  // Скрипт для акордеона в FAQ
+  document.querySelectorAll('.faq-question').forEach(item => {
+    item.addEventListener('click', () => {
+      const parent = item.parentElement;
+      const isActive = parent.classList.contains('active');
+      
+      document.querySelectorAll('.faq-item').forEach(el => {
+        el.classList.remove('active');
+        el.querySelector('.toggle-icon').textContent = '+';
+      });
 
-    const stored = localStorage.getItem('sr_countdown');
-    const endTime = stored ? new Date(stored) : (() => {
-      const t = new Date(Date.now() + (31*24*60*60 + 8*60*60 + 24*60 + 50) * 1000);
-      localStorage.setItem('sr_countdown', t.toISOString());
-      return t;
-    })();
-
-    function tick() {
-      const now = new Date();
-      const diff = endTime - now;
-      if (diff <= 0) return;
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      const s = Math.floor((diff % 60000) / 1000);
-      document.getElementById('cd-days').textContent = String(d).padStart(2,'0');
-      document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
-      document.getElementById('cd-mins').textContent = String(m).padStart(2,'0');
-      document.getElementById('cd-secs').textContent = String(s).padStart(2,'0');
-    }
-    tick();
-    setInterval(tick, 1000);
-  }
-  updateCountdown();
-
-  // FAQ accordion
-  function toggleFaq(el) {
-    const item = el.parentElement;
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
-  }
+      if (!isActive) {
+        parent.classList.add('active');
+        item.querySelector('.toggle-icon').textContent = '-';
+      }
+    });
+  });
 </script>
 
 </body>
