@@ -7,7 +7,7 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;700&family=Jost:wght@100;300;400&display=swap" rel="stylesheet">
 
     <style>
         * {
@@ -23,20 +23,33 @@
             overflow-x: hidden;
         }
 
-        /* --- ВЕРХНЯ ТЕМНА СЕКЦІЯ --- */
+        /* --- HEADER (ТЕМНИЙ БЛОК) --- */
         .dark-section {
             background-color: #373635;
             text-align: center;
-            padding: 60px 20px 220px 20px;
-            position: relative;
-            z-index: 2;
+            /* Відступ знизу зменшено, бо більше не треба залишати місце під книги */
+            padding: 60px 20px 100px 20px; 
         }
 
         .logo {
             max-width: 436px;
             width: 100%;
             height: auto;
-            margin-bottom: 60px;
+            margin-bottom: 40px; 
+        }
+
+        .divider {
+            width: 100%;
+            max-width: 500px;
+            height: 1px;
+            background-color: #ddcdb7;
+            opacity: 0.3;
+            border: none;
+            margin: 0 auto 30px auto;
+        }
+
+        .divider.bottom {
+            margin-bottom: 40px;
         }
 
         .main-title {
@@ -44,7 +57,11 @@
             font-weight: 400;
             font-size: 48px;
             color: #fbefdc;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .mobile-break {
+            display: none;
         }
 
         .subtitle {
@@ -61,6 +78,7 @@
             justify-content: center;
             align-items: flex-start;
             gap: 15px;
+            flex-wrap: nowrap;
         }
 
         .time-block {
@@ -104,50 +122,21 @@
             margin: 0 -5px;
         }
 
-        /* --- НИЖНЯ СВІТЛА СЕКЦІЯ --- */
+        /* --- MAIN (СВІТЛИЙ БЛОК З ФОРМОЮ ПО ЦЕНТРУ) --- */
         .light-section {
-            position: relative;
             background-color: #f1f1f1;
-            min-height: 500px;
-        }
-
-        /* --- БАНЕР 1920px --- */
-        .desktop-banner {
-            position: absolute;
-            top: -190px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            min-width: 1100px;
-            max-width: 1920px;
-            height: auto;
-            object-fit: cover;
-            object-position: center top;
-            z-index: 3;
-            pointer-events: none;
-        }
-
-        /* --- КОНТЕЙНЕР ФОРМИ --- */
-        .container {
-            position: relative;
-            z-index: 4;
-            max-width: 1440px;
-            margin: 0 auto;
-            padding: 0 40px;
-            display: flex;
-            justify-content: flex-start;
+            padding: 80px 20px 100px 20px;
+            text-align: center;
         }
 
         .form-wrapper {
-            width: 100%;
-            max-width: 450px;
-            padding-top: 80px;
-            text-align: center;
+            max-width: 500px;
+            margin: 0 auto; /* Залізобетонно центрує весь блок на екрані */
         }
 
         .form-title {
             font-family: 'El Messiri', sans-serif;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 36px;
             color: #373635;
             margin-bottom: 35px;
@@ -178,7 +167,7 @@
             border-radius: 50px;
             padding: 15px 30px;
             font-family: 'El Messiri', sans-serif;
-            font-weight: 600;
+            font-weight: 700;
             font-size: 26px;
             cursor: pointer;
             transition: opacity 0.3s ease;
@@ -193,34 +182,15 @@
             color: #373635;
         }
 
-        /* --- МОБІЛЬНІ КНИГИ (Приховані на ПК) --- */
-        .mobile-books {
-            display: none;
-            width: 100%;
-            max-width: 450px;
-            margin: 40px auto 0;
-            position: relative;
-            z-index: 5;
-        }
-
-        /* --- АДАПТИВНІСТЬ --- */
-        @media (max-width: 1200px) {
-            .desktop-banner {
-                object-position: 65% top;
-            }
-        }
-
+        /* --- АДАПТИВ --- */
         @media (max-width: 992px) {
-            .dark-section { padding-bottom: 80px; }
-            .desktop-banner { display: none; }
-            .light-section { padding-bottom: 60px; min-height: auto; }
-            .container { justify-content: center; padding: 0 20px; flex-direction: column; align-items: center; }
-            .form-wrapper { padding-top: 40px; margin: 0 auto; }
-            .mobile-books { display: block; }
+            .mobile-break { display: block; }
+            .main-title { line-height: 1.2; }
+            .divider { max-width: 80%; }
         }
 
         @media (max-width: 600px) {
-            .main-title { font-size: 32px; }
+            .main-title { font-size: 36px; }
             .subtitle { font-size: 26px; margin-bottom: 30px;}
             .countdown-wrapper { gap: 6px; }
             .box { width: 65px; height: 65px; margin-bottom: 8px;}
@@ -233,10 +203,13 @@
 </head>
 <body>
 
-    <section class="dark-section">
+    <header class="dark-section">
         <img src="assets/Logo.svg" alt="SenseRevolt Logo" class="logo">
         
-        <h1 class="main-title">Something Meaningful is Coming</h1>
+        <hr class="divider">
+        <h1 class="main-title">Something Meaningful<br class="mobile-break"> is Coming</h1>
+        <hr class="divider bottom">
+
         <h2 class="subtitle">Launching in</h2>
         
         <div class="countdown-wrapper">
@@ -260,25 +233,18 @@
                 <span class="label">Sec</span>
             </div>
         </div>
-    </section>
+    </header>
 
-    <section class="light-section">
-        <!-- ТУТ ВИПРАВЛЕНО НАЗВУ ФАЙЛУ -->
-        <img src="assets/books-banner.png" class="desktop-banner" alt="SenseRevolt Books Banner">
-
-        <div class="container">
-            <div class="form-wrapper">
-                <h3 class="form-title">Be the First to Know<br>When We Launch</h3>
-                <form action="#" method="POST">
-                    <input type="email" class="email-input" placeholder="Your email address" required>
-                    <button type="submit" class="submit-btn">Notify Me</button>
-                </form>
-                <p class="spam-notice">No spam. Ever. Unsubscribe anytime.</p>
-            </div>
-            
-            <img src="assets/books.png" class="mobile-books" alt="SenseRevolt Books">
+    <main class="light-section">
+        <div class="form-wrapper">
+            <h3 class="form-title">Be the First to Know<br>When We Launch</h3>
+            <form action="#" method="POST">
+                <input type="email" class="email-input" placeholder="Your email address" required>
+                <button type="submit" class="submit-btn">Notify Me</button>
+            </form>
+            <p class="spam-notice">No spam. Ever. Unsubscribe anytime.</p>
         </div>
-    </section>
+    </main>
 
     <script>
         const launchDate = new Date("Jun 7, 2026 00:00:00").getTime();
