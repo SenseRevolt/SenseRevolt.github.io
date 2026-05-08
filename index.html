@@ -23,12 +23,13 @@
             overflow-x: hidden;
         }
 
-        /* --- ВЕРХНІЙ БЛОК --- */
-        .hero-section {
+        /* --- ВЕРХНЯ ТЕМНА СЕКЦІЯ --- */
+        .dark-section {
             background-color: #373635;
             text-align: center;
-            padding: 60px 20px 260px 20px; /* Збільшено відступ під книги */
+            padding: 60px 20px 220px 20px; /* Великий відступ для накладання банера */
             position: relative;
+            z-index: 2;
         }
 
         .logo {
@@ -60,7 +61,6 @@
             justify-content: center;
             align-items: flex-start;
             gap: 15px;
-            flex-wrap: nowrap; /* Жорстка заборона переносити на інший рядок */
         }
 
         .time-block {
@@ -104,29 +104,45 @@
             margin: 0 -5px;
         }
 
-        /* --- НИЖНІЙ БЛОК (CSS GRID) --- */
-        .bottom-section {
+        /* --- НИЖНЯ СВІТЛА СЕКЦІЯ --- */
+        .light-section {
+            position: relative;
             background-color: #f1f1f1;
-            padding-bottom: 100px;
+            min-height: 500px; /* Висота для форми та банера */
         }
 
-        .content-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Залізобетонні 2 колонки */
-            gap: 40px;
-            max-width: 1200px;
+        /* --- БАНЕР 1920px (Адаптивна обрізка) --- */
+        .desktop-banner {
+            position: absolute;
+            top: -190px; /* Зсув вгору на темний фон */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            min-width: 1100px; /* Тримаємо пропорцію книг при звуженні */
+            max-width: 1920px; /* Оригінал макету */
+            height: auto;
+            object-fit: cover;
+            object-position: center top;
+            z-index: 3;
+            pointer-events: none; /* Щоб не перекривати кліки по формі */
+        }
+
+        /* --- КОНТЕЙНЕР ФОРМИ --- */
+        .container {
+            position: relative;
+            z-index: 4; /* Форма лежить поверх банера */
+            max-width: 1440px;
             margin: 0 auto;
             padding: 0 40px;
-            align-items: start;
+            display: flex;
+            justify-content: flex-start; /* Форма чітко зліва */
         }
 
-        /* --- ФОРМА --- */
         .form-wrapper {
+            width: 100%;
+            max-width: 450px;
             padding-top: 80px;
             text-align: center;
-            max-width: 450px;
-            margin: 0 auto; /* Центрування форми у своїй колонці */
-            width: 100%;
         }
 
         .form-title {
@@ -177,78 +193,47 @@
             color: #373635;
         }
 
-        /* --- КНИГИ --- */
-        .books-wrapper {
-            transform: translateY(-250px); /* Піднімає книги вгору */
-            margin-bottom: -250px; /* Зберігає висоту контейнера */
-            text-align: right;
-            z-index: 10;
+        /* --- МОБІЛЬНІ КНИГИ (Приховані на ПК) --- */
+        .mobile-books {
+            display: none;
+            width: 100%;
+            max-width: 450px;
+            margin: 40px auto 0;
             position: relative;
+            z-index: 5;
         }
 
-        .books-img {
-            max-width: 100%;
-            width: 600px;
-            height: auto;
-            object-fit: contain;
-            filter: drop-shadow(-10px 15px 25px rgba(0,0,0,0.15));
+        /* --- АДАПТИВНІСТЬ --- */
+        @media (max-width: 1200px) {
+            .desktop-banner {
+                object-position: 65% top; /* Плавне зміщення фокусу на книги при звуженні */
+            }
         }
 
-        /* --- АДАПТИВ (Планшети та Мобільні) --- */
         @media (max-width: 992px) {
-            /* Злам сітки в 1 колонку */
-            .content-container {
-                grid-template-columns: 1fr;
-                padding: 0 20px;
-            }
-            
-            .hero-section {
-                padding-bottom: 80px; /* Відміняємо гігантський відступ */
-            }
-
-            .books-wrapper {
-                transform: translateY(0); /* Ставимо книги на місце */
-                margin-bottom: 0;
-                margin-top: 20px;
-                text-align: center;
-                order: 2; /* Книги знизу */
-            }
-
-            .form-wrapper {
-                padding-top: 40px;
-                order: 1; /* Форма зверху */
-            }
-
-            .books-img {
-                width: 450px; /* Зменшуємо книги на мобільному */
-            }
+            .dark-section { padding-bottom: 80px; }
+            .desktop-banner { display: none; } /* Вимикаємо довгий банер */
+            .light-section { padding-bottom: 60px; min-height: auto; }
+            .container { justify-content: center; padding: 0 20px; flex-direction: column; align-items: center; }
+            .form-wrapper { padding-top: 40px; margin: 0 auto; }
+            .mobile-books { display: block; } /* Вмикаємо книги знизу по центру */
         }
 
-        /* Жорстке масштабування таймера для мобільних */
         @media (max-width: 600px) {
             .main-title { font-size: 32px; }
             .subtitle { font-size: 26px; margin-bottom: 30px;}
-            
             .countdown-wrapper { gap: 6px; }
             .box { width: 65px; height: 65px; margin-bottom: 8px;}
             .number { font-size: 36px; }
             .colon { font-size: 36px; line-height: 65px; margin: 0; }
             .label { font-size: 14px; }
-            
             .form-title { font-size: 28px; }
-            .books-img { width: 100%; }
-        }
-
-        @media (max-width: 360px) {
-            .box { width: 55px; height: 55px; }
-            .number { font-size: 28px; }
-            .colon { font-size: 28px; line-height: 55px; }
         }
     </style>
 </head>
 <body>
 
-    <section class="hero-section">
+    <section class="dark-section">
         <img src="assets/Logo.svg" alt="SenseRevolt Logo" class="logo">
         
         <h1 class="main-title">Something Meaningful is Coming</h1>
@@ -277,8 +262,11 @@
         </div>
     </section>
 
-    <section class="bottom-section">
-        <div class="content-container">
+    <section class="light-section">
+        <!-- БАНЕР 1920px (Завантажте його як banner.png у папку assets) -->
+        <img src="assets/banner.png" class="desktop-banner" alt="SenseRevolt Books Banner">
+
+        <div class="container">
             <div class="form-wrapper">
                 <h3 class="form-title">Be the First to Know<br>When We Launch</h3>
                 <form action="#" method="POST">
@@ -287,10 +275,9 @@
                 </form>
                 <p class="spam-notice">No spam. Ever. Unsubscribe anytime.</p>
             </div>
-
-            <div class="books-wrapper">
-                <img src="assets/books.png" alt="SenseRevolt Books" class="books-img">
-            </div>
+            
+            <!-- КНИГИ ДЛЯ МОБІЛЬНОЇ ВЕРСІЇ (Використовується старий файл books.png) -->
+            <img src="assets/books.png" class="mobile-books" alt="SenseRevolt Books">
         </div>
     </section>
 
