@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SenseRevolt | Something Meaningful is Coming</title>
     
-    <!-- Підключення шрифтів -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
 
     <style>
-        /* Базові налаштування */
         * {
             margin: 0;
             padding: 0;
@@ -20,16 +18,15 @@
 
         body {
             font-family: 'Jost', sans-serif;
-            background-color: #f1f1f1; /* Фон нижньої частини */
+            background-color: #f1f1f1;
             color: #373635;
             overflow-x: hidden;
         }
 
-        /* --- ВЕРХНЯ ЧАСТИНА (ТЕМНА) --- */
         .hero-section {
             background-color: #373635;
             text-align: center;
-            padding: 60px 20px 200px 20px; /* Великий відступ знизу для накладання книг */
+            padding: 60px 20px 200px 20px;
             position: relative;
         }
 
@@ -52,11 +49,10 @@
             font-family: 'Jost', sans-serif;
             font-weight: 300;
             font-size: 36px;
-            color: #fbefdc; /* Взяв світлий для контрасту */
+            color: #fbefdc;
             margin-bottom: 40px;
         }
 
-        /* Таймер */
         .countdown-wrapper {
             display: flex;
             justify-content: center;
@@ -71,7 +67,7 @@
         }
 
         .box {
-            border: 1px solid rgba(221, 205, 183, 0.3); /* Легка рамка */
+            border: 1px solid rgba(221, 205, 183, 0.3);
             border-radius: 4px;
             width: 100px;
             height: 100px;
@@ -83,7 +79,7 @@
 
         .number {
             font-family: 'Jost', sans-serif;
-            font-weight: 200; /* extralight */
+            font-weight: 200;
             font-size: 56px;
             color: #ddcdb7;
             line-height: 1;
@@ -91,9 +87,9 @@
 
         .label {
             font-family: 'Jost', sans-serif;
-            font-weight: 300; /* light */
+            font-weight: 300;
             font-size: 24px;
-            color: #fbefdc; /* Взяв світлий для читабельності */
+            color: #fbefdc;
         }
 
         .colon {
@@ -101,10 +97,9 @@
             font-weight: 200;
             font-size: 56px;
             color: #ddcdb7;
-            line-height: 100px; /* Вирівнювання по висоті боксу */
+            line-height: 100px;
         }
 
-        /* --- НИЖНЯ ЧАСТИНА (СВІТЛА) --- */
         .bottom-section {
             background-color: #f1f1f1;
             padding: 0 20px 100px 20px;
@@ -122,18 +117,17 @@
             position: relative;
         }
 
-        /* Форма підписки */
         .form-wrapper {
             flex: 1;
             max-width: 500px;
-            padding-top: 80px; /* Відступ від верху світлого блоку */
+            padding-top: 80px;
             text-align: center;
             z-index: 2;
         }
 
         .form-title {
             font-family: 'El Messiri', sans-serif;
-            font-weight: 600; /* semibold */
+            font-weight: 600;
             font-size: 36px;
             color: #373635;
             margin-bottom: 30px;
@@ -143,150 +137,4 @@
         .email-input {
             width: 100%;
             background-color: transparent;
-            border: 1px solid #373635;
-            border-radius: 50px;
-            padding: 18px 30px;
-            font-family: 'Jost', sans-serif;
-            font-size: 16px;
-            color: #373635;
-            margin-bottom: 20px;
-            outline: none;
-        }
-        
-        .email-input::placeholder {
-            color: #666;
-        }
-
-        .submit-btn {
-            width: 100%;
-            background-color: #373635;
-            color: #d3c3af;
-            border: none;
-            border-radius: 50px;
-            padding: 15px 30px;
-            font-family: 'El Messiri', sans-serif;
-            font-weight: 600; /* semibold */
-            font-size: 26px;
-            cursor: pointer;
-            transition: opacity 0.3s ease;
-            margin-bottom: 15px;
-        }
-
-        .submit-btn:hover {
-            opacity: 0.9;
-        }
-
-        .spam-notice {
-            font-family: 'Jost', sans-serif;
-            font-size: 14px;
-            color: #373635;
-        }
-
-        /* Адаптивне накладання книг */
-        .books-wrapper {
-            flex: 1;
-            position: relative;
-            display: flex;
-            justify-content: flex-end;
-            margin-top: -200px; /* Саме це піднімає книги на темний фон */
-            z-index: 10;
-        }
-
-        .books-img {
-            max-width: 100%;
-            width: 600px; /* Приблизний розмір для десктопу */
-            height: auto;
-            filter: drop-shadow(-10px 15px 25px rgba(0,0,0,0.15)); /* Додає об'єму */
-        }
-
-        /* --- АДАПТИВ (Мобільні пристрої) --- */
-        @media (max-width: 992px) {
-            .content-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .books-wrapper {
-                margin-top: 40px; /* На мобільному книги з'їжджають вниз під форму */
-                justify-content: center;
-            }
-            
-            .hero-section {
-                padding-bottom: 80px; /* Зменшуємо відступ, бо книги тепер знизу */
-            }
-            
-            .form-wrapper {
-                padding-top: 40px;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .main-title { font-size: 36px; }
-            .subtitle { font-size: 28px; }
-            .number { font-size: 40px; }
-            .box { width: 70px; height: 70px; }
-            .colon { font-size: 40px; line-height: 70px; }
-            .label { font-size: 18px; }
-            .form-title { font-size: 28px; }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Темний блок -->
-    <section class="hero-section">
-        <!-- ЛОГОТИП (зміни шлях на свій) -->
-        <img src="assets/logo.svg" alt="SenseRevolt Logo" class="logo">
-        
-        <h1 class="main-title">Something Meaningful is Coming</h1>
-        <h2 class="subtitle">Launching in</h2>
-        
-        <!-- Таймер -->
-        <div class="countdown-wrapper">
-            <div class="time-block">
-                <div class="box"><span class="number">31</span></div>
-                <span class="label">Days</span>
-            </div>
-            <span class="colon">:</span>
-            <div class="time-block">
-                <div class="box"><span class="number">08</span></div>
-                <span class="label">Hours</span>
-            </div>
-            <span class="colon">:</span>
-            <div class="time-block">
-                <div class="box"><span class="number">24</span></div>
-                <span class="label">Min</span>
-            </div>
-            <span class="colon">:</span>
-            <div class="time-block">
-                <div class="box"><span class="number">50</span></div>
-                <span class="label">Sec</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Світлий блок -->
-    <section class="bottom-section">
-        <div class="content-container">
-            
-            <!-- Форма -->
-            <div class="form-wrapper">
-                <h3 class="form-title">Be the First to Know<br>When We Launch</h3>
-                <form action="#" method="POST">
-                    <input type="email" class="email-input" placeholder="Your email address" required>
-                    <button type="submit" class="submit-btn">Notify Me</button>
-                </form>
-                <p class="spam-notice">No spam. Ever. Unsubscribe anytime.</p>
-            </div>
-
-            <!-- Книги (Накладаються адаптивно) -->
-            <div class="books-wrapper">
-                <!-- КАРТИНКА КНИГ (зміни шлях на свій) -->
-                <img src="assets/books.png" alt="SenseRevolt Books" class="books-img">
-            </div>
-
-        </div>
-    </section>
-
-</body>
-</html>
+            border: 1px
