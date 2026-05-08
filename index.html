@@ -27,7 +27,7 @@
         .dark-section {
             background-color: #373635;
             text-align: center;
-            padding: 60px 20px 220px 20px; /* Великий відступ для накладання банера */
+            padding: 60px 20px 220px 20px;
             position: relative;
             z-index: 2;
         }
@@ -108,34 +108,34 @@
         .light-section {
             position: relative;
             background-color: #f1f1f1;
-            min-height: 500px; /* Висота для форми та банера */
+            min-height: 500px;
         }
 
-        /* --- БАНЕР 1920px (Адаптивна обрізка) --- */
+        /* --- БАНЕР 1920px --- */
         .desktop-banner {
             position: absolute;
-            top: -190px; /* Зсув вгору на темний фон */
+            top: -190px;
             left: 50%;
             transform: translateX(-50%);
             width: 100%;
-            min-width: 1100px; /* Тримаємо пропорцію книг при звуженні */
-            max-width: 1920px; /* Оригінал макету */
+            min-width: 1100px;
+            max-width: 1920px;
             height: auto;
             object-fit: cover;
             object-position: center top;
             z-index: 3;
-            pointer-events: none; /* Щоб не перекривати кліки по формі */
+            pointer-events: none;
         }
 
         /* --- КОНТЕЙНЕР ФОРМИ --- */
         .container {
             position: relative;
-            z-index: 4; /* Форма лежить поверх банера */
+            z-index: 4;
             max-width: 1440px;
             margin: 0 auto;
             padding: 0 40px;
             display: flex;
-            justify-content: flex-start; /* Форма чітко зліва */
+            justify-content: flex-start;
         }
 
         .form-wrapper {
@@ -206,17 +206,17 @@
         /* --- АДАПТИВНІСТЬ --- */
         @media (max-width: 1200px) {
             .desktop-banner {
-                object-position: 65% top; /* Плавне зміщення фокусу на книги при звуженні */
+                object-position: 65% top;
             }
         }
 
         @media (max-width: 992px) {
             .dark-section { padding-bottom: 80px; }
-            .desktop-banner { display: none; } /* Вимикаємо довгий банер */
+            .desktop-banner { display: none; }
             .light-section { padding-bottom: 60px; min-height: auto; }
             .container { justify-content: center; padding: 0 20px; flex-direction: column; align-items: center; }
             .form-wrapper { padding-top: 40px; margin: 0 auto; }
-            .mobile-books { display: block; } /* Вмикаємо книги знизу по центру */
+            .mobile-books { display: block; }
         }
 
         @media (max-width: 600px) {
@@ -263,8 +263,8 @@
     </section>
 
     <section class="light-section">
-        <!-- БАНЕР 1920px (Завантажте його як banner.png у папку assets) -->
-        <img src="assets/banner.png" class="desktop-banner" alt="SenseRevolt Books Banner">
+        <!-- ТУТ ВИПРАВЛЕНО НАЗВУ ФАЙЛУ -->
+        <img src="assets/books-banner.png" class="desktop-banner" alt="SenseRevolt Books Banner">
 
         <div class="container">
             <div class="form-wrapper">
@@ -276,7 +276,6 @@
                 <p class="spam-notice">No spam. Ever. Unsubscribe anytime.</p>
             </div>
             
-            <!-- КНИГИ ДЛЯ МОБІЛЬНОЇ ВЕРСІЇ (Використовується старий файл books.png) -->
             <img src="assets/books.png" class="mobile-books" alt="SenseRevolt Books">
         </div>
     </section>
