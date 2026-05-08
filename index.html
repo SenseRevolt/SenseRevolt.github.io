@@ -1,391 +1,292 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SenseRevolt — Something Meaningful is Coming</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SenseRevolt | Something Meaningful is Coming</title>
+    
+    <!-- Підключення шрифтів -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
 
-    html, body {
-      font-family: 'Jost', sans-serif;
-      background: #373635;
-      color: #fbefdc;
-      overflow-x: hidden;
-    }
+    <style>
+        /* Базові налаштування */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* ── HEADER ── */
-    header {
-      max-width: 1440px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 32px 2rem 28px;
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-    }
+        body {
+            font-family: 'Jost', sans-serif;
+            background-color: #f1f1f1; /* Фон нижньої частини */
+            color: #373635;
+            overflow-x: hidden;
+        }
 
-    .logo img {
-      width: 436px;
-      max-width: 90vw;
-      height: auto;
-      display: block;
-    }
+        /* --- ВЕРХНЯ ЧАСТИНА (ТЕМНА) --- */
+        .hero-section {
+            background-color: #373635;
+            text-align: center;
+            padding: 60px 20px 200px 20px; /* Великий відступ знизу для накладання книг */
+            position: relative;
+        }
 
-    .tagline {
-      margin-top: 8px;
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
-      font-size: 14px;
-      letter-spacing: 0.2em;
-      color: #9c968c;
-    }
+        .logo {
+            max-width: 436px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 60px;
+        }
 
-    /* ── HERO ── */
-    .hero {
-      max-width: 1440px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 64px 2rem 72px;
-      text-align: center;
-      position: relative;
-    }
+        .main-title {
+            font-family: 'El Messiri', sans-serif;
+            font-weight: 400;
+            font-size: 48px;
+            color: #fbefdc;
+            margin-bottom: 30px;
+        }
 
-    .hero h1 {
-      font-family: 'El Messiri', sans-serif;
-      font-weight: 400;
-      font-size: 48px;
-      line-height: 1.15;
-      color: #fbefdc;
-      letter-spacing: 0.01em;
-    }
+        .subtitle {
+            font-family: 'Jost', sans-serif;
+            font-weight: 300;
+            font-size: 36px;
+            color: #fbefdc; /* Взяв світлий для контрасту */
+            margin-bottom: 40px;
+        }
 
-    .launching-label {
-      margin-top: 24px;
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
-      font-size: 36px;
-      color: #fbefdc;
-      letter-spacing: 0.05em;
-    }
+        /* Таймер */
+        .countdown-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
 
-    /* ── COUNTDOWN ── */
-    .countdown {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      margin-top: 32px;
-    }
+        .time-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-    .countdown-unit {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-    }
+        .box {
+            border: 1px solid rgba(221, 205, 183, 0.3); /* Легка рамка */
+            border-radius: 4px;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
 
-    .countdown-box {
-      width: 96px;
-      height: 96px;
-      border: 1px solid rgba(221,205,183,0.35);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Jost', sans-serif;
-      font-weight: 200;
-      font-size: 56px;
-      color: #ddcdb7;
-      background: rgba(255,255,255,0.03);
-    }
+        .number {
+            font-family: 'Jost', sans-serif;
+            font-weight: 200; /* extralight */
+            font-size: 56px;
+            color: #ddcdb7;
+            line-height: 1;
+        }
 
-    .countdown-label {
-      font-family: 'Jost', sans-serif;
-      font-weight: 300;
-      font-size: 24px;
-      color: #ddcdb7;
-      letter-spacing: 0.04em;
-    }
+        .label {
+            font-family: 'Jost', sans-serif;
+            font-weight: 300; /* light */
+            font-size: 24px;
+            color: #fbefdc; /* Взяв світлий для читабельності */
+        }
 
-    .countdown-sep {
-      font-family: 'Jost', sans-serif;
-      font-weight: 200;
-      font-size: 56px;
-      color: #ddcdb7;
-      margin-top: 20px;
-      line-height: 1;
-      opacity: 0.5;
-    }
+        .colon {
+            font-family: 'Jost', sans-serif;
+            font-weight: 200;
+            font-size: 56px;
+            color: #ddcdb7;
+            line-height: 100px; /* Вирівнювання по висоті боксу */
+        }
 
-    /* book floating at bottom-right of hero */
-    .hero-book {
-      position: absolute;
-      right: max(2rem, calc((100% - 1440px)/2 + 60px));
-      bottom: -140px;
-      width: clamp(260px, 28vw, 420px);
-      z-index: 2;
-      pointer-events: none;
-    }
+        /* --- НИЖНЯ ЧАСТИНА (СВІТЛА) --- */
+        .bottom-section {
+            background-color: #f1f1f1;
+            padding: 0 20px 100px 20px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
 
-    .hero-book img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
+        .content-container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            position: relative;
+        }
 
-    /* ── LOWER SECTION ── */
-    .lower {
-      background: #f1f1f1;
-      position: relative;
-    }
+        /* Форма підписки */
+        .form-wrapper {
+            flex: 1;
+            max-width: 500px;
+            padding-top: 80px; /* Відступ від верху світлого блоку */
+            text-align: center;
+            z-index: 2;
+        }
 
-    .lower-inner {
-      max-width: 1440px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      padding: 80px 2rem 80px;
-      padding-right: max(2rem, calc((100% - 1440px)/2 + 60px + clamp(260px,28vw,420px) + 40px));
-    }
+        .form-title {
+            font-family: 'El Messiri', sans-serif;
+            font-weight: 600; /* semibold */
+            font-size: 36px;
+            color: #373635;
+            margin-bottom: 30px;
+            line-height: 1.2;
+        }
 
-    .notify-block {
-      max-width: 520px;
-    }
+        .email-input {
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid #373635;
+            border-radius: 50px;
+            padding: 18px 30px;
+            font-family: 'Jost', sans-serif;
+            font-size: 16px;
+            color: #373635;
+            margin-bottom: 20px;
+            outline: none;
+        }
+        
+        .email-input::placeholder {
+            color: #666;
+        }
 
-    .notify-block h2 {
-      font-family: 'El Messiri', sans-serif;
-      font-weight: 600;
-      font-size: 36px;
-      line-height: 1.25;
-      color: #373635;
-    }
+        .submit-btn {
+            width: 100%;
+            background-color: #373635;
+            color: #d3c3af;
+            border: none;
+            border-radius: 50px;
+            padding: 15px 30px;
+            font-family: 'El Messiri', sans-serif;
+            font-weight: 600; /* semibold */
+            font-size: 26px;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+            margin-bottom: 15px;
+        }
 
-    .form-row {
-      margin-top: 32px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
 
-    .form-row input[type="email"] {
-      width: 100%;
-      padding: 14px 24px;
-      border: 1.5px solid rgba(55,54,53,0.3);
-      border-radius: 999px;
-      background: transparent;
-      font-family: 'Jost', sans-serif;
-      font-size: 16px;
-      font-weight: 300;
-      color: #373635;
-      outline: none;
-      transition: border-color 0.2s;
-    }
+        .spam-notice {
+            font-family: 'Jost', sans-serif;
+            font-size: 14px;
+            color: #373635;
+        }
 
-    .form-row input[type="email"]::placeholder { color: #9c968c; }
-    .form-row input[type="email"]:focus { border-color: #373635; }
+        /* Адаптивне накладання книг */
+        .books-wrapper {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            margin-top: -200px; /* Саме це піднімає книги на темний фон */
+            z-index: 10;
+        }
 
-    .btn-notify {
-      width: 100%;
-      padding: 16px 24px;
-      border: none;
-      border-radius: 999px;
-      background: #373635;
-      color: #fbefdc;
-      font-family: 'El Messiri', sans-serif;
-      font-size: 26px;
-      font-weight: 600;
-      color: #d3c3af;
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-    }
+        .books-img {
+            max-width: 100%;
+            width: 600px; /* Приблизний розмір для десктопу */
+            height: auto;
+            filter: drop-shadow(-10px 15px 25px rgba(0,0,0,0.15)); /* Додає об'єму */
+        }
 
-    .btn-notify:hover { background: #4f4b47; transform: translateY(-1px); }
-    .btn-notify:active { transform: translateY(0); }
+        /* --- АДАПТИВ (Мобільні пристрої) --- */
+        @media (max-width: 992px) {
+            .content-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .books-wrapper {
+                margin-top: 40px; /* На мобільному книги з'їжджають вниз під форму */
+                justify-content: center;
+            }
+            
+            .hero-section {
+                padding-bottom: 80px; /* Зменшуємо відступ, бо книги тепер знизу */
+            }
+            
+            .form-wrapper {
+                padding-top: 40px;
+            }
+        }
 
-    .no-spam {
-      margin-top: 12px;
-      font-family: 'Jost', sans-serif;
-      font-size: 14px;
-      font-weight: 300;
-      color: #9c968c;
-    }
-
-    .success-msg {
-      display: none;
-      margin-top: 16px;
-      font-family: 'El Messiri', sans-serif;
-      font-size: 20px;
-      color: #373635;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      background: #373635;
-      text-align: center;
-      padding: 24px 2rem;
-      font-family: 'Jost', sans-serif;
-      font-size: 12px;
-      font-weight: 300;
-      letter-spacing: 0.12em;
-      color: rgba(156,150,140,0.5);
-      text-transform: uppercase;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 900px) {
-      .hero h1 { font-size: 36px; }
-      .launching-label { font-size: 26px; }
-      .countdown-box { width: 72px; height: 72px; font-size: 40px; }
-      .countdown-label { font-size: 18px; }
-      .countdown-sep { font-size: 40px; }
-
-      .hero-book {
-        position: relative;
-        right: auto;
-        bottom: auto;
-        width: 80%;
-        max-width: 340px;
-        margin: 40px auto 0;
-      }
-
-      .hero { padding-bottom: 48px; }
-
-      .lower-inner {
-        padding-right: 2rem;
-        flex-direction: column;
-        gap: 40px;
-      }
-
-      .notify-block h2 { font-size: 28px; }
-      .btn-notify { font-size: 20px; }
-    }
-
-    @media (max-width: 480px) {
-      .hero h1 { font-size: 28px; }
-      .launching-label { font-size: 20px; }
-      .countdown-box { width: 60px; height: 60px; font-size: 32px; }
-      .countdown-label { font-size: 14px; }
-      .countdown-sep { font-size: 32px; }
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-    .pulse { animation: pulse 1s ease-in-out infinite; }
-  </style>
+        @media (max-width: 600px) {
+            .main-title { font-size: 36px; }
+            .subtitle { font-size: 28px; }
+            .number { font-size: 40px; }
+            .box { width: 70px; height: 70px; }
+            .colon { font-size: 40px; line-height: 70px; }
+            .label { font-size: 18px; }
+            .form-title { font-size: 28px; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- ═══ HEADER ═══ -->
-<header>
-  <div class="logo">
-    <img src="SenseRevolt_Logo.svg" alt="SenseRevolt" />
-  </div>
-  <p class="tagline">One Ecosystem for the Whole Family</p>
-</header>
+    <!-- Темний блок -->
+    <section class="hero-section">
+        <!-- ЛОГОТИП (зміни шлях на свій) -->
+        <img src="assets/logo.svg" alt="SenseRevolt Logo" class="logo">
+        
+        <h1 class="main-title">Something Meaningful is Coming</h1>
+        <h2 class="subtitle">Launching in</h2>
+        
+        <!-- Таймер -->
+        <div class="countdown-wrapper">
+            <div class="time-block">
+                <div class="box"><span class="number">31</span></div>
+                <span class="label">Days</span>
+            </div>
+            <span class="colon">:</span>
+            <div class="time-block">
+                <div class="box"><span class="number">08</span></div>
+                <span class="label">Hours</span>
+            </div>
+            <span class="colon">:</span>
+            <div class="time-block">
+                <div class="box"><span class="number">24</span></div>
+                <span class="label">Min</span>
+            </div>
+            <span class="colon">:</span>
+            <div class="time-block">
+                <div class="box"><span class="number">50</span></div>
+                <span class="label">Sec</span>
+            </div>
+        </div>
+    </section>
 
-<!-- ═══ HERO ═══ -->
-<section class="hero">
-  <h1>Something Meaningful is Coming</h1>
-  <p class="launching-label">Launching in</p>
+    <!-- Світлий блок -->
+    <section class="bottom-section">
+        <div class="content-container">
+            
+            <!-- Форма -->
+            <div class="form-wrapper">
+                <h3 class="form-title">Be the First to Know<br>When We Launch</h3>
+                <form action="#" method="POST">
+                    <input type="email" class="email-input" placeholder="Your email address" required>
+                    <button type="submit" class="submit-btn">Notify Me</button>
+                </form>
+                <p class="spam-notice">No spam. Ever. Unsubscribe anytime.</p>
+            </div>
 
-  <div class="countdown">
-    <div class="countdown-unit">
-      <div class="countdown-box" id="cd-days">00</div>
-      <span class="countdown-label">Days</span>
-    </div>
-    <span class="countdown-sep">:</span>
-    <div class="countdown-unit">
-      <div class="countdown-box" id="cd-hours">00</div>
-      <span class="countdown-label">Hours</span>
-    </div>
-    <span class="countdown-sep">:</span>
-    <div class="countdown-unit">
-      <div class="countdown-box" id="cd-mins">00</div>
-      <span class="countdown-label">Min</span>
-    </div>
-    <span class="countdown-sep">:</span>
-    <div class="countdown-unit">
-      <div class="countdown-box pulse" id="cd-secs">00</div>
-      <span class="countdown-label">Sec</span>
-    </div>
-  </div>
+            <!-- Книги (Накладаються адаптивно) -->
+            <div class="books-wrapper">
+                <!-- КАРТИНКА КНИГ (зміни шлях на свій) -->
+                <img src="assets/books.png" alt="SenseRevolt Books" class="books-img">
+            </div>
 
-  <!-- книга висить між секціями -->
-  <div class="hero-book">
-    <img src="book-item.png" alt="SenseRevolt book" />
-  </div>
-</section>
+        </div>
+    </section>
 
-<!-- ═══ LOWER ═══ -->
-<section class="lower">
-  <div class="lower-inner">
-    <div class="notify-block">
-      <h2>Be the First to Know<br>When We Launch</h2>
-      <div class="form-row">
-        <input type="email" id="email-input" placeholder="Your email address" />
-        <button class="btn-notify" onclick="handleNotify()">Notify Me</button>
-      </div>
-      <p class="no-spam">No spam. Ever. Unsubscribe anytime.</p>
-      <p class="success-msg" id="success-msg">✓ You're on the list!</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FOOTER ═══ -->
-<footer>
-  &copy; <span id="yr"></span> SenseRevolt &mdash; All rights reserved
-</footer>
-
-<script>
-  document.getElementById('yr').textContent = new Date().getFullYear();
-
-  // ── SET YOUR LAUNCH DATE ──
-  const LAUNCH = new Date('2025-09-01T00:00:00');
-
-  function pad(n) { return String(n).padStart(2, '0'); }
-
-  function tick() {
-    const diff = LAUNCH - Date.now();
-    if (diff <= 0) {
-      ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => document.getElementById(id).textContent = '00');
-      return;
-    }
-    document.getElementById('cd-days').textContent  = pad(Math.floor(diff / 86400000));
-    document.getElementById('cd-hours').textContent = pad(Math.floor((diff % 86400000) / 3600000));
-    document.getElementById('cd-mins').textContent  = pad(Math.floor((diff % 3600000) / 60000));
-    document.getElementById('cd-secs').textContent  = pad(Math.floor((diff % 60000) / 1000));
-  }
-  tick();
-  setInterval(tick, 1000);
-
-  function handleNotify() {
-    const input = document.getElementById('email-input');
-    const msg = document.getElementById('success-msg');
-    const val = input.value.trim();
-    if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-      input.style.borderColor = '#c0392b';
-      input.focus();
-      setTimeout(() => input.style.borderColor = '', 1800);
-      return;
-    }
-    console.log('Subscribe:', val);
-    input.style.display = 'none';
-    document.querySelector('.btn-notify').style.display = 'none';
-    document.querySelector('.no-spam').style.display = 'none';
-    msg.style.display = 'block';
-  }
-
-  document.getElementById('email-input').addEventListener('keydown', e => {
-    if (e.key === 'Enter') handleNotify();
-  });
-</script>
 </body>
 </html>
