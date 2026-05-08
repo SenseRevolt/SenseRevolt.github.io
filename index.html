@@ -23,10 +23,11 @@
             overflow-x: hidden;
         }
 
+        /* --- ВЕРХНІЙ БЛОК --- */
         .hero-section {
             background-color: #373635;
             text-align: center;
-            padding: 60px 20px 200px 20px;
+            padding: 60px 20px 260px 20px; /* Збільшено відступ під книги */
             position: relative;
         }
 
@@ -42,7 +43,7 @@
             font-weight: 400;
             font-size: 48px;
             color: #fbefdc;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .subtitle {
@@ -50,14 +51,16 @@
             font-weight: 300;
             font-size: 36px;
             color: #fbefdc;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
+        /* --- ТАЙМЕР --- */
         .countdown-wrapper {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
+            align-items: flex-start;
+            gap: 15px;
+            flex-wrap: nowrap; /* Жорстка заборона переносити на інший рядок */
         }
 
         .time-block {
@@ -74,7 +77,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .number {
@@ -98,31 +101,32 @@
             font-size: 56px;
             color: #ddcdb7;
             line-height: 100px;
+            margin: 0 -5px;
         }
 
+        /* --- НИЖНІЙ БЛОК (CSS GRID) --- */
         .bottom-section {
             background-color: #f1f1f1;
-            padding: 0 20px 100px 20px;
-            position: relative;
-            display: flex;
-            justify-content: center;
+            padding-bottom: 100px;
         }
 
         .content-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Залізобетонні 2 колонки */
+            gap: 40px;
             max-width: 1200px;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            position: relative;
+            margin: 0 auto;
+            padding: 0 40px;
+            align-items: start;
         }
 
+        /* --- ФОРМА --- */
         .form-wrapper {
-            flex: 1;
-            max-width: 500px;
             padding-top: 80px;
             text-align: center;
-            z-index: 2;
+            max-width: 450px;
+            margin: 0 auto; /* Центрування форми у своїй колонці */
+            width: 100%;
         }
 
         .form-title {
@@ -130,7 +134,7 @@
             font-weight: 600;
             font-size: 36px;
             color: #373635;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             line-height: 1.2;
         }
 
@@ -145,11 +149,10 @@
             color: #373635;
             margin-bottom: 20px;
             outline: none;
+            text-align: center;
         }
         
-        .email-input::placeholder {
-            color: #666;
-        }
+        .email-input::placeholder { color: #666; }
 
         .submit-btn {
             width: 100%;
@@ -166,9 +169,7 @@
             margin-bottom: 15px;
         }
 
-        .submit-btn:hover {
-            opacity: 0.9;
-        }
+        .submit-btn:hover { opacity: 0.9; }
 
         .spam-notice {
             font-family: 'Jost', sans-serif;
@@ -176,50 +177,72 @@
             color: #373635;
         }
 
+        /* --- КНИГИ --- */
         .books-wrapper {
-            flex: 1;
-            position: relative;
-            display: flex;
-            justify-content: flex-end;
-            margin-top: -200px;
+            transform: translateY(-250px); /* Піднімає книги вгору */
+            margin-bottom: -250px; /* Зберігає висоту контейнера */
+            text-align: right;
             z-index: 10;
+            position: relative;
         }
 
         .books-img {
             max-width: 100%;
             width: 600px;
             height: auto;
+            object-fit: contain;
             filter: drop-shadow(-10px 15px 25px rgba(0,0,0,0.15));
         }
 
+        /* --- АДАПТИВ (Планшети та Мобільні) --- */
         @media (max-width: 992px) {
+            /* Злам сітки в 1 колонку */
             .content-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .books-wrapper {
-                margin-top: 40px;
-                justify-content: center;
+                grid-template-columns: 1fr;
+                padding: 0 20px;
             }
             
             .hero-section {
-                padding-bottom: 80px;
+                padding-bottom: 80px; /* Відміняємо гігантський відступ */
             }
-            
+
+            .books-wrapper {
+                transform: translateY(0); /* Ставимо книги на місце */
+                margin-bottom: 0;
+                margin-top: 20px;
+                text-align: center;
+                order: 2; /* Книги знизу */
+            }
+
             .form-wrapper {
                 padding-top: 40px;
+                order: 1; /* Форма зверху */
+            }
+
+            .books-img {
+                width: 450px; /* Зменшуємо книги на мобільному */
             }
         }
 
+        /* Жорстке масштабування таймера для мобільних */
         @media (max-width: 600px) {
-            .main-title { font-size: 36px; }
-            .subtitle { font-size: 28px; }
-            .number { font-size: 40px; }
-            .box { width: 70px; height: 70px; }
-            .colon { font-size: 40px; line-height: 70px; }
-            .label { font-size: 18px; }
+            .main-title { font-size: 32px; }
+            .subtitle { font-size: 26px; margin-bottom: 30px;}
+            
+            .countdown-wrapper { gap: 6px; }
+            .box { width: 65px; height: 65px; margin-bottom: 8px;}
+            .number { font-size: 36px; }
+            .colon { font-size: 36px; line-height: 65px; margin: 0; }
+            .label { font-size: 14px; }
+            
             .form-title { font-size: 28px; }
+            .books-img { width: 100%; }
+        }
+
+        @media (max-width: 360px) {
+            .box { width: 55px; height: 55px; }
+            .number { font-size: 28px; }
+            .colon { font-size: 28px; line-height: 55px; }
         }
     </style>
 </head>
