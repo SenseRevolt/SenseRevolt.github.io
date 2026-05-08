@@ -18,46 +18,54 @@
 
         body {
             font-family: 'Jost', sans-serif;
-            background-color: #f1f1f1;
-            color: #373635;
+            background-color: #373635; /* Темний фон на всю сторінку */
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        /* --- HEADER (ТЕМНИЙ БЛОК) --- */
-        .dark-section {
-            background-color: #373635;
-            text-align: center;
-            /* Відступ знизу зменшено, бо більше не треба залишати місце під книги */
-            padding: 60px 20px 100px 20px; 
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 40px 0;
+            width: 100%;
+        }
+
+        /* --- ЛОГОТИП І ЛІНІЇ ПО БОКАХ --- */
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            margin-bottom: 80px; /* Відступ до тексту */
+        }
+
+        .side-line {
+            flex-grow: 1; /* Лінія тягнеться до абсолютних країв екрана */
+            height: 1px;
+            background-color: #ddcdb7;
+            opacity: 0.3;
         }
 
         .logo {
             max-width: 436px;
             width: 100%;
             height: auto;
-            margin-bottom: 40px; 
+            padding: 0 40px; /* Відступ від ліній до самого логотипа */
         }
 
-        .divider {
-            width: 100%;
-            max-width: 500px;
-            height: 1px;
-            background-color: #ddcdb7;
-            opacity: 0.3;
-            border: none;
-            margin: 0 auto 30px auto;
-        }
-
-        .divider.bottom {
-            margin-bottom: 40px;
-        }
-
+        /* --- ТЕКСТ --- */
         .main-title {
             font-family: 'El Messiri', sans-serif;
             font-weight: 400;
             font-size: 48px;
             color: #fbefdc;
             margin-bottom: 30px;
+            text-align: center;
+            padding: 0 20px;
         }
 
         .mobile-break {
@@ -69,7 +77,9 @@
             font-weight: 300;
             font-size: 36px;
             color: #fbefdc;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
+            text-align: center;
+            padding: 0 20px;
         }
 
         /* --- ТАЙМЕР --- */
@@ -79,6 +89,7 @@
             align-items: flex-start;
             gap: 15px;
             flex-wrap: nowrap;
+            padding: 0 20px;
         }
 
         .time-block {
@@ -122,96 +133,45 @@
             margin: 0 -5px;
         }
 
-        /* --- MAIN (СВІТЛИЙ БЛОК З ФОРМОЮ ПО ЦЕНТРУ) --- */
-        .light-section {
-            background-color: #f1f1f1;
-            padding: 80px 20px 100px 20px;
-            text-align: center;
-        }
-
-        .form-wrapper {
-            max-width: 500px;
-            margin: 0 auto; /* Залізобетонно центрує весь блок на екрані */
-        }
-
-        .form-title {
-            font-family: 'El Messiri', sans-serif;
-            font-weight: 700;
-            font-size: 36px;
-            color: #373635;
-            margin-bottom: 35px;
-            line-height: 1.2;
-        }
-
-        .email-input {
-            width: 100%;
-            background-color: transparent;
-            border: 1px solid #373635;
-            border-radius: 50px;
-            padding: 18px 30px;
-            font-family: 'Jost', sans-serif;
-            font-size: 16px;
-            color: #373635;
-            margin-bottom: 20px;
-            outline: none;
-            text-align: center;
-        }
-        
-        .email-input::placeholder { color: #666; }
-
-        .submit-btn {
-            width: 100%;
-            background-color: #373635;
-            color: #d3c3af;
-            border: none;
-            border-radius: 50px;
-            padding: 15px 30px;
-            font-family: 'El Messiri', sans-serif;
-            font-weight: 700;
-            font-size: 26px;
-            cursor: pointer;
-            transition: opacity 0.3s ease;
-            margin-bottom: 15px;
-        }
-
-        .submit-btn:hover { opacity: 0.9; }
-
-        .spam-notice {
-            font-family: 'Jost', sans-serif;
-            font-size: 14px;
-            color: #373635;
-        }
-
-        /* --- АДАПТИВ --- */
+        /* --- АДАПТИВ (Мобільні) --- */
         @media (max-width: 992px) {
             .mobile-break { display: block; }
             .main-title { line-height: 1.2; }
-            .divider { max-width: 80%; }
         }
 
         @media (max-width: 600px) {
+            .logo {
+                padding: 0 20px; /* На мобільному лінії підходять ближче до лого */
+                max-width: 320px;
+            }
+            .logo-wrapper { margin-bottom: 50px; }
             .main-title { font-size: 36px; }
-            .subtitle { font-size: 26px; margin-bottom: 30px;}
+            .subtitle { font-size: 26px; margin-bottom: 40px;}
+            
             .countdown-wrapper { gap: 6px; }
             .box { width: 65px; height: 65px; margin-bottom: 8px;}
             .number { font-size: 36px; }
             .colon { font-size: 36px; line-height: 65px; margin: 0; }
             .label { font-size: 14px; }
-            .form-title { font-size: 28px; }
         }
     </style>
 </head>
 <body>
 
-    <header class="dark-section">
-        <img src="assets/Logo.svg" alt="SenseRevolt Logo" class="logo">
+    <div class="main-container">
         
-        <hr class="divider">
+        <!-- ЛОГОТИП З ЛІНІЯМИ ДО КРАЇВ -->
+        <div class="logo-wrapper">
+            <div class="side-line"></div>
+            <img src="assets/Logo.svg" alt="SenseRevolt Logo" class="logo">
+            <div class="side-line"></div>
+        </div>
+        
+        <!-- ТЕКСТ -->
         <h1 class="main-title">Something Meaningful<br class="mobile-break"> is Coming</h1>
-        <hr class="divider bottom">
-
         <h2 class="subtitle">Launching in</h2>
         
+        <!-- ТАЙМЕР -->
         <div class="countdown-wrapper">
             <div class="time-block">
                 <div class="box"><span class="number" id="days">30</span></div>
@@ -233,19 +193,10 @@
                 <span class="label">Sec</span>
             </div>
         </div>
-    </header>
 
-    <main class="light-section">
-        <div class="form-wrapper">
-            <h3 class="form-title">Be the First to Know<br>When We Launch</h3>
-            <form action="#" method="POST">
-                <input type="email" class="email-input" placeholder="Your email address" required>
-                <button type="submit" class="submit-btn">Notify Me</button>
-            </form>
-            <p class="spam-notice">No spam. Ever. Unsubscribe anytime.</p>
-        </div>
-    </main>
+    </div>
 
+    <!-- СКРИПТ ТАЙМЕРА -->
     <script>
         const launchDate = new Date("Jun 7, 2026 00:00:00").getTime();
 
